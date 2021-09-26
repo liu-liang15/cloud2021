@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.RuKuDao">
+    <resultMap id="RKXDMapper" type="com.pojos.pharmacy.RkXiangDan">
+        <id column="rk_pc" property="rkPc" />
+        <result column="rk_dh" property="rkDh" />
+        <result column="DRUG_ID" property="drugId" />
+        <result column="CONSU_ID" property="consuId" />
+        <result column="rkyp_sl" property="rkypSl" />
+        <result column="scrq"  property="scrq" />
+        <result column="bzq"  property="bzq" />
+        <result column="ck_id"  property="ckId" />
+    </resultMap>
+    <insert id="addRKD" parameterType="com.pojos.pharmacy.RuKu">
+        insert into ru_ku values(#{rhDh},#{rhShr},#{rhSj},#{rhYuanYing},#{rhd})
+    </insert>
+
+    <insert id="addRKXD" parameterType="com.pojos.pharmacy.RkXiangDan">
+        INSERT INTO rk_xiang_dan VALUES
+        <foreach collection="rkXiangDans" item="p" separator=", ">
+            (null,#{rkDh},#{p.drugId},#{p.consuId},#{p.rkypSl},#{p.scrq},DATE_ADD(#{p.scrq}, interval #{p.riqi} MONTH),#{p.ckId})
+        </foreach>
+    </insert>
+
+    <insert id="addKC" parameterType="com.pojos.pharmacy.RkXiangDan">
+        INSERT INTO yp_ku_cun VALUES
+        <foreach collection="kucun" item="p" separator=", ">
+            (null,#{p.rkPc},#{p.rkypSl})
+        </foreach>
+    </insert>
+    <!--修改供应商信息-->
+    <update id="updateOrder">
+        UPDATE cg_ding_dan set PURCHASE_SJFK = #{purchaseSjfk},PURCHASE_FUKUANG=1,PURCHASE_FKSJ=#{times},PURCHASE_JHSJ=#{times},PURCHASE_STATE = 3 WHERE PURCHASE_ID=#{purchaseId}
+    </update>
+    <select id="FindByIdRuku" resultMap="RKXDMapper">
+        select * from rk_xiang_dan where rk_dh=#{rhDh}
+    </select>
+</mapper>

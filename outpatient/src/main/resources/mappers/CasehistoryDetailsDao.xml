@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.CasehistoryDetailsDao">
+    <resultMap id="casehistorydetails" type="com.pojos.outpatient.Casehistorydetails">
+        <id column="cahide_no" property="cahideNo" />
+        <result column="cahide_cashis_no" property="cahideCashisNo" />
+        <result column="cahide_keshi_name" property="cahideKeshiName" />
+        <result column="cahide_zhusu" property="cahideZhusu" />
+        <result column="cahide_xianbingshi" property="cahideXianbingshi" />
+        <result column="cahide_jiwangshi" property="cahideJiwangshi" />
+        <result column="cahide_zhiliaoyijian" property="cahideZhiliaoyijian" />
+        <result column="cahide_ysqianming" property="cahideYsqianming" />
+        <result column="cahide_date" property="cahideDate" />
+        <association property="casehistory" javaType="com.pojos.outpatient.Casehistory">
+            <id column="cashis_no" property="cashisNo" />
+            <result column="cashis_patient_no" property="cashisPatientNo" />
+            <result column="cashis_date" property="cashisDate" />
+            <association property="patient" javaType="com.pojos.outpatient.Patient">
+                <id column="patient_no" property="patientNo" />
+                <result column="patient_name" property="patientName" />
+                <result column="patient_sex" property="patientSex" />
+                <result column="patient_phone" property="patientPhone" />
+                <result column="patient_idcart" property="patientIdcart" />
+                <result column="patient_age"  property="patientAge" />
+                <result column="patient_birthdate" property="patientBirthdate" />
+                <result column="patient_address" property="patientAddress" />
+                <result column="patient_date" property="patientDate" />
+            </association>
+        </association>
+    </resultMap>
+
+    <insert id="insertBingLiXQ" useGeneratedKeys="true" keyProperty="cahideNo" parameterType="com.pojos.outpatient.Casehistorydetails">
+        insert into casehistorydetails(cahide_cashis_no,cahide_keshi_name,cahide_zhusu,cahide_xianbingshi,cahide_jiwangshi,cahide_zhiliaoyijian,cahide_ysqianming)
+        values(#{cahideCashisNo},#{cahideKeshiName},#{cahideZhusu},#{cahideXianbingshi},#{cahideJiwangshi},#{cahideZhiliaoyijian},#{cahideYsqianming})
+    </insert>
+
+    <select id="findCasehisDetails" resultMap="casehistorydetails">
+        select * from casehistorydetails c inner join casehistory ca on c.cahide_cashis_no = ca.cashis_no where 1=1
+        <if test="param != null and param != ''">
+            and c.cahide_cashis_no = #{param}
+        </if>
+        order by c.cahide_date desc
+    </select>
+</mapper>

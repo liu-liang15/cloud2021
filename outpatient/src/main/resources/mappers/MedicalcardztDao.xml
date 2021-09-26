@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.MedicalcardztDao">
+    <resultMap id="medicalcardzt" type="com.pojos.outpatient.Medicalcardzt">
+        <id column="no" property="no" />
+        <result column="medi_no" property="mediNo" />
+        <result column="caozuo" property="caozuo" />
+        <result column="caozuoyuan" property="caozuoyuan" />
+        <result column="date" property="date" />
+        <result column="yuanyin"  property="yuanyin" />
+    </resultMap>
+    <select id="findAllMedicalcardzt" resultMap="medicalcardzt">
+        select * from medicalcardzt where 1 = 1
+        <if test="param!=null and param!=''">
+            and medi_no like '%${param}%'
+        </if>
+        order by date desc
+    </select>
+
+    <insert id="save">
+        insert into medicalcardzt(medi_no,caozuo,caozuoyuan,yuanyin) values(#{mediNo}, #{caozuo}, #{caozuoyuan}, #{yuanyin})
+    </insert>
+</mapper>

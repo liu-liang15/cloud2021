@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.MedicalcardDao">
+    <resultMap id="medicalcard" type="com.pojos.outpatient.Medicalcard">
+        <id column="medi_no" property="mediNo" />
+        <result column="medi_card" property="mediCard" />
+        <result column="medi_password" property="mediPassword" />
+        <result column="medi_balance" property="mediBalance" />
+        <result column="medi_idcart" property="mediIdcart" />
+        <result column="medi_patient_no"  property="mediPatientNo" />
+        <result column="medi_newdate" property="mediNewdate" />
+        <result column="medi_state" property="mediState" />
+        <association property="patient" javaType="com.pojos.outpatient.Patient">
+            <id column="patient_no" property="patientNo" />
+            <result column="patient_name" property="patientName" />
+            <result column="patient_sex" property="patientSex" />
+            <result column="patient_phone" property="patientPhone" />
+            <result column="patient_idcart" property="patientIdcart" />
+            <result column="patient_age"  property="patientAge" />
+            <result column="patient_birthdate" property="patientBirthdate" />
+            <result column="patient_address" property="patientAddress" />
+            <result column="patient_date" property="patientDate" />
+        </association>
+    </resultMap>
+    <!--查询诊疗卡，排序，多条件-->
+    <select id="findAllMedicalcard" resultMap="medicalcard">
+        select * from medicalcard m inner join patient p on m.medi_patient_no = p.patient_no where 1 = 1
+        <if test="param!=null and param!=''">
+            /*姓名、身份证、诊疗卡号、电话*/
+            and p.patient_name like '%${param}%'
+            or p.patient_phone like '%${param}%'
+            or p.patient_idcart like '%${param}%'
+            or m.medi_card like '%${param}%'
+        </if>
+        order by m.medi_newdate desc
+    </select>
+    <!--根据诊疗卡卡号查询信息-->
+    <select id="findMedicalcardByMediCard" resultMap="medicalcard">
+        select * from medicalcard where medi_card = #{mediCard}
+    </select>
+
+    <!--改变就诊卡余额-->
+    <update id="updatePat" parameterType="com.pojos.outpatient.Medicalcard">
+        update medicalcard set medi_balance=medi_balance+#{mediBalance} where medi_no=#{mediNo}
+    </update>
+
+    <!--新增addMedicalcard-->
+    <insert id="addMedicalcard" parameterType="com.pojos.outpatient.Medicalcard">
+        insert into medicalcard(medi_card,medi_password,medi_idcart,medi_patient_no) values
+        (#{mediCard},#{mediPassword},#{mediIdcart},#{mediPatientNo})
+    </insert>
+
+    <!--修改诊疗卡状态-->
+    <update id="medicalcardTY" parameterType="com.pojos.outpatient.Medicalcard">
+        update medicalcard set medi_state = #{mediState} where medi_no = #{mediNo}
+    </update>
+    <!--修改诊疗卡卡号，补办-->
+    <update id="medicalcardBB" parameterType="com.pojos.outpatient.Medicalcard">
+        update medicalcard set medi_card = #{mediCard} where medi_no = #{mediNo}
+    </update>
+    <!--修改诊疗卡密码，修改密码-->
+    <update id="editPwd" parameterType="com.pojos.outpatient.Medicalcard">
+        update medicalcard set medi_password = #{mediPassword} where medi_no = #{mediNo}
+    </update>
+</mapper>

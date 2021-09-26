@@ -1,0 +1,11 @@
+# Project exclude paths
+/cloud-api-commons/target/
+/cloud-config-client-3737/target/
+/cloud-gateway9527/target/
+/consumer80/target/
+/hyj/target/
+/inpatient/target/
+/outpatient/target/
+/pharmacy/target/
+/system/target/
+/system2/target/

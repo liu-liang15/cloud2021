@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.AssayMealMapper">
+    <resultMap id="selectMeal" type="com.pojos.hyj.AssayMeal">
+        <id column="assay_meal_id" property="assayMealId"></id>
+        <result column="assay_meal_name" property="assayMealName"></result>
+        <result column="assay_meal_price" property="assayMealPrice"></result>
+        <result column="assay_meal_type" property="assayMealType"></result>
+        <result column="ks_name" property="ksName"></result>
+        <collection property="assayPros" ofType="com.pojos.hyj.AssayPro">
+            <id column="assay_pro_id" property="assayProId"></id>
+            <result column="assay_pro_name" property="assayProName"></result>
+            <result column="assay_pro_ref" property="assayProRef"></result>
+            <result column="assay_pro_unit" property="assayProUnit"></result>
+        </collection>
+    </resultMap>
+    <!--查询化验项目-->
+    <select id="findMeal" resultMap="selectMeal">
+        select * from assay_meal am
+        inner join assay_meal_middle amd on am.assay_meal_id = amd.assay_meal_id
+        inner join assay_pro ap on amd.assay_pro_id = ap.assay_pro_id where am.assay_meal_type = "化验"
+    </select>
+    <!--查询所有项目-->
+    <select id="findAllMeal" resultMap="selectMeal">
+        select * from assay_meal
+    </select>
+    <!--新增化验项目-->
+    <insert id="addMeal" >
+        insert into assay_meal(assay_meal_name,assay_meal_price,assay_meal_type) values(#{assayMealName},#{assayMealPrice},"化验")
+    </insert>
+    <!--新增化验项目中间表-->
+    <insert id="addMiddle">
+        insert into assay_meal_middle(assay_meal_id,assay_pro_id) values
+        <foreach collection="list" item="obj" separator=",">
+            (#{mealId},#{obj.assayProId})
+        </foreach>
+    </insert>
+
+    <!--删除套餐表-->
+    <delete id="delMeal">
+        delete from assay_meal where assay_meal_id = #{assayMealId}
+    </delete>
+    <!--删除中间表-->
+    <delete id="delMiddle">
+        delete from assay_meal_middle where assay_meal_id = #{assayMealId}
+    </delete>
+</mapper>

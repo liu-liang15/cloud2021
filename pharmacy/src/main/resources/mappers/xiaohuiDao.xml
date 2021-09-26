@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.XiaoHuiDao">
+    <resultMap id="XHSQMapper" type="com.pojos.pharmacy.XiaoHuiSq">
+        <id column="xhsq_id" property="xhsqId" />
+        <result column="xh_fzr" property="xhFzr" />
+        <result column="sj" property="sj" />
+        <result column="zt" property="zt" />
+        <association property="yongHu" javaType="com.pojos.system.YongHu">
+            <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+            <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+            <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
+            <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
+        </association>
+        <collection property="xiaoHuiXds" javaType="ArrayList" ofType="com.pojos.pharmacy.XiaoHuiXd" >
+            <id column="xhsqxd_id" property="xhsqxdId" />
+            <result column="xhsq_id" property="xhsqId" />
+            <result column="rkpc_id" property="rkpcId" />
+            <result column="ypsl" property="ypsl" />
+            <association property="rkXiangDan" javaType="com.pojos.pharmacy.RkXiangDan">
+                <id column="rk_pc" property="rkPc"></id>
+                <result column="rk_dh" property="rkDh" />
+                <result column="DRUG_ID" property="drugId" />
+                <result column="CONSU_ID" property="consuId" />
+                <result column="rkyp_sl" property="rkypSl" />
+                <result column="scrq" property="scrq" />
+                <result column="bzq" property="bzq" />
+                <result column="ck_id" property="ckId"/>
+                <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+                    <id column="DRUG_ID" property="drugId" />
+                    <result column="DRUG_NAME" property="drugName" />
+                    <result column="DRUG_PYM" property="drugPym" />
+                    <result column="DRUG_TYPE_ID" property="drugTypeId" />
+                    <result column="DRUG_SORT_ID" property="drugSortId" />
+                    <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+                    <result column="DRUG_JINJIA" property="drugJinjia" />
+                    <result column="DRUG_SHOUJIA" property="drugShoujia" />
+                    <result column="DRUG_RIQI" property="drugRiqi" />
+                    <result column="DRUG_MATR" property="drugMatr" />
+                    <result column="SUPPLY_ID"  property="supplyId" />
+                    <result column="DRUG_CLASS" property="drugClass" />
+                    <result column="DRUG_STATE" property="drugState" />
+                    <result column="DRUG_MESSAGE" property="drugMessage" />
+                </association>
+                <!-- <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
+                     <id column="CONSU_ID" property="consuId" />
+                     <result column="CONSU_NAME" property="consuName" />
+                     <result column="CONSU_JINJIA" property="consuJinjia" />
+                     <result column="CONSU_PRICE" property="consuPrice" />
+                     <result column="CONSU_SPEC" property="consuSpec" />
+                     <result column="CONSU_RIQI"  property="consuRiqi" />
+                     <result column="SONSU_MATR" property="sonsuMatr" />
+                 </association>-->
+                <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
+                    <id column="WARE_ID" property="wareId"/>
+                    <result column="WARE_NAME" property="wareName" />
+                    <result column="WARE_TYPE" property="wareType" />
+                    <result column="WARE_SITE" property="wareSite" />
+                </association>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="findAllXHD" resultMap="XHSQMapper">
+        select * from xiao_hui_sq xhsq INNER JOIN xiao_hui_xd xhxd on xhsq.xhsq_id=xhxd.xhsq_id LEFT JOIN rk_xiang_dan rkxd on xhxd.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id =ypxx.drug_id where 1=1
+        <if test="sq == 1">
+            and xhsq.zt=0
+        </if>
+        <if test="sq == 2">
+            and xhsq.zt=1
+        </if>
+    </select>
+    <update id="editXiaoHui">
+        update xiao_hui_sq set zt=#{zt} where xhsq_id=#{xhsqId}
+    </update>
+    <delete id="deltetKucun">
+            delete from yp_ku_cun where rkpc_id = #{rkpcId}
+    </delete>
+    <insert id="addXHCK" parameterType="com.pojos.pharmacy.ChuKu">
+        insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime})
+    </insert>
+    <insert id="addXHCKXQ" parameterType="java.util.Collection">
+        INSERT INTO chu_ku_ji_lu VALUES
+        <foreach collection="chuKuJiLus" item="p" separator=",">
+            (null,#{chukuId},#{p.rkpcId},#{p.rkpcId})
+        </foreach>
+    </insert>
+</mapper>

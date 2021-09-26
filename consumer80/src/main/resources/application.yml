@@ -1,0 +1,36 @@
+server:
+    port: 80
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.108.55.93:3306/wang_zai?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: wang_zai
+    password: NEmBCDc43sw5FfXw
+#  这个微服务的名字
+  application:
+    name: nacos-consumer-80
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #配置nacos连接地址
+  # redis 配置
+  redis:
+    host: 39.108.55.93 # Redis服务器地址
+    database: 0 # Redis数据库索引(默认为0)
+    port: 6379 # Redis服务器连接端口
+    password: wang_zai # Redis服务器连接密码(默认为空)
+    timeout: 3000ms # 连接超时时间(毫秒)
+#消费者将要去访问的微服务名称(注册成功进nacos的微服务提供者)
+service-url:
+  nacos-user-service: http://nacos-system/
+
+#设置feign客户端超时时间(OpenFeign默认支持ribbon)
+ribbon:
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ReadTimeout: 5000
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000
+
+
+
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.MzshoushucfDao">
+
+    <resultMap id="mzshoushucf" type="com.pojos.outpatient.Mzshoushucf">
+        <id column="ss_no" property="ssNo" />
+        <result column="ss_seedo_number" property="ssSeedoNumber" />
+        <result column="ss_money" property="ssMoney" />
+        <result column="ss_date" property="ssDate" />
+        <result column="ss_zt" property="ssZt" />
+    </resultMap>
+
+    <resultMap id="mzshoushuxq" type="com.pojos.outpatient.Mzshoushuxq">
+        <id column="sq_no" property="sqNo" />
+        <result column="sur_no" property="surNo" />
+        <result column="sq_ss_no" property="sqSsNo" />
+        <result column="sur_pay" property="surPay" />
+        <result column="sq_count" property="sqCount" />
+    </resultMap>
+
+    <insert id="insertMzshoushucf" useGeneratedKeys="true" keyProperty="ssNo" parameterType="com.pojos.outpatient.Mzshoushucf">
+        insert into mzshoushucf(ss_seedo_number,ss_money)
+         values(#{ssSeedoNumber},#{ssMoney})
+    </insert>
+
+    <insert id="insertMzshoushuxq" parameterType="com.pojos.outpatient.Mzshoushuxq">
+        insert into mzshoushuxq
+        values(0,#{surNo},#{sqSsNo},#{surPay},#{sqCount})
+    </insert>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.MealMapper">
+    <resultMap id="Meal" type="com.pojos.hyj.Meal">
+        <id column="meal_id" property="mealId"/>
+        <result column="meal_name" property="mealName"/>
+        <result column="meal_price" property="mealPrice"/>
+        <result column="assay_type_type" property="assayTypeType"/>
+        <collection property="assayMeals" ofType="com.pojos.hyj.AssayMeal">
+            <id column="assay_meal_id" property="assayMealId"/>
+            <result column="assay_meal_name" property="assayMealName"/>
+            <result column="assay_meal_price" property="assayMealPrice"/>
+            <result column="assay_meal_type" property="assayMealType"/>
+            <result column="ks_name" property="ksName"/>
+        </collection>
+    </resultMap>
+    <!--查询体检套餐-->
+    <select id="fMeal" resultMap="Meal">
+        select * from meal m INNER JOIN meal_middle mm on m.meal_id = mm.meal_id
+        INNER JOIN assay_meal am on am.assay_meal_id = mm.assay_meal_id
+    </select>
+    <!--根据id查询体检套餐-->
+    <select id="fMealById" resultMap="Meal">
+        select * from meal m INNER JOIN meal_middle mm on m.meal_id = mm.meal_id
+        INNER JOIN assay_meal am on am.assay_meal_id = mm.assay_meal_id
+        where m.meal_id = #{mealId}
+    </select>
+    <!--新增体检套餐-->
+    <insert id="insertMeal" parameterType="com.pojos.hyj.Meal" useGeneratedKeys="true" keyProperty="mealId">
+        insert into meal(meal_name,meal_price,assay_type_type) values (#{mealName},#{mealPrice},#{assayTypeType})
+    </insert>
+    <!--新增中间表-->
+    <insert id="insertMealMiddle">
+        insert into meal_middle(meal_id,assay_meal_id) values 
+        <foreach collection="list" item="o" separator=",">
+            (#{mealId},#{o.assayMealId})
+        </foreach>
+    </insert>
+    <!--删除套餐表-->
+    <delete id="delMeals">
+        delete from meal where meal_id = #{mealId}
+    </delete>
+    <!--删除中间表-->
+    <delete id="delMiddles">
+        delete from meal_middle where meal_id = #{mealId}
+    </delete>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.HospregcateDao">
+    <resultMap id="hopregcate" type="com.pojos.outpatient.Hospregcate">
+        <id column="hospregcate_no" property="hospregcateNo" />
+        <result column="hospregcate_name" property="hospregcateName" />
+        <result column="hospregcate_moeny" property="hospregcateMoeny" />
+    </resultMap>
+
+    <select id="findAllHopregcate" resultMap="hopregcate">
+        select * from hospregcate
+    </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.HaoCaiDao">
+    <resultMap id="HaoCaiMapper" type="com.pojos.pharmacy.HaoCai">
+        <id column="CONSU_ID" property="consuId" />
+        <result column="CONSU_NAME" property="consuName" />
+        <result column="CONSU_JINJIA" property="consuJinjia" />
+        <result column="CONSU_PRICE" property="consuPrice" />
+        <result column="CONSU_SPEC" property="consuSpec" />
+        <result column="CONSU_RIQI"  property="consuRiqi" />
+        <result column="SONSU_MATR" property="sonsuMatr" />
+    </resultMap>
+    <!--查看消耗品名称-->
+    <select id="selHCName" resultMap="HaoCaiMapper">
+        select * from hao_cai
+    </select>
+    <!--查看消耗品规格-->
+    <select id="selHCMatr" resultMap="HaoCaiMapper">
+        select SONSU_MATR from hao_cai where CONSU_NAME=#{consuName}
+    </select>
+</mapper>

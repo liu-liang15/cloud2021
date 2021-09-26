@@ -1,0 +1,65 @@
+server:
+    port: 8021
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.108.55.93:3306/wang_zai?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: wang_zai
+    password: NEmBCDc43sw5FfXw
+  application:
+    name: nacos-inpatient
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #配置nacos连接地址
+  #时间格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # redis 配置
+  redis:
+    host: 39.108.55.93 # Redis服务器地址
+    database: 0 # Redis数据库索引(默认为0)
+    port: 6379 # Redis服务器连接端口
+    password: wang_zai # Redis服务器连接密码(默认为空)
+    timeout: 3000ms # 连接超时时间(毫秒)
+#    下面不知道什么意思， 去源码里面看去吧，里面有注释
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath:mappers/*.xml
+#  告诉mybatis-plus实体类在哪里
+#  type-aliases-package: com.example.model.pojos.*.*
+  # 以下配置均有默认值,可以不设置
+  global-config:
+    db-config:
+      #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: auto
+      #字段策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
+#      field-strategy: NOT_EMPTY
+      #数据库类型
+#      db-type: MYS
+  configuration:
+    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+#mybatis:
+#  type-aliases-package: com.example.model.pojos 指定pojo实体类的包
+#  mapper-locations: classpath:mappers/*/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    call-setters-on-nulls: true
+#    map-underscore-to-camel-case: true
+#    cache-enabled: true
+

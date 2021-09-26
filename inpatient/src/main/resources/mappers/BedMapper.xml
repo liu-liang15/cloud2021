@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.BedDao">
+    <resultMap id="BedMapper" type="com.pojos.inpatient.Bed">
+        <id column="bed_no" property="bedNo"/>
+        <result column="bed_zt" property="bedZt"/>
+        <result column="ward_no" property="wardNo"/>
+        <result column="res_no" property="resNo"/>
+        <association property="hosAlone" javaType="com.pojos.inpatient.HosAlone">
+            <id column="res_no" property="resNo"/>
+            <result column="linkman" property="linkman"/>
+            <result column="phone" property="phone"/>
+            <result column="hos_no" property="hosNo"/>
+            <result column="nurse" property="nurse"/>
+            <result column="hos_stay" property="hosStay"/>
+            <result column="pay_type" property="payType"/>
+            <result column="hos_cond" property="hosCond"/>
+            <result column="hos_money" property="hosMoney"/>
+            <result column="hos_zt" property="hosZt"/>
+            <association property="admNot" javaType="com.pojos.inpatient.AdmNot">
+                <id column="hos_no" property="hosNo"/>
+                <result column="patient" property="patient"/>
+                <result column="section" property="section"/>
+                <result column="doctor" property="doctor"/>
+                <result column="result" property="result"/>
+                <result column="dispose" property="dispose"/>
+                <result column="adm_zt" property="admZt"/>
+                <association property="medicalcard" javaType="com.pojos.outpatient.Medicalcard">
+                    <id column="medi_no" property="mediNo"/>
+                    <result column="medi_card" property="mediCard"/>
+                    <result column="medi_password" property="mediPassword"/>
+                    <result column="medi_balance" property="mediBalance"/>
+                    <result column="medi_idcart" property="mediIdcart"/>
+                    <result column="medi_patient_no" property="mediPatientNo"/>
+                    <result column="medi_newdate" property="mediNewdate"/>
+                    <result column="medi_state" property="mediState"/>
+                </association>
+                <association property="pat" javaType="com.pojos.outpatient.Patient">
+                    <id column="patient_no" property="patientNo"/>
+                    <result column="patient_name" property="patientName"/>
+                    <result column="patient_sex" property="patientSex"/>
+                    <result column="patient_phone" property="patientPhone"/>
+                    <result column="patient_idcart" property="patientIdcart"/>
+                    <result column="patient_age" property="patientAge"/>
+                    <result column="patient_birthdate" property="patientBirthdate"/>
+                    <result column="" property="patientAddress"/>
+                    <result column="patient_date" property="patientDate"/>
+                </association>
+            </association>
+        </association>
+        <association property="ward" javaType="com.pojos.inpatient.Ward">
+            <id column="ward_no" property="wardNo"/>
+            <result column="ward_name" property="wardName"/>
+            <result column="ward_dress" property="wardDress"/>
+            <result column="ward_zt" property="wardZt"/>
+            <result column="ward_mon" property="wardMon"/>
+            <result column="ward_dep" property="wardDep"/>
+        </association>
+    </resultMap>
+    <select id="selBed" resultMap="BedMapper">
+        select * from bed where ward_no=#{wardNo}
+        <if test="zt==1">
+            and bed_zt='0' and res_no is null
+        </if>
+        <if test="zt==2">
+            and bed_zt='0' and res_no is not null
+        </if>
+    </select>
+    <!--查询病床与患者-->
+    <select id="allocBed" resultMap="BedMapper">
+        select * from bed b INNER JOIN ward w on b.ward_no=w.ward_no
+            right JOIN hos_alone h on b.res_no=h.res_no
+            LEFT join adm_not a on h.hos_no=a.hos_no
+            LEFT join medicalcard m on a.patient = m.medi_no
+            LEFT join patient p on m.medi_patient_no=p.patient_no
+        <if test="param!=''">
+            where b.res_no=#{param}
+        </if>
+    </select>
+    <!--查询住院单详情-->
+    <select id="hosXq" resultMap="BedMapper">
+        select * from hos_alone h
+            inner join adm_not a on h.hos_no=a.hos_no
+            inner join medicalcard m on a.patient = m.medi_no
+            inner join patient p on m.medi_patient_no=p.patient_no
+            left join bed b on b.res_no=h.res_no
+            inner join ward w on b.ward_no=w.ward_no
+        where h.hos_zt='0' and h.res_no=#{param}
+    </select>
+    <!--新增床位-->
+    <insert id="addBed" parameterType="com.pojos.inpatient.Bed">
+        insert into bed(ward_no) values(#{wardNo})
+    </insert>
+    <!--床位修改-->
+    <update id="updateBed">
+        update bed
+        <set>
+            <if test="bedZt!=''">
+                bed_zt=#{bedZt},
+            </if>
+            <if test="resNo!=''">
+                res_no=#{resNo},
+            </if>
+        </set>
+        where bed_no=#{bedNo}
+    </update>
+</mapper>

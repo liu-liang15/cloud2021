@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.SurXhDao">
+    <resultMap id="SurXhMapper" type="com.pojos.inpatient.SurXh">
+        <id column="sur_xh_no" property="surXhNo"/>
+        <result column="sur_no" property="surNo"/>
+        <result column="consu_id" property="consuId"/>
+        <result column="hx_number" property="hxNumber"/>
+        <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
+            <id column="CONSU_ID" property="consuId" />
+            <result column="CONSU_NAME" property="consuName" />
+            <result column="CONSU_JINJIA" property="consuJinjia" />
+            <result column="CONSU_PRICE" property="consuPrice" />
+            <result column="CONSU_SPEC" property="consuSpec" />
+            <result column="CONSU_RIQI"  property="consuRiqi" />
+            <result column="SONSU_MATR" property="sonsuMatr" />
+        </association>
+    </resultMap>
+    <!--新增项目耗材-->
+    <insert id="addSurxh">
+        insert into sur_xh(sur_no,consu_id,hx_number) values(#{surNo},#{consuId},#{hxNumber})
+    </insert>
+    <!--查看耗材-->
+    <select id="selSurxh" resultMap="SurXhMapper">
+        select * from sur_xh s inner join hao_cai h on s.consu_id =h.consu_id where sur_no=#{param}
+    </select>
+    <!--删除耗材-->
+    <delete id="delSurxh">
+        delete from sur_xh where sur_no=#{param}
+    </delete>
+</mapper>

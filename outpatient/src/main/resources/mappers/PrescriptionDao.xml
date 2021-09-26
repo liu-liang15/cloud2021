@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.PrescriptionDao">
+
+    <resultMap id="prescriptiondetails" type="com.pojos.outpatient.Prescriptiondetails">
+        <id column="predet_no" property="predetNo" />
+        <result column="predet_pres_no" property="predetPresNo" />
+        <result column="drug_id" property="drugId" />
+        <result column="drug_name" property="drugName" />
+        <result column="number" property="number" />
+        <result column="drug_shoujia"  property="drugShoujia" />
+        <result column="xiaoji" property="xiaoji" />
+        <result column="usage" property="usage" />
+        <result column="pinci" property="pinci" />
+        <result column="zu" property="zu" />
+    </resultMap>
+
+    <resultMap id="prescription" type="com.pojos.outpatient.Prescription">
+        <id column="pres_no" property="presNo" />
+        <result column="pres_seedoc_no" property="presSeedocNo" />
+        <result column="pres_seedo_number" property="presSeedoNumber" />
+        <result column="pres_famiroom_no" property="presFamiroomNo" />
+        <result column="pres_doc_no" property="presDocNo" />
+        <result column="pres_money"  property="presMoney" />
+        <result column="pres_date" property="presDate" />
+        <result column="pres_state" property="presState" />
+    </resultMap>
+
+    <insert id="insertChufang" useGeneratedKeys="true" keyProperty="presNo" parameterType="com.pojos.outpatient.Prescription">
+        insert into prescription(pres_seedoc_no,pres_seedo_number,pres_famiroom_no,pres_doc_no,pres_money)
+         values(#{presSeedocNo},#{presSeedoNumber},#{presFamiroomNo},#{presDocNo},#{presMoney})
+    </insert>
+
+    <insert id="insertChufangXQ" parameterType="com.pojos.outpatient.Prescriptiondetails">
+        insert into prescriptiondetails
+        values(0,#{predetPresNo},#{drugId},#{drugName},#{number},#{drugShoujia},#{xiaoji},#{usage},#{pinci},#{zu})
+    </insert>
+</mapper>

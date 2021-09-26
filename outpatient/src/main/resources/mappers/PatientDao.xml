@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.PatientDao">
+    <resultMap id="patient" type="com.pojos.outpatient.Patient">
+        <id column="patient_no" property="patientNo" />
+        <result column="patient_name" property="patientName" />
+        <result column="patient_sex" property="patientSex" />
+        <result column="patient_phone" property="patientPhone" />
+        <result column="patient_idcart" property="patientIdcart" />
+        <result column="patient_age"  property="patientAge" />
+        <result column="patient_birthdate" property="patientBirthdate" />
+        <result column="patient_address" property="patientAddress" />
+        <result column="patient_date" property="patientDate" />
+    </resultMap>
+    <!--查询病人信息，排序，多条件-->
+    <select id="findAllPatient" resultMap="patient">
+        select * from patient where 1 = 1
+        <if test="param!=null and param!=''">
+            and patient_name like '%${param}%'
+            or patient_sex like '%${param}%'
+            or patient_phone like '%${param}%'
+            or patient_idcart like '%${param}%'
+        </if>
+        order by patient_date desc
+    </select>
+    <!--新增病人信息-->
+    <insert id="insertPatient" useGeneratedKeys="true" keyProperty="patientNo" parameterType="com.pojos.outpatient.Patient">
+        insert into patient values(0,#{patientName},#{patientSex}
+                                ,#{patientPhone},#{patientIdcart},#{patientAge}
+                                ,#{patientAddress},#{patientBirthdate},#{patientDate})
+    </insert>
+
+    <!--修改病人信息-->
+    <update id="updatePatient" parameterType="com.pojos.outpatient.Patient">
+        update patient set patient_name = #{patientName} , patient_sex =  #{patientSex}
+        , patient_phone =  #{patientPhone} , patient_idcart =  #{patientIdcart}
+        , patient_age =  #{patientAge} , patient_birthdate =  #{patientBirthdate}
+        , patient_address =  #{patientAddress} where patient_no = #{patientNo}
+    </update>
+</mapper>

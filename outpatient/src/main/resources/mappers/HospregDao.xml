@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.HospregDao">
+    <resultMap id="hopreg" type="com.pojos.outpatient.Hospreg">
+        <id column="horeg_no" property="horegNo" /><!--门诊号-->
+        <result column="horeg_famiroom_no" property="horegFamiroomNo" /><!--科室号-->
+        <result column="horeg_category_no" property="horegCategoryNo" /><!--挂号类别号-->
+        <result column="horeg_type" property="horegType" /><!--类型-->
+        <result column="horeg_money" property="horegMoney" /><!--费用-->
+        <result column="horeg_zhiliaomoney"  property="horegZhiliaomoney" /><!--治疗费-->
+        <result column="horeg_patient_no" property="horegPatientNo" /><!--病人编号-->
+        <result column="horeg_attendingdoc_no" property="horegAttendingdocNo" /><!--主治医生-->
+        <result column="horeg_date" property="horegDate" /><!--挂号时间-->
+        <result column="horeg_state" property="horegState" /><!--状态-->
+        <result column="horeg_remark" property="horegRemark" /><!--备注-->
+        <result column="horeg_operator" property="horegOperator" /><!--操作员-->
+        <association property="patient" javaType="com.pojos.outpatient.Patient">
+            <id column="patient_no" property="patientNo" />
+            <result column="patient_name" property="patientName" />
+            <result column="patient_sex" property="patientSex" />
+            <result column="patient_phone" property="patientPhone" />
+            <result column="patient_idcart" property="patientIdcart" />
+            <result column="patient_age"  property="patientAge" />
+            <result column="patient_birthdate" property="patientBirthdate" />
+            <result column="patient_address" property="patientAddress" />
+            <result column="patient_date" property="patientDate" />
+        </association>
+        <association property="hospregcate" javaType="com.pojos.outpatient.Hospregcate">
+            <id column="hospregcate_no" property="hospregcateNo" />
+            <result column="hospregcate_name" property="hospregcateName" />
+            <result column="hospregcate_moeny" property="hospregcateMoeny" />
+        </association>
+        <association property="keShi" javaType="com.pojos.system.KeShi">
+            <id column="ks_id" property="ksId" />
+            <result column="ks_name" property="ksName" />
+            <result column="yg_id" property="ygId" />
+        </association>
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
+            <id column="yg_id" property="ygId" />
+            <result column="yg_name" property="ygName" />
+            <result column="yg_dh" property="ygDh" />
+            <result column="yg_sfz" property="ygSfz" />
+            <result column="ks_id" property="ksId" />
+            <result column="bm_id" property="bmId" />
+            <result column="gw_id" property="gwId" />
+        </association>
+    </resultMap>
+
+    <!--//查询所有挂号记录-->
+    <select id="findAllHopreg" resultMap="hopreg">
+        select * from hospreg h
+        inner join patient p on h.horeg_patient_no = p.patient_no
+        inner join ke_shi k on k.ks_id = h.horeg_famiroom_no
+        inner join hospregcate hc on hc.hospregcate_no = h.horeg_category_no
+        inner join yuan_go y on y.yg_id = h.horeg_attendingdoc_no where 1 = 1
+        <if test="param!=null and param!=''">
+            and p.patient_name like '%${param}%'
+            or h.horeg_no like '%${param}%'
+            or p.patient_phone like '%${param}%'
+            or p.patient_idcart like '%${param}%'
+        </if>
+        order by h.horeg_date desc
+    </select>
+
+    <!--  医生就诊，病人挂号  -->
+    <select id="findJiuZhenLieBiao" resultMap="hopreg">
+        select * from hospreg h
+        inner join patient p on h.horeg_patient_no = p.patient_no
+        inner join ke_shi k on h.horeg_famiroom_no = k.ks_id
+        where to_days(horeg_date) = to_days(now()) and horeg_state = #{horegState}
+        and horeg_attendingdoc_no = #{horegAttendingdocNo}
+        order by horeg_date asc;
+    </select>
+
+    <!--挂号-->
+    <insert id="insertHospreg" parameterType="com.pojos.outpatient.Hospreg">
+        insert into hospreg values(#{horegNo},#{horegFamiroomNo},#{horegCategoryNo},#{horegType},#{horegMoney}
+        ,#{horegZhiliaomoney},#{horegPatientNo},#{horegAttendingdocNo},#{horegDate},#{horegState},#{horegOperator},#{horegRemark})
+    </insert>
+
+    <!--退号-->
+    <update id="updateHospregTuiHao" parameterType="com.pojos.outpatient.Hospreg">
+        update hospreg set horeg_state = #{horegState} where horeg_no = #{horegNo}
+    </update>
+
+    <!--修改，编辑 -->
+    <update id="updateHospreg" parameterType="com.pojos.outpatient.Hospreg">
+        update hospreg set horeg_famiroom_no = #{horegFamiroomNo} , horeg_category_no = #{horegCategoryNo} ,
+                           horeg_type = #{horegType} , horeg_money = #{horegMoney} ,
+                           horeg_attendingdoc_no = #{horegAttendingdocNo} , horeg_remark = #{horegRemark}
+        where  horeg_no = #{horegNo}
+    </update>
+</mapper>

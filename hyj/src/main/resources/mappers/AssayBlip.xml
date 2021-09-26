@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.AssayBlipMapper">
+    <resultMap id="Blip" type="com.pojos.hyj.AssayBlip">
+        <id column="assay_blip_id" property="assayBlipId"></id>
+        <result column="assay_blip_name" property="assayBlipName"/>
+    </resultMap>
+    <resultMap id="MealBlip" type="com.pojos.hyj.AssayMealBlip">
+        <id column="meal_blip_id" property="mealBlipId"></id>
+        <result column="meal_blip_name" property="mealBlipName"></result>
+        <result column="meal_blip_price" property="mealBlipPrice"></result>
+        <result column="meal_blip_type" property="mealBlipType"></result>
+        <result column="ks_name" property="ksName"></result>
+    </resultMap>
+    <!--新增影像项目-->
+    <insert id="addMealBlip">
+        insert into assay_meal(assay_meal_name,assay_meal_price,assay_meal_type,ks_name)
+        values (#{mealBlipName},#{mealBlipPrice},"影像",#{ksName})
+    </insert>
+    <!--查询影像项目-->
+    <select id="findMealBlip" resultMap="com.model.dao.AssayResMapper.selectMeal">
+        select * from assay_meal where assay_meal_type = "影像"
+    </select>
+    <!--删除影像项目-->
+    <delete id="delMealBlip">
+        delete from assay_meal where assay_meal_id = #{assayMealId}
+    </delete>
+</mapper>

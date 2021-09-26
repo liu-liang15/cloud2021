@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.BedCzRecDao">
+    <resultMap id="BedCzRecMapper" type="com.pojos.inpatient.BedCzRec">
+        <id column="bed_cz_rec" property="bedCzRec"/>
+        <result column="bed_cz_time" property="bedCzTime"/>
+        <result column="bed_no" property="bedNo"/>
+        <result column="bed_cz_reson" property="bedCzReson"/>
+        <result column="bed_cz_type" property="bedCzType"/>
+        <association property="bed" javaType="com.pojos.inpatient.Bed">
+            <id column="bed_no" property="bedNo"/>
+            <result column="bed_zt" property="bedZt"/>
+            <result column="ward_no" property="wardNo"/>
+            <result column="res_no" property="resNo"/>
+        </association>
+        <association property="ward" javaType="com.pojos.inpatient.Ward">
+            <id column="ward_no" property="wardNo"/>
+            <result column="ward_name" property="wardName"/>
+            <result column="ward_dress" property="wardDress"/>
+            <result column="ward_zt" property="wardZt"/>
+            <result column="ward_mon" property="wardMon"/>
+            <result column="ward_dep" property="wardDep"/>
+        </association>
+    </resultMap>
+    <!--新增记录表-->
+    <insert id="addBedRec">
+        insert into bed_cz_rec(bed_no,bed_cz_reson,bed_cz_type) values (#{bedNo},#{bedCzReson},#{bedCzType})
+    </insert>
+    <!--查看床位分配-->
+    <select id="selBedCzRec" resultMap="BedCzRecMapper">
+        select * from bed_cz_rec bc
+            INNER JOIN bed b on bc.bed_no=b.bed_no
+            INNER JOIN ward w on b.ward_no=w.ward_no
+    </select>
+</mapper>

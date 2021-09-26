@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.system.PaiBanMapper">
+
+    <resultMap id="BaseResultMap" type="com.pojos.system.PaiBan">
+            <id property="pbId" column="pb_id" jdbcType="INTEGER"/>
+            <result property="bcId" column="bc_id" jdbcType="VARCHAR"/>
+            <result property="rq" column="rq" jdbcType="TIMESTAMP"/>
+            <association property="yg" javaType="com.pojos.system.YuanGo">
+                <id column="yg_id" property="ygId" jdbcType="INTEGER"/>
+                <result column="yg_name" property="ygName"  jdbcType="VARCHAR"/>
+            </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pb_id,yg_id,bc_id,
+        ks_rq,js_rq
+    </sql>
+<!--    根据科室id和日期日期查询排班 -->
+    <select id="getPanBan" resultMap="BaseResultMap">
+        select * from pai_ban pb inner join yuan_go yg on pb.yg_id=yg.yg_id where date_format(pb.rq,'%Y/%m/%d')=#{rq} and yg.ks_id=#{ksId}
+    </select>
+</mapper>

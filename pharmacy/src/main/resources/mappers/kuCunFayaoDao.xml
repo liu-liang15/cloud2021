@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.KuCunFayaoDao">
+    <resultMap id="KCMapper" type="com.pojos.pharmacy.YpKuCun">
+        <id column="kc_id" property="kcId" />
+        <result column="rkpc_id" property="rkpcId" />
+        <result column="ypsl" property="ypsl" />
+        <association property="rkXiangDan" javaType="com.pojos.pharmacy.RkXiangDan">
+            <id column="rk_pc" property="rkPc"></id>
+            <result column="rk_dh" property="rkDh" />
+            <result column="DRUG_ID" property="drugId" />
+            <result column="CONSU_ID" property="consuId" />
+            <result column="rkyp_sl" property="rkypSl" />
+            <result column="scrq" property="scrq" />
+            <result column="bzq" property="bzq" />
+            <result column="ck_id" property="ckId"/>
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+                <id column="DRUG_ID" property="drugId" />
+                <result column="DRUG_NAME" property="drugName" />
+                <result column="DRUG_PYM" property="drugPym" />
+                <result column="DRUG_TYPE_ID" property="drugTypeId" />
+                <result column="DRUG_SORT_ID" property="drugSortId" />
+                <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+                <result column="DRUG_JINJIA" property="drugJinjia" />
+                <result column="DRUG_SHOUJIA" property="drugShoujia" />
+                <result column="DRUG_RIQI" property="drugRiqi" />
+                <result column="DRUG_MATR" property="drugMatr" />
+                <result column="SUPPLY_ID"  property="supplyId" />
+                <result column="DRUG_CLASS" property="drugClass" />
+                <result column="DRUG_STATE" property="drugState" />
+                <result column="DRUG_MESSAGE" property="drugMessage" />
+            </association>
+            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
+                <id column="CONSU_ID" property="consuId" />
+                <result column="CONSU_NAME" property="consuName" />
+                <result column="CONSU_JINJIA" property="consuJinjia" />
+                <result column="CONSU_PRICE" property="consuPrice" />
+                <result column="CONSU_SPEC" property="consuSpec" />
+                <result column="CONSU_RIQI"  property="consuRiqi" />
+                <result column="SONSU_MATR" property="sonsuMatr" />
+            </association>
+            <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
+                <id column="WARE_ID" property="wareId"/>
+                <result column="WARE_NAME" property="wareName" />
+                <result column="WARE_TYPE" property="wareType" />
+                <result column="WARE_SITE" property="wareSite" />
+            </association>
+        </association>
+    </resultMap>
+    <resultMap id="YPSQMapper" type="com.pojos.pharmacy.DiaoBoSq">
+        <id column="db_sheng_qing" property="dbShengQing" />
+        <result column="dbfzr" property="dbfzr" />
+        <result column="sqsj" property="sqsj" />
+        <result column="sq_zhuang_tai" property="sqZhuangTai" />
+        <association property="yongHu" javaType="com.pojos.system.YongHu">
+            <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+            <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+            <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
+            <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
+        </association>
+        <collection property="dbsqXiangBiaos" javaType="ArrayList" ofType="com.pojos.pharmacy.DbsqXiangBiao" >
+            <id column="dbsqxd_id" property="dbsqxdId" />
+            <result column="dbsq_id" property="dbsqId" />
+            <result column="yp_bh" property="ypBh" />
+            <result column="db_sl" property="dbSl" />
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+                <id column="DRUG_ID" property="drugId" />
+                <result column="DRUG_NAME" property="drugName" />
+                <result column="DRUG_PYM" property="drugPym" />
+                <result column="DRUG_TYPE_ID" property="drugTypeId" />
+                <result column="DRUG_SORT_ID" property="drugSortId" />
+                <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+                <result column="DRUG_JINJIA" property="drugJinjia" />
+                <result column="DRUG_SHOUJIA" property="drugShoujia" />
+                <result column="DRUG_RIQI" property="drugRiqi" />
+                <result column="DRUG_MATR" property="drugMatr" />
+                <result column="SUPPLY_ID"  property="supplyId" />
+                <result column="DRUG_CLASS" property="drugClass" />
+                <result column="DRUG_STATE" property="drugState" />
+                <result column="DRUG_MESSAGE" property="drugMessage" />
+            </association>
+            <!--            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
+                            <id column="CONSU_ID" property="consuId" />
+                            <result column="CONSU_NAME" property="consuName" />
+                            <result column="CONSU_JINJIA" property="consuJinjia" />
+                            <result column="CONSU_PRICE" property="consuPrice" />
+                            <result column="CONSU_SPEC" property="consuSpec" />
+                            <result column="CONSU_RIQI"  property="consuRiqi" />
+                            <result column="SONSU_MATR" property="sonsuMatr" />
+                        </association>-->
+        </collection>
+    </resultMap>
+
+    <select id="findByYPSQ1" resultMap="YPSQMapper">
+        select * from diao_bo_sq dbsq
+                          LEFT JOIN dbsq_xiang_biao dbxb on dbsq.db_sheng_qing = dbxb.dbsq_id
+                          LEFT JOIN yao_ping_xx yp on dbxb.yp_bh=yp.DRUG_id
+                          LEFT JOIN yong_hu yh ON dbsq.dbfzr=yh.yh_id where 1=1
+                                                                        and dbsq.sq_zhuang_tai= '0'
+    </select>
+    <select id="findByYPSQ2" resultMap="YPSQMapper">
+        select * from diao_bo_sq dbsq
+                          LEFT JOIN dbsq_xiang_biao dbxb on dbsq.db_sheng_qing = dbxb.dbsq_id
+                          LEFT JOIN yao_ping_xx yp on dbxb.yp_bh=yp.DRUG_id
+                          LEFT JOIN yong_hu yh ON dbsq.dbfzr=yh.yh_id where 1=1
+                                                                        and dbsq.sq_zhuang_tai= '1'
+    </select>
+    <update id="updateYPSQ">
+        update diao_bo_sq set sq_zhuang_tai=#{sqZhuangTai} where db_sheng_qing=#{dbShengQing}
+    </update>
+    <select id="FindAllKuCun" resultMap="KCMapper">
+        SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id
+    </select>
+    <select id="FindAllKuCun2" resultMap="KCMapper">
+        SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id where ypxx.drug_id=#{drugId} order  BY rkxd.bzq
+    </select>
+    <select id="FindAllKuCun3" resultMap="KCMapper">
+        SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc
+        LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk
+        on rkxd.ck_id = yk.ware_id where DATE_ADD(NOW(), interval 1 MONTH) > rkxd.bzq
+    </select>
+    <insert id="addDBSQ" parameterType="com.pojos.pharmacy.DiaoBoSq">
+        insert into diao_bo_sq values (#{dbShengQing},#{dbfzr},#{sqsj},0)
+    </insert>
+    <insert id="addDBXD" parameterType="java.util.Collection">
+        insert into dbsq_xiang_biao values
+        <foreach collection="dbsqXiangBiaos" item="p" separator=",">
+            (null,#{dbShengQing},#{p.ypBh},#{p.dbSl})
+        </foreach>
+    </insert>
+    <insert id="addFaoYao" parameterType="com.pojos.pharmacy.ChuKu">
+        insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime});
+    </insert>
+    <insert id="addFaYaoXQ" parameterType="com.pojos.pharmacy.ChuKuJiLu">
+        insert into chu_ku_ji_lu values (null,,#{chukuId},#{kuChunId},#{chuKuSl})
+    </insert>
+    <update id="edatKcCun">
+        update yp_ku_cun set ypsl=#{ypsl} where kc_id=#{kcid}
+    </update>
+    <delete id="delectKuCun">
+        delete from yp_ku_cun where ypsl=0
+    </delete>
+
+    <delete id="delectKuCun2">
+        delete from yp_ku_cun where kc_id=#{kcid}
+    </delete>
+    
+    <insert id="addXHSQ">
+        insert into xiao_hui_sq values(#{xhsqId},#{xhFzr},#{sj},0)
+    </insert>
+    <insert id="addXHXB" parameterType="java.util.Collection">
+        insert into xiao_hui_xd values
+        <foreach collection="xiaoHuiXds" item="p" separator=", ">
+            (null,#{xhsqId},#{p.rkpcId},#{p.ypsl})
+        </foreach>
+    </insert>
+</mapper>

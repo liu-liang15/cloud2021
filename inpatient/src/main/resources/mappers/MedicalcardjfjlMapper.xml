@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.MedicalcardjfjlDao">
+    <resultMap id="MedicalcardjfjlMapper" type="com.pojos.inpatient.Medicalcardjfjl">
+        <id column="mecajfjl_no" property="mecajfjlNo"/>
+        <result column="mecajfjl_medi_no" property="mecajfjlMediNo"/>
+        <result column="mecajfjl_money" property="mecajfjlMoney"/>
+        <result column="mecajfjl_date" property="mecajfjlDate"/>
+        <result column="mecajfjl_menzhenjl" property="mecajfjlMenzhenjl"/>
+            <result column="mecajfjl_zhuyuanjl" property="mecajfjlZhuyuanjl"/>
+    </resultMap>
+    <!--新增缴费记录-->
+    <insert id="addJfjl" parameterType="com.pojos.inpatient.Medicalcardjfjl">
+        insert into medicalcardjfjl(mecajfjl_medi_no,mecajfjl_money,mecajfjl_zhuyuanjl) values (#{mecajfjlMediNo},#{mecajfjlMoney},#{mecajfjlZhuyuanjl})
+    </insert>
+    <!--查询缴费记录-->
+    <select id="selPay" resultMap="MedicalcardjfjlMapper">
+        select * from medicalcardjfjl
+        <where>
+            <if test="mecajfjlZhuyuanjl!=null">
+                mecajfjl_zhuyuanjl = #{mecajfjlZhuyuanjl}
+            </if>
+        </where>
+    </select>
+</mapper>

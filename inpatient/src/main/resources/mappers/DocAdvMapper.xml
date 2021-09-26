@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.DocAdvDao">
+    <resultMap id="DocAdvMappper" type="com.pojos.inpatient.DocAdv">
+        <id column="doc_adv_no" property="docAdvNo"/>
+        <result column="res_no" property="resNo"/>
+        <result column="doc_per" property="docPer"/>
+        <result column="doc_adtime" property="docAdtime"/>
+        <result column="doc_type" property="docType"/>
+    </resultMap>
+    <!--新增医嘱-->
+    <insert id="addDocAdv">
+        insert into doc_adv(res_no,doc_per,doc_type) values(#{resNo},#{docPer},#{docType})
+        <selectKey keyProperty="docAdvNo" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <!--查看医嘱-->
+    <select id="selDocAdv" resultMap="DocAdvMappper">
+        select * from doc_adv where res_no=#{param}
+    </select>
+</mapper>

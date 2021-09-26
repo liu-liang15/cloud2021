@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.GoYingShangDao">
+    <resultMap id="GYSMapper" type="com.pojos.pharmacy.GoYingShang">
+        <id column="SUPPLY_ID" property="supplyId" />
+        <result column="SUPPLY_NAME" property="supplyName" />
+        <result column="SUPPLY_CONTACTS" property="supplyContacts" />
+        <result column="SUPPLY_PHONE" property="supplyPhone" />
+        <result column="SUPPLY_SITE" property="supplySite" />
+        <result column="SUPPLY_STATE"  property="supplyState" />
+    </resultMap>
+    <!--查询供应商信息-->
+    <select id="findAll" resultMap="GYSMapper">
+        select * from go_ying_shang where 1 = 1
+    </select>
+    <!--新增供应商信息-->
+    <insert id="insert2" parameterType="com.pojos.pharmacy.GoYingShang">
+        insert into go_ying_shang values(null,#{supplyName},#{supplyContacts}
+                                  ,#{supplyPhone},#{supplySite},#{supplyState})
+    </insert>
+
+    <!--修改供应商信息-->
+    <update id="update" parameterType="com.pojos.pharmacy.GoYingShang">
+        update go_ying_shang set SUPPLY_NAME=#{supplyName},SUPPLY_CONTACTS=#{supplyContacts}
+                               ,SUPPLY_PHONE=#{supplyPhone},SUPPLY_SITE=#{supplySite},SUPPLY_STATE=#{supplyState} where SUPPLY_ID = #{supplyId}
+    </update>
+</mapper>

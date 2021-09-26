@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.ExpCalDao">
+    <resultMap id="ExpCalMapper" type="com.pojos.inpatient.ExpCal">
+        <id column="exp_no" property="expNo"/>
+        <result column="res_no" property="resNo"/>
+        <result column="med_text" property="medText"/>
+        <result column="exp_pay" property="expPay"/>
+        <result column="exp_time" property="expTime"/>
+        <result column="exp_zt" property="expZt"/>
+    </resultMap>
+    <!--查看消费记录-->
+    <select id="selExpCal" resultMap="ExpCalMapper">
+        select * from exp_cal where res_no=#{param}
+    </select>
+    <!--新增消费记录-->
+    <insert id="addExpCal">
+        insert into exp_cal(res_no,med_text,exp_pay) values (#{resNo},#{medText},#{expPay})
+    </insert>
+</mapper>

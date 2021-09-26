@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.DocAdvXqDao">
+    <resultMap id="DocAdvXqMapper" type="com.pojos.inpatient.DocAdvXq">
+        <id column="doc_adv_id" property="docAdvId"/>
+        <result column="doc_adv_no" property="docAdvNo"/>
+        <result column="drug_id" property="drugId"/>
+        <result column="drug_number" property="drugNumber"/>
+        <result column="doc_fre" property="docFre"/>
+        <result column="doc_stat" property="docStat"/>
+        <result column="doc_end" property="docEnd"/>
+        <result column="doc_yz" property="docYz"/>
+        <result column="doc_zt" property="docZt"/>
+        <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+            <id column="DRUG_ID" property="drugId" />
+            <result column="DRUG_NAME" property="drugName" />
+            <result column="DRUG_PYM" property="drugPym" />
+            <result column="DRUG_TYPE_ID" property="drugTypeId" />
+            <result column="DRUG_SORT_ID" property="drugSortId" />
+            <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+            <result column="DRUG_JINJIA" property="drugJinjia" />
+            <result column="DRUG_SHOUJIA" property="drugShoujia" />
+            <result column="DRUG_RIQI" property="drugRiqi" />
+            <result column="DRUG_MATR" property="drugMatr" />
+            <result column="SUPPLY_ID"  property="supplyId" />
+            <result column="DRUG_CLASS" property="drugClass" />
+            <result column="DRUG_STATE" property="drugState" />
+            <result column="DRUG_MESSAGE" property="drugMessage" />
+        </association>
+    </resultMap>
+    <!--新增医嘱详单-->
+    <insert id="addDocAdvXq">
+        insert into doc_adv_xq(doc_adv_no,drug_id,drug_number,doc_fre,doc_stat,doc_yz)
+        values (#{docAdvNo},#{drugId},#{drugNumber},#{docFre},#{docStat},#{docYz})
+        <selectKey keyProperty="docAdvId" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <!--查看医嘱详单-->
+    <select id="selDocAdvXq" resultMap="DocAdvXqMapper">
+        select * from doc_adv_xq d inner join yao_ping_xx y on d.drug_id=y.DRUG_ID where d.doc_adv_no=#{param}
+    </select>
+    <!--根据住院单号查看医嘱详单-->
+    <select id="serDocAdvXq" resultMap="DocAdvXqMapper">
+        select * from doc_adv_xq da inner join doc_adv d on da.doc_adv_no = d.doc_adv_no
+        where d.res_no=#{param} and d.doc_type=0 and (da.doc_end is null or da.doc_end >CURDATE())
+    </select>
+    <!--修改医嘱详单-->
+    <update id="upDateDocAdvXq">
+        update doc_adv_xq set doc_end=#{docEnd} where doc_adv_id=#{docAdvId}
+    </update>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.WardDao">
+    <resultMap id="WardMapper" type="com.pojos.inpatient.Ward">
+        <id column="ward_no" property="wardNo"/>
+        <result column="ward_name" property="wardName"/>
+        <result column="ward_dress" property="wardDress"/>
+        <result column="ward_zt" property="wardZt"/>
+        <result column="ward_mon" property="wardMon"/>
+        <result column="ward_dep" property="wardDep"/>
+    </resultMap>
+    <!--查看病房表-->
+    <select id="selWard" resultMap="WardMapper">
+        select * from ward where 1=1
+        <if test="param!=null and param!=''">
+            and (ward_name like '%${param}%')
+        </if>
+    </select>
+    <!--新增病房表-->
+    <insert id="addWard" parameterType="com.pojos.inpatient.Ward">
+        insert into ward(ward_name,ward_dress,ward_mon,ward_dep) values(#{wardName},#{wardDress},#{wardMon},#{wardDep})
+    </insert>
+    <!--修改病房-->
+    <update id="updateWard">
+        update ward
+        <set>
+            <if test="wardName!=''">
+                ward_name=#{wardName},
+            </if>
+            <if test="wardDress!=''">
+                ward_dress=#{wardDress},
+            </if>
+            <if test="wardZt!=''">
+                ward_zt=#{wardZt},
+            </if>
+            <if test="wardMon!=''">
+                ward_mon=#{wardMon},
+            </if>
+        </set>
+        where ward_no=#{wardNo}
+    </update>
+</mapper>

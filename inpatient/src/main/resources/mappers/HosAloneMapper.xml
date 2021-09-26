@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.HosAloneDao">
+    <resultMap id="HosAloneMapper" type="com.pojos.inpatient.HosAlone">
+        <id column="res_no" property="resNo"/>
+        <result column="linkman" property="linkman"/>
+        <result column="phone" property="phone"/>
+        <result column="hos_no" property="hosNo"/>
+        <result column="nurse" property="nurse"/>
+        <result column="hos_stay" property="hosStay"/>
+        <result column="pay_type" property="payType"/>
+        <result column="hos_cond" property="hosCond"/>
+        <result column="hos_money" property="hosMoney"/>
+        <result column="hos_zt" property="hosZt"/>
+        <association property="admNot" javaType="com.pojos.inpatient.AdmNot">
+            <id column="hos_no" property="hosNo"/>
+            <result column="patient" property="patient"/>
+            <result column="section" property="section"/>
+            <result column="doctor" property="doctor"/>
+            <result column="result" property="result"/>
+            <result column="dispose" property="dispose"/>
+            <result column="adm_zt" property="admZt"/>
+            <association property="medicalcard" javaType="com.pojos.outpatient.Medicalcard">
+                <id column="medi_no" property="mediNo"/>
+                <result column="medi_card" property="mediCard"/>
+                <result column="medi_password" property="mediPassword"/>
+                <result column="medi_balance" property="mediBalance"/>
+                <result column="medi_idcart" property="mediIdcart"/>
+                <result column="medi_patient_no" property="mediPatientNo"/>
+                <result column="medi_newdate" property="mediNewdate"/>
+                <result column="medi_state" property="mediState"/>
+            </association>
+            <association property="pat" javaType="com.pojos.outpatient.Patient">
+                <id column="patient_no" property="patientNo"/>
+                <result column="patient_name" property="patientName"/>
+                <result column="patient_sex" property="patientSex"/>
+                <result column="patient_phone" property="patientPhone"/>
+                <result column="patient_idcart" property="patientIdcart"/>
+                <result column="patient_age" property="patientAge"/>
+                <result column="patient_birthdate" property="patientBirthdate"/>
+                <result column="" property="patientAddress"/>
+                <result column="patient_date" property="patientDate"/>
+            </association>
+        </association>
+    </resultMap>
+    <!--查询所有住院单-->
+    <select id="allHos" resultMap="HosAloneMapper">
+        select * from hos_alone h inner join adm_not a on h.hos_no=a.hos_no inner join medicalcard m on a.patient = m.medi_no inner join patient p on m.medi_patient_no=p.patient_no
+        where h.hos_zt='0'
+        <if test="param!=null and param!=''">
+            and (p.patient_name like '%${param}%' or h.res_no like '%${param}%')
+        </if>
+    </select>
+    <!--新增住院单-->
+    <insert id="addHos" parameterType="com.pojos.inpatient.HosAlone">
+        insert into hos_alone(linkman,phone,hos_no,nurse,pay_type,hos_cond,hos_money,hos_zt)
+        values(#{linkman},#{phone},#{hosNo},'李云',#{payType},#{hosCond},#{hosMoney},'0')
+    </insert>
+</mapper>
+

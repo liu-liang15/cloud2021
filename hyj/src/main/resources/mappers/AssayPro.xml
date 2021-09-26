@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.AssayProMapper">
+    <resultMap id="AssayPro" type="com.pojos.hyj.AssayPro">
+        <id property="assayProId" column="assay_pro_id"></id>
+        <result property="assayMealId" column="assay_meal_id"></result>
+        <result property="assayProName" column="assay_pro_name"></result>
+        <result property="assayResInform" column="assay_res_inform"></result>
+        <result property="assayProUnit" column="assay_pro_unit"></result>
+        <result property="assayProRef" column="assay_pro_ref"></result>
+    </resultMap>
+    <!--查询所有小项目列表-->
+    <select id="findAllPro" resultMap="AssayPro">
+        select * from assay_pro
+    </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.AssayDao">
+
+    <resultMap id="assay" type="com.pojos.outpatient.Assay">
+        <id column="assay_no" property="assayNo" />
+        <result column="assay_seedo_number" property="assaySeedoNumber" />
+        <result column="assay_money" property="assayMoney" />
+        <result column="assay_date" property="assayDate" />
+        <result column="assay_state" property="assayState" />
+    </resultMap>
+
+    <resultMap id="labworkdetails" type="com.pojos.outpatient.Labworkdetails">
+        <id column="labdet_no" property="labdetNo" />
+        <result column="assay_meal_id" property="assayMealId" />
+        <result column="labdet_assay_no" property="labdetAssayNo" />
+        <result column="labdet_count" property="labdetCount" />
+        <result column="assay_meal_price" property="assayMealPrice" />
+    </resultMap>
+
+    <insert id="insertAssayCF" useGeneratedKeys="true" keyProperty="assayNo" parameterType="com.pojos.outpatient.Assay">
+        insert into assay(assay_seedo_number,assay_money)
+         values(#{assaySeedoNumber},#{assayMoney})
+    </insert>
+
+    <insert id="insertLabworkdetailsCF" parameterType="com.pojos.outpatient.Labworkdetails">
+        insert into labworkdetails
+        values(0,#{assayMealId},#{labdetAssayNo},#{labdetCount},#{assayMealPrice})
+    </insert>
+</mapper>

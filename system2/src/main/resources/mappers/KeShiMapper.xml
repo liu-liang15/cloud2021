@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.system.KeShiDao">
+
+    <resultMap id="BaseResultMap" type="com.pojos.system.KeShi">
+            <id property="ksId" column="ks_id" jdbcType="INTEGER"/>
+            <result property="ksName" column="ks_name" jdbcType="VARCHAR"/>
+            <association property="yuanGo" javaType="com.pojos.system.YuanGo">
+                <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+                <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+                <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
+                <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
+            </association>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ks.ks_id,ks_name,ks.yg_id, yg_name, yg_dh, yg_sfz, yg.ks_id, gw_id
+    </sql>
+    <select id="selectQb" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from ke_shi ks left join yuan_go yg on ks.yg_id=yg.yg_id
+        <if test="shou!= 'null' and shou!=''">
+            where ks_name like concat('%',#{shou},'%') or yg_name=#{shou}
+        </if>
+    </select>
+</mapper>

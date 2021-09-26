@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.ExamineorderDao">
+
+    <resultMap id="examineorder" type="com.pojos.outpatient.Examineorder">
+        <id column="exaord_no" property="exaordNo" />
+        <result column="exaord_seedo_number" property="exaordSeedoNumber" />
+        <result column="exaord_money" property="exaordMoney" />
+        <result column="exaord_date" property="exaordDate" />
+        <result column="exaord_state" property="exaordState" />
+    </resultMap>
+
+    <resultMap id="examinedetails" type="com.pojos.outpatient.Examinedetails">
+        <id column="exadet_no" property="exadetNo" />
+        <result column="exadet_exaord_no" property="exadetExaordNo" />
+        <result column="meal_blip_id" property="mealBlipId" />
+        <result column="exadet_count" property="exadetCount" />
+        <result column="meal_blip_price" property="mealBlipPrice" />
+    </resultMap>
+
+    <insert id="insertExamineorder" useGeneratedKeys="true" keyProperty="exaordNo" parameterType="com.pojos.outpatient.Examineorder">
+        insert into examineorder(exaord_seedo_number,exaord_money)
+         values(#{exaordSeedoNumber},#{exaordMoney})
+    </insert>
+
+    <insert id="insertExaminedetails" parameterType="com.pojos.outpatient.Examinedetails">
+        insert into examinedetails
+        values(0,#{exadetExaordNo},#{mealBlipId},#{exadetCount},#{mealBlipPrice})
+    </insert>
+</mapper>

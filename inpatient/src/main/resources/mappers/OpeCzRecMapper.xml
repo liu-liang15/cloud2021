@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.OpeCzRecDao">
+    <resultMap id="OPeCzRecMapper" type="com.pojos.inpatient.OpeCzRec">
+        <id column="ope_cz_no" property="opeCzNo"/>
+        <result column="ope_cz_time" property="opeCzTime"/>
+        <result column="ope_no" property="opeNo"/>
+        <result column="ope_cz_type" property="opeCzType"/>
+        <result column="ope_cz_res" property="opeCzRes"/>
+        <association property="opeRoom" javaType="com.pojos.inpatient.OpeRoom">
+            <id column="ope_no" property="opeNo"/>
+            <result column="ope_name" property="opeName"/>
+            <result column="ope_dress" property="opeDress"/>
+            <result column="ope_ks" property="opeKs"/>
+            <result column="ope_zt" property="opeZt"/>
+        </association>
+    </resultMap>
+    <!--新增手术室操作记录表-->
+    <insert id="addOpeCz">
+        insert into ope_cz_rec(ope_no,ope_cz_type,ope_cz_res) values(#{opeNo},#{opeCzType},#{opeCzRes})
+    </insert>
+    <!--查看手术室操作记录表-->
+    <select id="selOpeCz" resultMap="OPeCzRecMapper">
+        select * from ope_cz_rec oc
+            inner join ope_room oe on oc.ope_no=oe.ope_no order by ope_cz_time desc
+    </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.OpeRoomDao">
+    <resultMap id="OpeRoomMapper" type="com.pojos.inpatient.OpeRoom">
+        <id column="ope_no" property="opeNo"/>
+        <result column="ope_name" property="opeName"/>
+        <result column="ope_dress" property="opeDress"/>
+        <result column="ope_ks" property="opeKs"/>
+        <result column="ope_zt" property="opeZt"/>
+    </resultMap>
+    <!--新增手术室-->
+    <insert id="addRoom">
+        insert into ope_room(ope_name,ope_dress,ope_ks) values(#{opeName},#{opeDress},#{opeKs})
+    </insert>
+    <!--查看手术室-->
+    <select id="selRoom" resultMap="OpeRoomMapper">
+        select * from ope_room
+        <if test="param!=''">
+            where (ope_name like '%${param}%' or ope_ks like '%${param}%')
+        </if>
+    </select>
+    <!--修改手术室-->
+    <update id="upDateRoom">
+        update ope_room
+        <set>
+            <if test="opeName!=''">
+                ope_name=#{opeName},
+            </if>
+            <if test="opeDress!=''">
+                ope_dress=#{opeDress},
+            </if>
+            <if test="opeKs!=''">
+                ope_ks=#{opeKs},
+            </if>
+            <if test="opeZt!=''">
+                ope_zt=#{opeZt},
+            </if>
+        </set>
+        where ope_no=#{opeNo}
+    </update>
+</mapper>

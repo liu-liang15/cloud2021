@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.AssayResMapper">
+    <resultMap id="assayPerson" type="com.pojos.hyj.AssayPerson">
+        <id property="assayPersonId" column="assay_person_id"></id>
+        <result property="assayPersonName" column="assay_person_name"></result>
+        <result property="assayPersonSex" column="assay_person_sex"></result>
+        <result property="assayPersonAge" column="assay_person_age"></result>
+        <result property="assayPersonPhone" column="assay_person_phone"></result>
+        <result property="assayPersonCard" column="assay_person_card"></result>
+        <result property="assayPersonTime" column="assay_person_time"></result>
+        <result property="assayMealName" column="assay_meal_name"></result>
+        <collection property="assayRes" ofType="com.pojos.hyj.AssayRes">
+            <id property="assayResId" column="assay_res_id"></id>
+            <result property="assayPersonId" column="assay_person_id"></result>
+            <result property="assayMealName" column="assay_meal_name"></result>
+            <result property="assayProName" column="assay_pro_name"></result>
+            <result property="assayResInform" column="assay_res_inform"></result>
+            <result property="assayProRef" column="assay_pro_ref"></result>
+            <result property="assayProUnit" column="assay_pro_unit"></result>
+        </collection>
+    </resultMap>
+    <select id="findRes" resultMap="assayPerson">
+        select * from assay_person ap inner join assay_res ar
+            on ap.assay_person_id = ar.assay_person_id and ap.assay_meal_name = ar.assay_meal_name
+            where ap.assay_person_id = #{assayPersonId}
+    </select>
+    <resultMap id="selectMeal" type="com.pojos.hyj.AssayMeal">
+        <id column="assay_meal_id" property="assayMealId"></id>
+        <result column="assay_meal_name" property="assayMealName"></result>
+        <result column="assay_meal_price" property="assayMealPrice"></result>
+        <result column="assay_meal_type" property="assayMealType"></result>
+        <result column="ks_name" property="ksName"></result>
+        <collection property="assayPros" ofType="com.pojos.hyj.AssayPro">
+            <id column="assay_pro_id" property="assayProId"></id>
+            <result column="assay_pro_name" property="assayProName"></result>
+            <result column="assay_pro_ref" property="assayProRef"></result>
+            <result column="assay_pro_unit" property="assayProUnit"></result>
+        </collection>
+    </resultMap>
+    <select id="findMealPro" resultMap="selectMeal">
+        select * from assay_meal am
+        inner join assay_meal_middle amd on am.assay_meal_id = amd.assay_meal_id
+        inner join assay_pro ap on amd.assay_pro_id = ap.assay_pro_id
+        where am.assay_meal_name = #{assayMealName}
+    </select>
+    <!--查询体检结果-->
+    <select id="findPersonRes" resultMap="assayPerson">
+        select * from assay_person ap inner join assay_res ar
+        on ap.assay_person_id = ar.assay_person_id and ap.assay_meal_name = ar.assay_meal_name
+        where ap.assay_k = 1;
+    </select>
+    <!--体检结果录入界面的table查询-->
+    <select id="findEnterRes" resultMap="assayPerson">
+        select * from assay_person
+        where assay_k = 0;
+    </select>
+    <!--录入体检结果-->
+    <insert id="addRes">
+        insert into assay_res(assay_pro_name,assay_res_inform,assay_pro_unit,assay_pro_ref,assay_person_id,assay_meal_name)
+        values
+        <foreach collection="list" item="obj" separator=",">
+            (#{obj.assayProName},#{obj.assayResInform},#{obj.assayProUnit},#{obj.assayProRef},#{obj.assayPersonId},#{obj.assayMealName})
+        </foreach>
+    </insert>
+    <!--修改assay_k状态-->
+    <update id="editOneK">
+        update assay_person set assay_k = 1 where assay_person_id = #{assayPersonId}
+    </update>
+    <update id="editZeroK">
+        update assay_person set assay_k = 0 where assay_person_id = #{assayPersonId}
+    </update>
+    <!--根据体检人id删除体检结果-->
+    <delete id="delPersonRes">
+        delete from assay_res where assay_person_id = #{assayPersonId} and assay_meal_name = #{assayMealName}
+    </delete>
+</mapper>

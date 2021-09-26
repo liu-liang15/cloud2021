@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.system.BuMenDao">
+  <select id="selectByAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from bu_men bm LEFT JOIN yuan_go yg on bm_fzr=yg_id
+
+    <if test="shou != 'null'">
+      where bm_name=#{shou} or bm.bm_id like "%${shou}%" or yg_name=#{shou}
+    </if>
+  </select>
+  <resultMap id="BaseResultMap" type="com.pojos.system.BuMen">
+    <id column="bm_id" jdbcType="INTEGER" property="bmId" />
+    <result column="bm_name" jdbcType="VARCHAR" property="bmName" />
+<!--    <result column="bm_fzr" jdbcType="VARCHAR" property="yuanGo" />-->
+    <association property="yuanGo" javaType="com.pojos.system.YuanGo">
+        <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+        <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+        <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
+        <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
+    </association>
+  </resultMap>
+  <!--  根据主键ID查询  -->
+  <!--  sql语句分片 -->
+  <sql id="Base_Column_List">
+     bm.bm_id, bm_name, bm_fzr,yg_id, yg_name, yg_dh, yg_sfz, ks_id, gw_id
+  </sql>
+  <!--  查询所有的部门 连接员工表  -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bu_men
+    where bm_id = #{bmId,jdbcType=INTEGER}
+  </select>
+<!--  根据ID删除  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bu_men
+    where bm_id = #{bmId,jdbcType=INTEGER}
+  </delete>
+<!--  新增部门表  -->
+  <insert id="insert" keyColumn="bm_id" keyProperty="bmId" parameterType="com.pojos.system.BuMen" useGeneratedKeys="true">
+    insert into bu_men (bm_id,bm_name, bm_fzr)
+    values (#{bmId},#{bmName,jdbcType=VARCHAR}, #{yuanGo.ygId,jdbcType=VARCHAR})
+  </insert>
+
+<!--  修改部门信息  -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojos.system.BuMen">
+    update bu_men
+    <set>
+      <if test="bmName != null">
+        bm_name = #{bmName,jdbcType=VARCHAR},
+      </if>
+      <if test="yuanGo != null">
+        bm_fzr = #{yuanGo.ygId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bm_id = #{bmId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

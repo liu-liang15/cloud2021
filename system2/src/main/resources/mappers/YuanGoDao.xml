@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.system.YuanGoDao">
+
+  <resultMap id="BaseResultMap" type="com.pojos.system.YuanGo">
+    <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+    <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+    <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
+    <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
+  </resultMap>
+<!--  查询岗位下的员工数据-->
+  <resultMap id="gwdYg" type="com.pojos.system.GangWei">
+    <id column="gw_id" property="gwId"/>
+    <result column="gw_name" property="ygName"/>
+    <collection property="yuanGos" ofType="com.pojos.system.YuanGo">
+      <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+      <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+    </collection>
+  </resultMap>
+<!--  查询员工全部数据使用-->
+  <resultMap id="BaseResultMap2" type="com.pojos.system.YuanGo">
+    <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+    <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+    <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
+    <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
+    <association property="buMen2" javaType="com.pojos.system.BuMen">
+      <id column="bm_id" property="bmId"/>
+      <result column="bm_name" property="bmName"/>
+    </association>
+    <association property="keShi2" javaType="com.pojos.system.KeShi">
+      <id column="ks_id" property="ksId"/>
+      <result column="ks_name" property="ksName"/>
+    </association>
+    <association property="gangWei2" javaType="com.pojos.system.GangWei">
+      <id column="gw_id" property="gwId"/>
+      <result column="gw_name" property="gwName"/>
+    </association>
+    <association property="yongHu" javaType="com.pojos.system.YongHu">
+      <id column="yh_id" property="yhId"/>
+      <result column="yh_mm" property="yhMm"/>
+      <result column="yg_id" property="ygId"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    yg_id, yg_name, yg_dh, yg_sfz, ks_id, bm_id, gw_id
+  </sql>
+  <select id="selectByAll02" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from yuan_go
+  </select>
+<!--  查询员工表全部数据 -->
+  <select id="selectByAll01" resultMap="BaseResultMap2">
+    select * from yuan_go yg left join bu_men bm on yg.bm_id=bm.bm_id
+                            left join ke_shi ks on yg.ks_id=ks.ks_id
+                            left join gang_wei gw on yg.gw_id=gw.gw_id
+                            left join yong_hu yh on yg.yg_id=yh.yg_id
+
+    <if test="param!=null and param != ''">
+        where bm.bm_name=#{param} or ks.ks_name=#{param} or gw.gw_name=#{param} or yg.yg_name=#{param}
+    </if>
+  </select>
+  <select id="getGwdyg" resultMap="gwdYg">
+    select * from gang_wei gw inner join yuan_go yg on gw.gw_id=yg.gw_id where yg.ks_id=#{ksId}
+  </select>
+</mapper>

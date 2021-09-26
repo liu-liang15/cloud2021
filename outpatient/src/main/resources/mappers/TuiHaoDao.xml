@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.TuiHaoDao">
+    <resultMap id="tuiHao" type="com.pojos.outpatient.Tuihao">
+        <id column="tuihao_no" property="tuihaoNo" />
+        <result column="hospreg_no" property="hospregNo" />
+        <result column="tuihao_date" property="tuihaoDate" />
+        <result column="tuihao_yuanyin" property="tuihaoYuanyin" />
+        <result column="tuihao_caozuoyuan" property="tuihaoCaozuoyuan" />
+    </resultMap>
+    <select id="findAllTuiHao" resultMap="tuiHao">
+        select * from tuihao where 1 = 1
+        <if test="param!=null and param!=''">
+            and hospreg_no like '%${param}%'
+        </if>
+        order by tuihao_date desc
+    </select>
+
+    <insert id="insertTuiHao">
+        insert into tuihao(hospreg_no,tuihao_yuanyin,tuihao_caozuoyuan) values(#{hospregNo}, #{tuihaoYuanyin}, #{tuihaoCaozuoyuan})
+    </insert>
+</mapper>

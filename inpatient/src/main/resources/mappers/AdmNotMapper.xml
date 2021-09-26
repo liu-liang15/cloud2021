@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.AdmNotDao">
+    <resultMap id="AdmNotmapper" type="com.pojos.inpatient.AdmNot">
+        <id column="hos_no" property="hosNo"/>
+        <result column="patient" property="patient"/>
+        <result column="section" property="section"/>
+        <result column="doctor" property="doctor"/>
+        <result column="result" property="result"/>
+        <result column="dispose" property="dispose"/>
+        <result column="adm_zt" property="admZt"/>
+        <association property="medicalcard" javaType="com.pojos.outpatient.Medicalcard">
+            <id column="medi_no" property="mediNo"/>
+            <result column="medi_card" property="mediCard"/>
+            <result column="medi_password" property="mediPassword"/>
+            <result column="medi_balance" property="mediBalance"/>
+            <result column="medi_idcart" property="mediIdcart"/>
+            <result column="medi_patient_no" property="mediPatientNo"/>
+            <result column="medi_newdate" property="mediNewdate"/>
+            <result column="medi_state" property="mediState"/>
+        </association>
+        <association property="pat" javaType="com.pojos.outpatient.Patient">
+            <id column="patient_no" property="patientNo"/>
+            <result column="patient_name" property="patientName"/>
+            <result column="patient_sex" property="patientSex"/>
+            <result column="patient_phone" property="patientPhone"/>
+            <result column="patient_idcart" property="patientIdcart"/>
+            <result column="patient_age" property="patientAge"/>
+            <result column="patient_birthdate" property="patientBirthdate"/>
+            <result column="" property="patientAddress"/>
+            <result column="patient_date" property="patientDate"/>
+        </association>
+    </resultMap>
+    <!--查询住院通知单-->
+    <select id="selAdm" resultMap="AdmNotmapper">
+        select * from adm_not a inner join medicalcard m on a.patient = m.medi_no inner join patient p on m.medi_patient_no=p.patient_no
+        where a.adm_zt='0'
+       <if test="param!=null and param!=''">
+            and (p.patient_name like '%${param}%' or a.hos_no like '%${param}%')
+       </if>
+    </select>
+    <!--修改登记单状态-->
+    <update id="alterAdm">
+        update adm_not set adm_zt='1' where hos_no=#{hosNo}
+    </update>
+</mapper>

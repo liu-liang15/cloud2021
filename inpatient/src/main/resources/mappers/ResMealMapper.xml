@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.ResMealDao">
+    <resultMap id="ResMealMapper" type="com.pojos.inpatient.ResMeal">
+        <id column="res_meal_no" property="resMealNo"/>
+        <result column="meal_id" property="mealId"/>
+        <result column="res_no" property="resNo"/>
+        <result column="meal_time" property="mealTime"/>
+        <result column="meal_doc" property="mealDoc"/>
+    </resultMap>
+    <!--患者新增体检或检验项目-->
+    <insert id="addResMeal">
+        insert into res_meal(meal_id,res_no,meal_doc)values (#{mealId},#{resNo},#{mealDoc})
+    </insert>
+</mapper>

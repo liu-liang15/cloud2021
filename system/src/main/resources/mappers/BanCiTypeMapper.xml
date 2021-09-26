@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.system.BanCiTypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.pojos.system.BanCiType">
+            <id property="bcTypeId" column="bc_type_id" jdbcType="INTEGER"/>
+            <result property="bcTypeName" column="bc_type_name" jdbcType="VARCHAR"/>
+            <result property="bcSc" column="bc_sc" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bc_type_id,bc_type_name,bc_sc
+    </sql>
+</mapper>

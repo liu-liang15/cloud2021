@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/cloud-api-commons/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-api-commons/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-config-client-3737/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-config-client-3737/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-gateway9527/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-gateway9527/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hyj/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hyj/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inpatient/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inpatient/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/outpatient/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/outpatient/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pharmacy/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pharmacy/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system2/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

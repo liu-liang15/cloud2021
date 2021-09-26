@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.AssayMealBlipDao">
+
+    <resultMap id="assayMealBlip" type="com.pojos.outpatient.AssayMealBlip">
+        <id column="meal_blip_id" property="mealBlipId" />
+        <result column="meal_blip_name" property="mealBlipName" />
+        <result column="meal_blip_price" property="mealBlipPrice" />
+        <result column="meal_blip_type" property="mealBlipType" />
+        <result column="ks_name" property="ksName" />
+    </resultMap>
+
+    <select id="findBlip" resultMap="assayMealBlip">
+        select * from assay_meal_blip
+    </select>
+</mapper>
