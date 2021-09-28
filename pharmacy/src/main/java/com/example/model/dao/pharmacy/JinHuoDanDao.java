@@ -1,5 +1,6 @@
 package com.example.model.dao.pharmacy;
 
+
 import com.pojos.pharmacy.CaiGoJh;
 import com.pojos.pharmacy.JhXiangDan;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,5 @@ public interface JinHuoDanDao {
     //批量新增采购计划详单
     void addJHXD(Collection<JhXiangDan> jhXiangDan, String planId);
     //查询采购计划单
-     List<CaiGoJh> findAllJHD();
-     //查询采购计划详单
-     List<JhXiangDan> findAllJHXD(String planId);
+    List<CaiGoJh> findAllJHD();
 }
