@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.FeebillDao">
+
+    <resultMap id="feebill" type="com.example.model.pojos.outpatient.Feebill">
+        <id column="feebill_no" property="feebillNo" />
+        <result column="feebill_seedo_number" property="feebillSeedoNumber" />
+        <result column="feebill_money" property="feebillMoney" />
+        <result column="feebill_type" property="feebillType" />
+        <result column="feebill_date" property="feebillDate" />
+        <result column="feebill_state" property="feebillState" />
+        <result column="feebill_remark" property="feebillRemark" />
+        <collection property="feebillDetails" javaType="ArrayList" ofType="com.example.model.pojos.outpatient.FeebillDetails">
+            <id column="febide_no" property="febideNo" />
+            <result column="febide_feebill_no" property="febideFeebillNo" />
+            <result column="febide_id" property="febideId" />
+            <result column="febide_name" property="febideName" />
+            <result column="febide_money" property="febideMoney" />
+            <result column="febide_type" property="febideType" />
+            <result column="febide_count" property="febideCount" />
+            <result column="febide_state" property="febideState" />
+            <association property="yaoPingXx" javaType="com.example.model.pojos.pharmacy.YaoPingXx">
+                <id column="DRUG_ID" property="drugId" />
+                <result column="DRUG_NAME" property="drugName" />
+                <result column="DRUG_PYM" property="drugPym" />
+                <result column="DRUG_TYPE_ID" property="drugTypeId" />
+                <result column="DRUG_SORT_ID" property="drugSortId" />
+                <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+                <result column="DRUG_JINJIA" property="drugJinjia" />
+                <result column="DRUG_SHOUJIA" property="drugShoujia" />
+                <result column="DRUG_RIQI" property="drugRiqi" />
+                <result column="DRUG_MATR" property="drugMatr" />
+                <result column="SUPPLY_ID"  property="supplyId" />
+                <result column="DRUG_CLASS" property="drugClass" />
+                <result column="DRUG_STATE" property="drugState" />
+                <result column="DRUG_MESSAGE" property="drugMessage" />
+            </association>
+        </collection>
+    </resultMap>
+    <select id="findFeebillByNo" resultMap="feebill">
+        select * from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no
+    </select>
+    <!--查询所有以缴费的待发药品-->
+    <select id="findAllDFYP" resultMap="feebill">
+        select * from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no INNER JOIN yao_ping_xx ypxx on fs.febide_id=ypxx.drug_id where fs.febide_type='药品' and fs.febide_state=1
+    </select>
+</mapper>
