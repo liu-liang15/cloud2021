@@ -29,8 +29,4 @@ public class JinHuoDanController {
     public List<CaiGoJh> findAllJHD(){
         return jinHuoDanService.findAllJHD();
     }
-    @RequestMapping("jhxd")
-    public List<JhXiangDan> findAllJXHD(String planId){
-        return jinHuoDanService.findAllJXHD(planId);
-    }
 }

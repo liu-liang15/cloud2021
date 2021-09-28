@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.model.dao.pharmacy.HaoCaiDao">
-    <resultMap id="HaoCaiMapper" type="com.pojos.pharmacy.HaoCai">
+    <resultMap id="HaoCaiMapper" type="com.example.model.pojos.pharmacy.HaoCai">
         <id column="CONSU_ID" property="consuId" />
         <result column="CONSU_NAME" property="consuName" />
         <result column="CONSU_JINJIA" property="consuJinjia" />

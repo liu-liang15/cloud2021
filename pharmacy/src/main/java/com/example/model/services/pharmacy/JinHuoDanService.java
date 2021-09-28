@@ -25,7 +25,4 @@ public class JinHuoDanService {
     public List<CaiGoJh> findAllJHD(){
         return jinHuoDanDao.findAllJHD();
     }
-    public List<JhXiangDan> findAllJXHD(String planId){
-        return jinHuoDanDao.findAllJHXD(planId);
-    }
 }

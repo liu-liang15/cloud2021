@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.model.dao.pharmacy.XiaoHuiDao">
-    <resultMap id="XHSQMapper" type="com.pojos.pharmacy.XiaoHuiSq">
+    <resultMap id="XHSQMapper" type="com.example.model.pojos.pharmacy.XiaoHuiSq">
         <id column="xhsq_id" property="xhsqId" />
         <result column="xh_fzr" property="xhFzr" />
         <result column="sj" property="sj" />
         <result column="zt" property="zt" />
-        <association property="yongHu" javaType="com.pojos.system.YongHu">
+        <association property="yongHu" javaType="com.example.model.pojos.system.YongHu">
             <id column="yg_id" jdbcType="INTEGER" property="ygId" />
             <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
             <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
             <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
         </association>
-        <collection property="xiaoHuiXds" javaType="ArrayList" ofType="com.pojos.pharmacy.XiaoHuiXd" >
+        <collection property="xiaoHuiXds" javaType="ArrayList" ofType="com.example.model.pojos.pharmacy.XiaoHuiXd" >
             <id column="xhsqxd_id" property="xhsqxdId" />
             <result column="xhsq_id" property="xhsqId" />
             <result column="rkpc_id" property="rkpcId" />
             <result column="ypsl" property="ypsl" />
-            <association property="rkXiangDan" javaType="com.pojos.pharmacy.RkXiangDan">
+            <association property="rkXiangDan" javaType="com.example.model.pojos.pharmacy.RkXiangDan">
                 <id column="rk_pc" property="rkPc"></id>
                 <result column="rk_dh" property="rkDh" />
                 <result column="DRUG_ID" property="drugId" />
@@ -26,7 +26,7 @@
                 <result column="scrq" property="scrq" />
                 <result column="bzq" property="bzq" />
                 <result column="ck_id" property="ckId"/>
-                <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+                <association property="yaoPingXx" javaType="com.example.model.pojos.pharmacy.YaoPingXx">
                     <id column="DRUG_ID" property="drugId" />
                     <result column="DRUG_NAME" property="drugName" />
                     <result column="DRUG_PYM" property="drugPym" />
@@ -42,7 +42,7 @@
                     <result column="DRUG_STATE" property="drugState" />
                     <result column="DRUG_MESSAGE" property="drugMessage" />
                 </association>
-                <!-- <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
+                <!-- <association property="haoCai" javaType="com.example.model.pojos.pharmacy.HaoCai">
                      <id column="CONSU_ID" property="consuId" />
                      <result column="CONSU_NAME" property="consuName" />
                      <result column="CONSU_JINJIA" property="consuJinjia" />
@@ -51,7 +51,7 @@
                      <result column="CONSU_RIQI"  property="consuRiqi" />
                      <result column="SONSU_MATR" property="sonsuMatr" />
                  </association>-->
-                <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
+                <association property="yaoKu" javaType="com.example.model.pojos.pharmacy.YaoKu">
                     <id column="WARE_ID" property="wareId"/>
                     <result column="WARE_NAME" property="wareName" />
                     <result column="WARE_TYPE" property="wareType" />
@@ -75,13 +75,13 @@
     <delete id="deltetKucun">
             delete from yp_ku_cun where rkpc_id = #{rkpcId}
     </delete>
-    <insert id="addXHCK" parameterType="com.pojos.pharmacy.ChuKu">
+    <insert id="addCK" parameterType="com.example.model.pojos.pharmacy.ChuKu">
         insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime})
     </insert>
     <insert id="addXHCKXQ" parameterType="java.util.Collection">
         INSERT INTO chu_ku_ji_lu VALUES
         <foreach collection="chuKuJiLus" item="p" separator=",">
-            (null,#{chukuId},#{p.rkpcId},#{p.rkpcId})
+            (null,#{chukuId},#{p.rkpcId},#{p.chuKuSl})
         </foreach>
     </insert>
 </mapper>
