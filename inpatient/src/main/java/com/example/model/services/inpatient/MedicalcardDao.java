@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2021年 09月27日9:00
  */
 @Component
+//这下面就是别人服务在注册中心的地址，就是别的小伙伴application.yml里面的spring.application.name的名字
 @FeignClient(value = "nacos-outpatient")
 public interface MedicalcardDao {
-    //@GetMapping("outpatient/updatepat")
-    //void updatePat(@PathVariable("mediBalance")double mediBalance, @PathVariable("mediNo") Integer mediNo) ;
+    //访问别人controller的地址，就和前端写访问路径一样的，省去了端口
     @GetMapping("outpatient/updatepat")
     void updatePat(Medicalcardjfjl med);
 }

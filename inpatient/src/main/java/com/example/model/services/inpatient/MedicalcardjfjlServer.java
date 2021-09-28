@@ -13,7 +13,7 @@ import java.util.List;
 public class MedicalcardjfjlServer {
     @Resource
     MedicalcardjfjlDao medDao;
-    // 这里要通过远程调用
+    // 这里要通过远程调用 新建一个接口
     @Resource
     MedicalcardDao medao;
     public void addJfjl(Medicalcardjfjl med){
