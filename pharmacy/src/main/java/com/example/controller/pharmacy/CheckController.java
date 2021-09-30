@@ -2,6 +2,7 @@ package com.example.controller.pharmacy;
 
 
 import com.example.model.services.pharmacy.CheckService;
+import com.pojos.pharmacy.PanDian;
 import com.pojos.pharmacy.YaoKu;
 import com.pojos.pharmacy.YpKuCun;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("pharmacy/")
 public class CheckController {
     @Autowired
     CheckService service;
@@ -25,5 +27,9 @@ public class CheckController {
     @RequestMapping("ware")
     public List<YaoKu> FindAllWare(){
         return service.FindAllWare();
+    }
+    @RequestMapping("addpd")
+    public void addPd(PanDian panDian){
+        service.addPD(panDian);
     }
 }

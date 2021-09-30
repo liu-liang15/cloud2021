@@ -1,5 +1,6 @@
 package com.example.model.services.pharmacy;
 
+import com.example.model.dao.pharmacy.FeebillDao;
 import com.example.model.dao.pharmacy.YaoFangDao;
 
 import com.pojos.outpatient.Feebill;
@@ -16,12 +17,12 @@ import java.util.List;
 @Service
 @Transactional
 public class YaoFangService {
-    @Resource
+    @Autowired
     YaoFangDao yaoFangDao;
 //    @Autowired
 //    FeebillDao feebillDaoDao;
-    @Resource
-    FeebillDao feebillDao;
+//    @Resource
+//    FeebillDao feebillDao;
 
     public void faYao(FaYao faYao){
         int sum1= yaoFangDao.sum1(faYao.getJfd());
@@ -44,8 +45,9 @@ public class YaoFangService {
     public List<YpYaoFang> findAll(){
     return yaoFangDao.findAllYFYP();
     }
-    public List<Feebill> findAllDFYP(){
-        return feebillDao.findAllDFYP();
-    }
+
+//    public List<Feebill> findAllDFYP(){
+//        return feebillDao.findAllDFYP();
+//    }
 
 }

@@ -1,4 +1,4 @@
-package com.example.model.services.pharmacy;
+package com.example.model.dao.pharmacy;
 
 import com.pojos.outpatient.Feebill;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,6 +15,6 @@ import java.util.List;
 //这下面就是别人服务在注册中心的地址，就是别的小伙伴application.yml里面的spring.application.name的名字
 @FeignClient(value = "nacos-outpatient")
 public interface FeebillDao {
-    @RequestMapping("outpatient/findAllDFYP")
-    List<Feebill> findAllDFYP();
+//    @RequestMapping("outpatient/findAllDFYP")
+//    List<Feebill> findAllDFYP();
 }
