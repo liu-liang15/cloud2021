@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.CheckDao">
+    <resultMap id="KCMapper" type="com.pojos.pharmacy.YpKuCun">
+        <id column="kc_id" property="kcId" />
+        <result column="rkpc_id" property="rkpcId" />
+        <result column="ypsl" property="ypsl" />
+        <association property="rkXiangDan" javaType="com.pojos.pharmacy.RkXiangDan">
+            <id column="rk_pc" property="rkPc"></id>
+            <result column="rk_dh" property="rkDh" />
+            <result column="DRUG_ID" property="drugId" />
+            <result column="CONSU_ID" property="consuId" />
+            <result column="rkyp_sl" property="rkypSl" />
+            <result column="scrq" property="scrq" />
+            <result column="bzq" property="bzq" />
+            <result column="ck_id" property="ckId"/>
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+                <id column="DRUG_ID" property="drugId" />
+                <result column="DRUG_NAME" property="drugName" />
+                <result column="DRUG_PYM" property="drugPym" />
+                <result column="DRUG_TYPE_ID" property="drugTypeId" />
+                <result column="DRUG_SORT_ID" property="drugSortId" />
+                <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+                <result column="DRUG_JINJIA" property="drugJinjia" />
+                <result column="DRUG_SHOUJIA" property="drugShoujia" />
+                <result column="DRUG_RIQI" property="drugRiqi" />
+                <result column="DRUG_MATR" property="drugMatr" />
+                <result column="SUPPLY_ID"  property="supplyId" />
+                <result column="DRUG_CLASS" property="drugClass" />
+                <result column="DRUG_STATE" property="drugState" />
+                <result column="DRUG_MESSAGE" property="drugMessage" />
+            </association>
+            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
+                <id column="CONSU_ID" property="consuId" />
+                <result column="CONSU_NAME" property="consuName" />
+                <result column="CONSU_JINJIA" property="consuJinjia" />
+                <result column="CONSU_PRICE" property="consuPrice" />
+                <result column="CONSU_SPEC" property="consuSpec" />
+                <result column="CONSU_RIQI"  property="consuRiqi" />
+                <result column="SONSU_MATR" property="sonsuMatr" />
+            </association>
+            <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
+                <id column="WARE_ID" property="wareId"/>
+                <result column="WARE_NAME" property="wareName" />
+                <result column="WARE_TYPE" property="wareType" />
+                <result column="WARE_SITE" property="wareSite" />
+            </association>
+        </association>
+    </resultMap>
+    <resultMap id="wareMapper" type="com.pojos.pharmacy.YaoKu">
+        <id column="WARE_ID" property="wareId"/>
+        <result column="WARE_NAME" property="wareName" />
+        <result column="WARE_TYPE" property="wareType" />
+        <result column="WARE_SITE" property="wareSite" />
+    </resultMap>
+    <!--查询某仓库所有药品-->
+    <select id="FindByWareKC" resultMap="KCMapper">
+        SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id where yk.ware_id=#{wareId}
+    </select>
+    <select id="FindAllWare" resultMap="wareMapper">
+        SELECT * from yao_ku
+    </select>
+    <insert id="addPD" parameterType="com.pojos.pharmacy.PanDian">
+        INSERT into pan_dian VALUES(#{pdId},#{pdSj},#{pdCk},#{pdFzr},#{pdBz})
+    </insert>
+    <insert id="addPDXB" parameterType="java.util.Collection">
+        INSERT INTO pang_dain_xd VALUES
+        <foreach collection="pangDainXds" item="p" separator=",">
+            (null,#{pdId},#{p.rkpcId},#{p.sjSl},#{p.ygSl},#{cjyy})
+        </foreach>
+    </insert>
+</mapper>

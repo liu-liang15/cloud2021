@@ -16,6 +16,7 @@ public class MedicalcardjfjlController {
     //新增缴费记录
     @PostMapping("/add-med")
     public void addJfjl(@RequestBody Medicalcardjfjl med){
+        System.err.println("1234567890");
         meds.addJfjl(med);
     }
     //查询缴费记录

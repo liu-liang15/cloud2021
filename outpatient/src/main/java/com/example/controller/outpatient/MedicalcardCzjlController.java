@@ -3,12 +3,10 @@ package com.example.controller.outpatient;
 import com.alibaba.fastjson.JSONObject;
 import com.example.model.services.outpatient.MedicalcardCzjlService;
 import com.example.model.services.outpatient.MedicalcardService;
+import com.pojos.inpatient.Medicalcardjfjl;
 import com.pojos.outpatient.Medicalcardczjl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,4 +34,12 @@ public class MedicalcardCzjlController {
         Medicalcardczjl Medicalcardczjl1 = JSONObject.parseObject(Medicalcardczjl,Medicalcardczjl.class);
         medicalcardCzjlService.addMedicalcardCzjl(Medicalcardczjl1);
     }
+    //修改卡余额
+    @RequestMapping("/updatepat")
+    public void updatePat(@RequestBody Medicalcardjfjl med){
+        System.err.println(med.getMecajfjlMoney()+"guolai修改卡余额"+Integer.parseInt(med.getMecajfjlMediNo()));
+        medicalcardCzjlService.updatePat(med.getMecajfjlMoney(),Integer.parseInt(med.getMecajfjlMediNo()));
+    }
+
+
 }

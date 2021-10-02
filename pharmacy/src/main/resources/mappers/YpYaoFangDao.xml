@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.YaoFangDao">
+    <!--药房药品信息-->
+    <resultMap id="YaoFangMap" type="com.pojos.pharmacy.YpYaoFang">
+        <id column="drug_id" property="drugId"/>
+        <result column="drug_number" property="drugNumber"/>
+        <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+            <id column="DRUG_ID" property="drugId" />
+            <result column="DRUG_NAME" property="drugName"/>
+            <result column="DRUG_PYM" property="drugPym" />
+            <result column="DRUG_TYPE_ID" property="drugTypeId" />
+            <result column="DRUG_SORT_ID" property="drugSortId" />
+            <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+            <result column="DRUG_JINJIA" property="drugJinjia" />
+            <result column="DRUG_SHOUJIA" property="drugShoujia" />
+            <result column="DRUG_RIQI" property="drugRiqi" />
+            <result column="DRUG_MATR" property="drugMatr" />
+            <result column="SUPPLY_ID"  property="supplyId" />
+            <result column="DRUG_CLASS" property="drugClass" />
+            <result column="DRUG_STATE" property="drugState" />
+            <result column="DRUG_MESSAGE" property="drugMessage" />
+            <association property="yaoPingGgs" javaType="com.pojos.pharmacy.YaoPingGg">
+                <id column="DRUG_SPEC_ID" property="drugSpecId" />
+                <result column="DRUG_SPEC_NAME" property="drugSpecName"/>
+            </association>
+            <association property="yaoPingLxes" javaType="com.pojos.pharmacy.YaoPingLx">
+                <id column="DRUG_TYPE_ID" property="drugTypeId" />
+                <result column="DRUG_TYPE_NAME" property="drugTypeName"/>
+            </association>
+            <association property="yaoPingLbs" javaType="com.pojos.pharmacy.YaoPingLb">
+                <id column="DRUG_SORT_ID" property="drugSortId" />
+                <result column="DRUG_SORT_NAME" property="drugSortName"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <insert id="addDrug">
+        insert into yp_yao_fang values (#{drugId},#{drugNumber})
+    </insert>
+    <delete id="deleteDrug">
+        delete from yp_yao_fang where drug_id=#{drugId}
+    </delete>
+    <!--药房发药减少对应药品库存-->
+    <update id="reduceDrugNumber">
+        update yp_yao_fang set drug_number=drug_number-#{drugNumber} where drug_id=#{drugId}
+    </update>
+    <!--药库调拨药品药房增加对应药品库存-->
+    <update id="addDrugNumber" parameterType="com.pojos.pharmacy.YaoPingXx">
+        update yp_yao_fang set drug_number=drug_number+#{drugNumber} where drug_id=#{drugId}
+    </update>
+    <!--修改缴费单状态-->
+    <update id="updateFYD">
+        update feebill set feebill_state='2' where feebill_no=#{id}
+    </update>
+    <!--修改发药详单状态-->
+    <update id="updateFYXD">
+        update feebilldetails set febide_state='2' where febide_feebill_no=#{id} and febide_type='药品'
+    </update>
+    <select id="sum1" resultType="_int">
+        select COUNT(1) as num  from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no where f.feebill_no=#{id}
+    </select>
+    <select id="sum2"  resultType="_int">
+        select COUNT(1) as num  from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no where f.feebill_no=#{id} and fs.febide_state=2
+    </select>
+    <insert id="addFYD" parameterType="com.pojos.pharmacy.FaYao">
+        insert into fa_yao values (#{fyId},#{fyRy},#{jfd},#{fySj})
+    </insert>
+    <insert id="addFYXD" parameterType="java.util.Collection">
+        INSERT INTO fao_yao_xd VALUES
+        <foreach collection="faoYaoXds" item="p" separator=",">
+            (null,#{fyId},#{p.ypId},#{p.ypSl},#{p.ypJg})
+        </foreach>
+    </insert>
+    <!--查询药房药品库存-->
+    <select id="findAllYFYP" resultMap="YaoFangMap">
+        SELECT * FROM yp_yao_fang ypyf INNER JOIN yao_ping_xx xx
+        on ypyf.drug_id= xx.drug_id INNER JOIN yao_ping_gg gg
+        on xx.DRUG_SPEC_ID=gg.DRUG_SPEC_ID INNER JOIN yao_ping_lb lb
+        on xx.DRUG_SORT_ID=lb.DRUG_SORT_ID INNER JOIN yao_ping_lx lx
+        on xx.DRUG_TYPE_ID=lx.DRUG_TYPE_ID  where 1=1
+    </select>
+</mapper>

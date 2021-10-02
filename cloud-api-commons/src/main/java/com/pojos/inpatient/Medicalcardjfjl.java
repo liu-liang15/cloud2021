@@ -1,7 +1,9 @@
 package com.pojos.inpatient;
 
 
+import lombok.ToString;
 
+@ToString
 public class Medicalcardjfjl {
 
   private long mecajfjlNo;

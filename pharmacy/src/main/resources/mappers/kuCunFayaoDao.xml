@@ -108,46 +108,58 @@
     <update id="updateYPSQ">
         update diao_bo_sq set sq_zhuang_tai=#{sqZhuangTai} where db_sheng_qing=#{dbShengQing}
     </update>
+    <!--查询所有药品-->
     <select id="FindAllKuCun" resultMap="KCMapper">
         SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id
     </select>
+    <!--根据药品编号查询剩余库存-->
     <select id="FindAllKuCun2" resultMap="KCMapper">
         SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id where ypxx.drug_id=#{drugId} order  BY rkxd.bzq
     </select>
+    <!--查询所有还有一个月过期的药品-->
     <select id="FindAllKuCun3" resultMap="KCMapper">
         SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc
         LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk
-        on rkxd.ck_id = yk.ware_id where DATE_ADD(NOW(), interval 1 MONTH) > rkxd.bzq
+        on rkxd.ck_id = yk.ware_id where DATE_ADD(NOW(), interval 4 MONTH) > rkxd.bzq
+        and (select count(1) as num from xiao_hui_xd xhsd INNER JOIN xiao_hui_sq xhsq
+        on xhsq.xhsq_id = xhsd.xhsq_id where ypkc.rkpc_id = xhsd.rkpc_id and xhsq.zt !=3 ) = 0
     </select>
+    <!--新增调拨申请-->
     <insert id="addDBSQ" parameterType="com.pojos.pharmacy.DiaoBoSq">
         insert into diao_bo_sq values (#{dbShengQing},#{dbfzr},#{sqsj},0)
     </insert>
+    <!--新增调拨详请-->
     <insert id="addDBXD" parameterType="java.util.Collection">
         insert into dbsq_xiang_biao values
         <foreach collection="dbsqXiangBiaos" item="p" separator=",">
             (null,#{dbShengQing},#{p.ypBh},#{p.dbSl})
         </foreach>
     </insert>
+    <!--新增发药主表-->
     <insert id="addFaoYao" parameterType="com.pojos.pharmacy.ChuKu">
         insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime});
     </insert>
+    <!--新增发药详表-->
     <insert id="addFaYaoXQ" parameterType="com.pojos.pharmacy.ChuKuJiLu">
-        insert into chu_ku_ji_lu values (null,,#{chukuId},#{kuChunId},#{chuKuSl})
+        insert into chu_ku_ji_lu values (null,#{chukuId},#{rkpcId},#{chuKuSl})
     </insert>
+    <!--修改药品数量-->
     <update id="edatKcCun">
-        update yp_ku_cun set ypsl=#{ypsl} where kc_id=#{kcid}
+        update yp_ku_cun set ypsl=ypsl-#{ypsl} where rkpc_id=#{rkpcID}
     </update>
+    <!--删除所有剩余库存为0的库存记录-->
     <delete id="delectKuCun">
         delete from yp_ku_cun where ypsl=0
     </delete>
-
+    <!--根据入库批次删除库存记录-->
     <delete id="delectKuCun2">
         delete from yp_ku_cun where kc_id=#{kcid}
     </delete>
-    
+    <!--新增销毁申请-->
     <insert id="addXHSQ">
         insert into xiao_hui_sq values(#{xhsqId},#{xhFzr},#{sj},0)
     </insert>
+    <!--新增销毁详请-->
     <insert id="addXHXB" parameterType="java.util.Collection">
         insert into xiao_hui_xd values
         <foreach collection="xiaoHuiXds" item="p" separator=", ">

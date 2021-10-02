@@ -104,7 +104,6 @@
                 #{purchaseSjfk},#{purchaseFukuang},#{purchaseFksj},#{purchaseState},#{purchaseJhsj})
     </insert>
     <!--批量新增采购详情-->
-
     <insert id="addCGXD" parameterType="java.util.Collection">
         INSERT INTO cgdd_xiang_dan VALUES
         <foreach collection="cgddXiangDans" item="p" separator=", ">
@@ -117,7 +116,11 @@
     </select>
     <!--查询所有待审核和待收货的订单-->
     <select id="findByIdCGD1" resultMap="CGDMapper">
-        select * from cg_ding_dan cgdd INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
+        select * from cg_ding_dan cgdd
+        INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
+        INNER JOIN cgdd_xiang_dan cgxd on cgxd.PURCHASE_ID=cgdd.PURCHASE_ID
+        LEFT JOIN yao_ping_xx yp on cgxd.DRUG_id=yp.DRUG_id
+        LEFT JOIN hao_cai hc on cgxd.CONSU_ID=hc.CONSU_ID
         where cgdd.PURCHASE_STATE = 0 or cgdd.PURCHASE_STATE = 1
     </select>
     <!--查询所有待入库的订单-->
