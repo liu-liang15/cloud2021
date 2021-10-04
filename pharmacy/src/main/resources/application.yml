@@ -62,4 +62,15 @@ mybatis-plus:
 #    call-setters-on-nulls: true
 #    map-underscore-to-camel-case: true
 #    cache-enabled: true
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  registry:
+    type: nacos
+    nacos:
+      # 需要和server端保持一致，即server在nacos中的名称，默认为seata-server
+      application: seata-server
+      server-addr: lo:80localhost:8848
+      username: "nacos"
+      password: "nacos"
 

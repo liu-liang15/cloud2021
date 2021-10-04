@@ -40,6 +40,7 @@
     <!-- 子模块继承之后，提供作用：锁定版本+子modlue不用写groupId和version  -->
     <dependencyManagement>
         <dependencies>
+
             <!--spring boot 2.2.2-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
