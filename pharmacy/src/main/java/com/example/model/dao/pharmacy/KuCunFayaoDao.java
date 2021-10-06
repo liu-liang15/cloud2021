@@ -2,6 +2,8 @@ package com.example.model.dao.pharmacy;
 
 import com.pojos.pharmacy.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -17,5 +19,5 @@ public interface KuCunFayaoDao {
     void updateYPSQ(int sqZhuangTai,String dbShengQing);
 
     void addXHSQ(XiaoHuiSq xiaoHuiSq);
-    void addXHXB(Collection<XiaoHuiXd> xiaoHuiXds, String xhsqId);
+    void addXHXB(@Param("xiaoHuiXds")Collection<XiaoHuiXd> xiaoHuiXds,@Param("xhsqId")String xhsqId);
 }
