@@ -21,6 +21,7 @@ public class FeebillController {
     @Autowired
     FeebillService feebillService;
 
+    @RequestMapping("/findAllDFYP")
     public List<Feebill> findAllDFYP(){
         return feebillService.findAllDFYP();
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.model.dao.pharmacy.KuCunFayaoDao">
-    <resultMap id="KCMapper" type="com.example.model.pojos.pharmacy.YpKuCun">
+    <resultMap id="KCMapper" type="com.pojos.pharmacy.YpKuCun">
         <id column="kc_id" property="kcId" />
         <result column="rkpc_id" property="rkpcId" />
         <result column="ypsl" property="ypsl" />
-        <association property="rkXiangDan" javaType="com.example.model.pojos.pharmacy.RkXiangDan">
+        <association property="rkXiangDan" javaType="com.pojos.pharmacy.RkXiangDan">
             <id column="rk_pc" property="rkPc"></id>
             <result column="rk_dh" property="rkDh" />
             <result column="DRUG_ID" property="drugId" />
@@ -14,7 +14,7 @@
             <result column="scrq" property="scrq" />
             <result column="bzq" property="bzq" />
             <result column="ck_id" property="ckId"/>
-            <association property="yaoPingXx" javaType="com.example.model.pojos.pharmacy.YaoPingXx">
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
                 <id column="DRUG_ID" property="drugId" />
                 <result column="DRUG_NAME" property="drugName" />
                 <result column="DRUG_PYM" property="drugPym" />
@@ -30,7 +30,7 @@
                 <result column="DRUG_STATE" property="drugState" />
                 <result column="DRUG_MESSAGE" property="drugMessage" />
             </association>
-            <association property="haoCai" javaType="com.example.model.pojos.pharmacy.HaoCai">
+            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
                 <id column="CONSU_ID" property="consuId" />
                 <result column="CONSU_NAME" property="consuName" />
                 <result column="CONSU_JINJIA" property="consuJinjia" />
@@ -39,7 +39,7 @@
                 <result column="CONSU_RIQI"  property="consuRiqi" />
                 <result column="SONSU_MATR" property="sonsuMatr" />
             </association>
-            <association property="yaoKu" javaType="com.example.model.pojos.pharmacy.YaoKu">
+            <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
                 <id column="WARE_ID" property="wareId"/>
                 <result column="WARE_NAME" property="wareName" />
                 <result column="WARE_TYPE" property="wareType" />
@@ -47,23 +47,23 @@
             </association>
         </association>
     </resultMap>
-    <resultMap id="YPSQMapper" type="com.example.model.pojos.pharmacy.DiaoBoSq">
+    <resultMap id="YPSQMapper" type="com.pojos.pharmacy.DiaoBoSq">
         <id column="db_sheng_qing" property="dbShengQing" />
         <result column="dbfzr" property="dbfzr" />
         <result column="sqsj" property="sqsj" />
         <result column="sq_zhuang_tai" property="sqZhuangTai" />
-        <association property="yongHu" javaType="com.example.model.pojos.system.YongHu">
+        <association property="yongHu" javaType="com.pojos.system.YongHu">
             <id column="yg_id" jdbcType="INTEGER" property="ygId" />
             <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
             <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
             <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
         </association>
-        <collection property="dbsqXiangBiaos" javaType="ArrayList" ofType="com.example.model.pojos.pharmacy.DbsqXiangBiao" >
+        <collection property="dbsqXiangBiaos" javaType="ArrayList" ofType="com.pojos.pharmacy.DbsqXiangBiao" >
             <id column="dbsqxd_id" property="dbsqxdId" />
             <result column="dbsq_id" property="dbsqId" />
             <result column="yp_bh" property="ypBh" />
             <result column="db_sl" property="dbSl" />
-            <association property="yaoPingXx" javaType="com.example.model.pojos.pharmacy.YaoPingXx">
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
                 <id column="DRUG_ID" property="drugId" />
                 <result column="DRUG_NAME" property="drugName" />
                 <result column="DRUG_PYM" property="drugPym" />
@@ -79,7 +79,7 @@
                 <result column="DRUG_STATE" property="drugState" />
                 <result column="DRUG_MESSAGE" property="drugMessage" />
             </association>
-            <!--            <association property="haoCai" javaType="com.example.model.pojos.pharmacy.HaoCai">
+            <!--            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
                             <id column="CONSU_ID" property="consuId" />
                             <result column="CONSU_NAME" property="consuName" />
                             <result column="CONSU_JINJIA" property="consuJinjia" />
@@ -125,7 +125,7 @@
         on xhsq.xhsq_id = xhsd.xhsq_id where ypkc.rkpc_id = xhsd.rkpc_id and xhsq.zt !=3 ) = 0
     </select>
     <!--新增调拨申请-->
-    <insert id="addDBSQ" parameterType="com.example.model.pojos.pharmacy.DiaoBoSq">
+    <insert id="addDBSQ" parameterType="com.pojos.pharmacy.DiaoBoSq">
         insert into diao_bo_sq values (#{dbShengQing},#{dbfzr},#{sqsj},0)
     </insert>
     <!--新增调拨详请-->
@@ -136,11 +136,11 @@
         </foreach>
     </insert>
     <!--新增发药主表-->
-    <insert id="addFaoYao" parameterType="com.example.model.pojos.pharmacy.ChuKu">
+    <insert id="addFaoYao" parameterType="com.pojos.pharmacy.ChuKu">
         insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime});
     </insert>
     <!--新增发药详表-->
-    <insert id="addFaYaoXQ" parameterType="com.example.model.pojos.pharmacy.ChuKuJiLu">
+    <insert id="addFaYaoXQ" parameterType="com.pojos.pharmacy.ChuKuJiLu">
         insert into chu_ku_ji_lu values (null,#{chukuId},#{rkpcId},#{chuKuSl})
     </insert>
     <!--修改药品数量-->
@@ -157,7 +157,7 @@
     </delete>
     <!--新增销毁申请-->
     <insert id="addXHSQ">
-        insert into xiao_hui_sq values(#{xhsqId},#{xhFzr},#{sj},0)
+        insert into xiao_hui_sq values(#{xhsqId},#{xhFzr},#{sj},0,#{yy})
     </insert>
     <!--新增销毁详请-->
     <insert id="addXHXB" parameterType="java.util.Collection">

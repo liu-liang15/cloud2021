@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.model.dao.pharmacy.CheckDao">
-    <resultMap id="KCMapper" type="com.example.model.pojos.pharmacy.YpKuCun">
+    <resultMap id="KCMapper" type="com.pojos.pharmacy.YpKuCun">
         <id column="kc_id" property="kcId" />
         <result column="rkpc_id" property="rkpcId" />
         <result column="ypsl" property="ypsl" />
-        <association property="rkXiangDan" javaType="com.example.model.pojos.pharmacy.RkXiangDan">
+        <association property="rkXiangDan" javaType="com.pojos.pharmacy.RkXiangDan">
             <id column="rk_pc" property="rkPc"></id>
             <result column="rk_dh" property="rkDh" />
             <result column="DRUG_ID" property="drugId" />
@@ -14,7 +14,7 @@
             <result column="scrq" property="scrq" />
             <result column="bzq" property="bzq" />
             <result column="ck_id" property="ckId"/>
-            <association property="yaoPingXx" javaType="com.example.model.pojos.pharmacy.YaoPingXx">
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
                 <id column="DRUG_ID" property="drugId" />
                 <result column="DRUG_NAME" property="drugName" />
                 <result column="DRUG_PYM" property="drugPym" />
@@ -30,7 +30,7 @@
                 <result column="DRUG_STATE" property="drugState" />
                 <result column="DRUG_MESSAGE" property="drugMessage" />
             </association>
-            <association property="haoCai" javaType="com.example.model.pojos.pharmacy.HaoCai">
+            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
                 <id column="CONSU_ID" property="consuId" />
                 <result column="CONSU_NAME" property="consuName" />
                 <result column="CONSU_JINJIA" property="consuJinjia" />
@@ -39,7 +39,7 @@
                 <result column="CONSU_RIQI"  property="consuRiqi" />
                 <result column="SONSU_MATR" property="sonsuMatr" />
             </association>
-            <association property="yaoKu" javaType="com.example.model.pojos.pharmacy.YaoKu">
+            <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
                 <id column="WARE_ID" property="wareId"/>
                 <result column="WARE_NAME" property="wareName" />
                 <result column="WARE_TYPE" property="wareType" />
@@ -47,7 +47,7 @@
             </association>
         </association>
     </resultMap>
-    <resultMap id="wareMapper" type="com.example.model.pojos.pharmacy.YaoKu">
+    <resultMap id="wareMapper" type="com.pojos.pharmacy.YaoKu">
         <id column="WARE_ID" property="wareId"/>
         <result column="WARE_NAME" property="wareName" />
         <result column="WARE_TYPE" property="wareType" />
@@ -60,13 +60,16 @@
     <select id="FindAllWare" resultMap="wareMapper">
         SELECT * from yao_ku
     </select>
-    <insert id="addPD" parameterType="com.example.model.pojos.pharmacy.PanDian">
+    <insert id="addPD" parameterType="com.pojos.pharmacy.PanDian">
         INSERT into pan_dian VALUES(#{pdId},#{pdSj},#{pdCk},#{pdFzr},#{pdBz})
     </insert>
     <insert id="addPDXB" parameterType="java.util.Collection">
         INSERT INTO pang_dain_xd VALUES
         <foreach collection="pangDainXds" item="p" separator=",">
-            (null,#{pdId},#{p.rkpcId},#{p.sjSl},#{p.ygSl},#{cjyy})
+            (null,#{pdId},#{p.rkpcId},#{p.sjSl},#{p.ygSl},#{p.cjyy})
         </foreach>
     </insert>
+    <update id="editKucun">
+        update yp_ku_cun set ypsl=#{sum} where rkpc_id =#{id}
+    </update>
 </mapper>

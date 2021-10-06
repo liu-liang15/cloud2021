@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.model.dao.pharmacy.DrugDao">
     <!--药品信息-->
-    <resultMap id="DrugMapper" type="com.example.model.pojos.pharmacy.YaoPingXx">
+    <resultMap id="DrugMapper" type="com.pojos.pharmacy.YaoPingXx">
         <id column="DRUG_ID" property="drugId" />
         <result column="DRUG_NAME" property="drugName" />
         <result column="DRUG_PYM" property="drugPym" />
@@ -17,19 +17,19 @@
         <result column="DRUG_CLASS" property="drugClass" />
         <result column="DRUG_STATE" property="drugState" />
         <result column="DRUG_MESSAGE" property="drugMessage" />
-        <association property="yaoPingGgs" javaType="com.example.model.pojos.pharmacy.YaoPingGg">
+        <association property="yaoPingGgs" javaType="com.pojos.pharmacy.YaoPingGg">
             <id column="DRUG_SPEC_ID" property="drugSpecId" />
             <result column="DRUG_SPEC_NAME" property="drugSpecName"/>
         </association>
-        <association property="yaoPingLxes" javaType="com.example.model.pojos.pharmacy.YaoPingLx">
+        <association property="yaoPingLxes" javaType="com.pojos.pharmacy.YaoPingLx">
             <id column="DRUG_TYPE_ID" property="drugTypeId" />
             <result column="DRUG_TYPE_NAME" property="drugTypeName"/>
         </association>
-        <association property="yaoPingLbs" javaType="com.example.model.pojos.pharmacy.YaoPingLb">
+        <association property="yaoPingLbs" javaType="com.pojos.pharmacy.YaoPingLb">
             <id column="DRUG_SORT_ID" property="drugSortId" />
             <result column="DRUG_SORT_NAME" property="drugSortName"/>
         </association>
-        <association property="goYingShangs" javaType="com.example.model.pojos.pharmacy.GoYingShang">
+        <association property="goYingShangs" javaType="com.pojos.pharmacy.GoYingShang">
             <id column="SUPPLY_ID" property="supplyId" />
             <result column="SUPPLY_NAME" property="supplyName" />
             <result column="SUPPLY_CONTACTS" property="supplyContacts" />
@@ -39,17 +39,17 @@
         </association>
     </resultMap>
     <!--药品规格-->
-    <resultMap id="SpecMapper" type="com.example.model.pojos.pharmacy.YaoPingGg">
+    <resultMap id="SpecMapper" type="com.pojos.pharmacy.YaoPingGg">
         <id property="DRUG_SPEC_ID" column="drugSpecId" />
         <result property="DRUG_SPEC_NAME" column="drugSpecName"/>
     </resultMap>
     <!--药品类别-->
-    <resultMap id="SortMapper" type="com.example.model.pojos.pharmacy.YaoPingLb">
+    <resultMap id="SortMapper" type="com.pojos.pharmacy.YaoPingLb">
         <id property="DRUG_SORT_ID" column="drugSpecId" />
         <result property="DRUG_SORT_NAME" column="drugSpecName"/>
     </resultMap>
     <!--药品类型-->
-    <resultMap id="TypeMapper" type="com.example.model.pojos.pharmacy.YaoPingLx">
+    <resultMap id="TypeMapper" type="com.pojos.pharmacy.YaoPingLx">
         <id property="DRUG_TYPE_ID" column="drugTypeId" />
         <result property="DRUG_TYPE_NAME" column="drugTypeName"/>
     </resultMap>
@@ -96,7 +96,7 @@
             AND DRUG_STATE like #{drugState}
         </if>
     </select>
-    <insert id="addDrug" parameterType="com.example.model.pojos.pharmacy.YaoPingXx">
+    <insert id="addDrug" parameterType="com.pojos.pharmacy.YaoPingXx">
         insert into yao_ping_xx
         values (null,#{drugName},#{drugPym},#{drugTypeId},
                 #{drugSortId},#{drugSpecId},#{drugJinjia},
@@ -104,7 +104,7 @@
                 #{supplyId},#{drugClass},1,#{drugMessage})
     </insert>
     <!--修改供应商信息-->
-    <update id="updateDrug" parameterType="com.example.model.pojos.pharmacy.YaoPingXx">
+    <update id="updateDrug" parameterType="com.pojos.pharmacy.YaoPingXx">
         update yao_ping_xx set DRUG_NAME=#{drugName},DRUG_PYM=#{drugPym},
                                DRUG_TYPE_ID=#{drugTypeId},DRUG_SORT_ID=#{drugSortId},
                                DRUG_SPEC_ID=#{drugSpecId},DRUG_JINJIA=#{drugJinjia},
@@ -114,7 +114,7 @@
                                DRUG_MESSAGE=#{drugMessage} where DRUG_ID = #{drugId}
     </update>
     <!--根据供应商id修改药品状态，用于供应商停用时修改他所供应的所有药品-->
-    <update id="update" parameterType="com.example.model.pojos.pharmacy.YaoPingXx">
+    <update id="update" parameterType="com.pojos.pharmacy.YaoPingXx">
         update yao_ping_xx set DRUG_STATE=#{drugState} where SUPPLY_ID=#{supplyId}
     </update>
 </mapper>

@@ -13,8 +13,17 @@ public class XiaoHuiSq {
   private String xhFzr;
   private Date sj=new Date();
   private long zt;
+  private String yy;
   private Collection<XiaoHuiXd> xiaoHuiXds;
   private YongHu yongHu;
+
+  public String getYy() {
+    return yy;
+  }
+
+  public void setYy(String yy) {
+    this.yy = yy;
+  }
 
   public YongHu getYongHu() {
     return yongHu;
