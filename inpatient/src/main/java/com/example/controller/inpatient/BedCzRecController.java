@@ -18,7 +18,7 @@ public class BedCzRecController {
     @Autowired
     BedCzRecServer bedCzRecServer;
     @GetMapping("/selBedCzRec")
-    public List<BedCzRec> selBedCzRec(){
-        return bedCzRecServer.selBedCzRec();
+    public List<BedCzRec> selBedCzRec(String param){
+        return bedCzRecServer.selBedCzRec(param);
     }
 }

@@ -18,7 +18,7 @@ public class WardRecController {
     WardRecServer wardRecServer;
     @GetMapping("/selWardRec")
     //查询病房修改日志
-    public List<WardRec> selWardRec(){
-        return wardRecServer.selWardRec();
+    public List<WardRec> selWardRec(String param){
+        return wardRecServer.selWardRec(param);
     }
 }

@@ -43,4 +43,8 @@
     <update id="alterAdm">
         update adm_not set adm_zt='1' where hos_no=#{hosNo}
     </update>
+    <!--新增住院登记-->
+    <insert id="addAdm">
+        insert into adm_not(patient,section,doctor,result) values(#{patient},#{section},#{doctor},#{result})
+    </insert>
 </mapper>

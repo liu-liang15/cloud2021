@@ -15,7 +15,7 @@ public class BedRecServer {
     @Autowired
     BedRecDao bedRecDao;
     //查看床位分配记录
-    public List<BedRec> selBedRec(){
-        return bedRecDao.selBedRec();
+    public List<BedRec> selBedRec(String param){
+        return bedRecDao.selBedRec(param);
     }
 }
