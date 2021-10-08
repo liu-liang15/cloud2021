@@ -21,5 +21,5 @@ public interface YaoFangDao {
     int sum1(@Param("id")String id);
     int sum2(@Param("id")String id);
     void addFYD(FaYao faYao);
-    void addFYXD(Collection<FaoYaoXd> faoYaoXds, String fyId);
+    void addFYXD(Collection<FaoYaoXd> faoYaoXds,String fyId);
 }

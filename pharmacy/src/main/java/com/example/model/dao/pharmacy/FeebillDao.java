@@ -11,10 +11,10 @@ import java.util.List;
  * @author 刘亮
  * @date 2021年 09月27日9:00
  */
-@Component
+/*@Component
 //这下面就是别人服务在注册中心的地址，就是别的小伙伴application.yml里面的spring.application.name的名字
-@FeignClient(value = "nacos-outpatient")
+@FeignClient(value = "nacos-outpatient")*/
 public interface FeebillDao {
-//    @RequestMapping("outpatient/findAllDFYP")
-//    List<Feebill> findAllDFYP();
+   /* @RequestMapping("outpatient/findAllDFYP")
+    List<Feebill> findAllDFYP();*/
 }
