@@ -46,7 +46,7 @@
         </association>
     </resultMap>
 
-    <!--//查询所有挂号记录-->
+    <!--//查询当天所有挂号记录-->
     <select id="findAllHopreg" resultMap="hopreg">
         select * from hospreg h
         inner join patient p on h.horeg_patient_no = p.patient_no
@@ -59,6 +59,7 @@
             or p.patient_phone like '%${param}%'
             or p.patient_idcart like '%${param}%'
         </if>
+        and to_days(horeg_date) = to_days(now())
         order by h.horeg_date desc
     </select>
 

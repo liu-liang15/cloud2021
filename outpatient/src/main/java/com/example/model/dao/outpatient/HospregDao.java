@@ -3,6 +3,7 @@ package com.example.model.dao.outpatient;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pojos.outpatient.Hospreg;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ public interface HospregDao extends BaseMapper<Hospreg> {
     void insertHospreg(Hospreg hospreg);
 
     //退号
-    void updateHospregTuiHao(int horegState,String horegNo);
+    void updateHospregTuiHao(@Param("horegState") int horegState, @Param("horegNo")String horegNo);
 
     //编辑
     void updateHospreg(Hospreg hospreg);
 
-    List<Hospreg> findJiuZhenLieBiao(int horegState,int horegAttendingdocNo);
+    List<Hospreg> findJiuZhenLieBiao(@Param("horegState") int horegState,@Param("horegAttendingdocNo")int horegAttendingdocNo);
 }
