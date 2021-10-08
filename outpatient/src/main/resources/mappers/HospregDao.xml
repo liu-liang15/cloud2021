@@ -46,7 +46,7 @@
         </association>
     </resultMap>
 
-    <!--//查询当天所有挂号记录-->
+    <!--//查询所有挂号记录-->
     <select id="findAllHopreg" resultMap="hopreg">
         select * from hospreg h
         inner join patient p on h.horeg_patient_no = p.patient_no
