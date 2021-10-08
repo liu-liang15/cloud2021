@@ -19,12 +19,17 @@ public class BedController {
     //查看床位
     @GetMapping("/selBed")
     public List<Bed> selBed(String param, String zt){
+        System.out.println("这是"+param+"这是"+zt);
         return bedServer.selBed(param,zt);
     }
     //新增床位
     @PostMapping("/addBed")
-    public void addBed(@RequestBody Bed bed){
-        bedServer.addBed(bed);
+    public void addBed(@RequestBody Map<String, Object> map){
+        System.out.println(map);
+        String str= JSON.toJSONString(map.get("bed"));
+        Bed bed= JSON.parseObject(str,Bed.class);
+        String number= JSON.toJSONString(map.get("bedNumber"));
+        bedServer.addBed(bed,Integer.parseInt(number.split("\"")[1]));
     }
     //查看患者与床位
     @GetMapping("/allocBed")

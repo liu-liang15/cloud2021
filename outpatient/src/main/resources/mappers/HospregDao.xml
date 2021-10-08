@@ -59,6 +59,7 @@
             or p.patient_phone like '%${param}%'
             or p.patient_idcart like '%${param}%'
         </if>
+        and to_days(horeg_date) = to_days(now())
         order by h.horeg_date desc
     </select>
 

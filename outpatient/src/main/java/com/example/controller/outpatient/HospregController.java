@@ -20,6 +20,7 @@ public class HospregController {
     @Autowired
     HospregService hopregService;
 
+    //查询就诊列表
     @RequestMapping("/findJiuZhenLieBiao")
     public List<Hospreg> findJiuZhenLieBiao(int horegState, int horegAttendingdocNo){
         return hopregService.findJiuZhenLieBiao(horegState,horegAttendingdocNo);

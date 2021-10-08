@@ -14,7 +14,7 @@ public class WardRecServer {
     @Autowired
     WardRecDao wardRecDao;
     //查询病房修改日志
-    public List<WardRec> selWardRec(){
-        return wardRecDao.selWardRec();
+    public List<WardRec> selWardRec(String param){
+        return wardRecDao.selWardRec(param);
     }
 }

@@ -11,5 +11,5 @@ public interface BedCzRecDao {
     //新增床位操作记录
     public void addBedRec(BedCzRec bedCzRec);
     //查询床位操作记录
-    public List<BedCzRec> selBedCzRec();
+    public List<BedCzRec> selBedCzRec(String param);
 }

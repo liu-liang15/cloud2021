@@ -26,7 +26,7 @@ public class WardController {
     public List<Ward> selWard(String param){
         return wardServer.selWard(param);
     }
-    //修改病房
+    //启用/停用病房
     @PostMapping("/updateWard")
     public void updateWard(@RequestBody Map<String, Object> map){
         String str = JSON.toJSONString(map.get("ward"));
@@ -41,5 +41,10 @@ public class WardController {
             wardRec.setRecType("启用");
         }
         wardServer.updateWard(ward,wardRec);
+    }
+    //修改病房
+    @PostMapping("/changeWard")
+    public void changeWard(@RequestBody Ward ward ){
+        wardServer.changeWard(ward);
     }
 }
