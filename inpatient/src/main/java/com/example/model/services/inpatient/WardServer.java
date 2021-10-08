@@ -25,9 +25,13 @@ public class WardServer {
     public List<Ward> selWard(String param){
         return wardDao.selWard(param);
     }
-    //修改病房
+    //启用停用病房
     public void updateWard(Ward ward, WardRec wardRec){
         wardDao.updateWard(ward);
         wardRecDao.addWardRec(wardRec);
+    }
+    //修改病房
+    public void changeWard(Ward ward){
+        wardDao.updateWard(ward);
     }
 }

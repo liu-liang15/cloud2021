@@ -31,5 +31,8 @@
         select * from bed_cz_rec bc
             INNER JOIN bed b on bc.bed_no=b.bed_no
             INNER JOIN ward w on b.ward_no=w.ward_no
+        <if test="param!=null and param!=''">
+            where ward_name like '%${param}%'
+        </if>
     </select>
 </mapper>

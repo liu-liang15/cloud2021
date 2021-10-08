@@ -157,7 +157,7 @@
     </delete>
     <!--新增销毁申请-->
     <insert id="addXHSQ">
-        insert into xiao_hui_sq values(#{xhsqId},#{xhFzr},#{sj},0)
+        insert into xiao_hui_sq values(#{xhsqId},#{xhFzr},#{sj},0,#{yy})
     </insert>
     <!--新增销毁详请-->
     <insert id="addXHXB" parameterType="java.util.Collection">

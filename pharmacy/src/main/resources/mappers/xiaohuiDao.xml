@@ -73,7 +73,7 @@
         update xiao_hui_sq set zt=#{zt} where xhsq_id=#{xhsqId}
     </update>
     <delete id="deltetKucun">
-            delete from yp_ku_cun where rkpc_id = #{rkpcId}
+        delete from yp_ku_cun where rkpc_id = #{rkpcId}
     </delete>
     <insert id="addCK" parameterType="com.pojos.pharmacy.ChuKu">
         insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime})

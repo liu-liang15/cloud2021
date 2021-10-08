@@ -10,6 +10,7 @@
             <id column="bed_no" property="bedNo"/>
             <result column="bed_zt" property="bedZt"/>
             <result column="ward_no" property="wardNo"/>
+            <result column="bed_number" property="bedNumber"/>
             <result column="res_no" property="resNo"/>
         </association>
         <association property="ward" javaType="com.pojos.inpatient.Ward">
@@ -75,6 +76,5 @@
                   inner join adm_not a on h.hos_no=a.hos_no
                   inner join medicalcard m on a.patient = m.medi_no
                   inner join patient p on m.medi_patient_no=p.patient_no
-        where h.hos_zt='0'
     </select>
 </mapper>

@@ -20,4 +20,6 @@ public class AdmNotServer {
     public void alterAdm(String hosNO){
         admNotDao.alterAdm(hosNO);
     }
+    //新增住院通知单
+    public void addAdm(AdmNot admNot){admNotDao.addAdm(admNot);}
 }

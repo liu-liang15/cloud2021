@@ -10,5 +10,5 @@ public interface WardRecDao {
     //新增病房操作记录
     public void addWardRec(WardRec wardRec);
     //查询病房操作记录
-    public List<WardRec> selWardRec();
+    public List<WardRec> selWardRec(String param);
 }
