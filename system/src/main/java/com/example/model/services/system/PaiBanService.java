@@ -4,7 +4,10 @@ import com.example.model.dao.system.PaiBanMapper;
 import com.pojos.system.PaiBan;
 import com.pojos.system.PaiBan2;
 import com.pojos.system.PaiBan3;
+import com.pojos.system.YuanGo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -101,4 +104,16 @@ public class PaiBanService {
         paiBan2.setRq(dateFormat.format(calendar.getTime()));
         return paiBan2;
     }
+
+    /**
+     * 根据时间 科室 职位 查排班的员工
+     * @param ksId
+     * @param gwId
+     * @param rq
+     * @return
+     */
+    public List<YuanGo> getpbyg(String ksId,String gwId,String rq){
+        return paiBanMapper.getyg(ksId,gwId,rq);
+    }
+
 }

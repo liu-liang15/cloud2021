@@ -3,6 +3,7 @@ package com.example.controller.system;
 
 import com.example.model.services.system.*;
 import com.pojos.system.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.web.bind.annotation.*;
@@ -242,11 +243,27 @@ YongHuservice yongHuservice;
         return new CommonResult(200,"新增成功");
     }
 
+    /**
+     * 根据时间 科室 职位 查排班的员工
+     * @return
+     */
+    @GetMapping("pbyg/{ksId}/{gwId}/{rq}")
+    public List<YuanGo> getpbyg(@PathVariable("ksId")String ksId,@PathVariable("gwId") String gwId,@PathVariable("rq") String rq){
+        return paiBanService.getpbyg(ksId,gwId,rq);
+    }
 
+
+    /**
+     * redis测试的
+     * @return
+     */
     @GetMapping("abcd")
     public Object abcdddd(){
         System.err.println("12345678");
         return keShiservive.dddd();
     }
+
+
+
 
 }
