@@ -12,7 +12,7 @@
         <result column="patient_address" property="patientAddress" />
         <result column="patient_date" property="patientDate" />
     </resultMap>
-    <!--查询病人信息，排序，多条件1-->
+    <!--查询病人信息，排序，多条件-->
     <select id="findAllPatient" resultMap="patient">
         select * from patient where 1 = 1
         <if test="param!=null and param!=''">
