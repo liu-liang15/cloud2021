@@ -22,10 +22,6 @@ public class YaoFangController {
     public List<YpYaoFang> FindAll(){
        return yaoFangService.findAll();
     }
-   /* @RequestMapping("alldfyp")
-    public List<Feebill> FindAllDFYP(){
-        return yaoFangService.findAllDFYP();
-    }*/
     @RequestMapping("fayao")
     public String addFaYao(@RequestBody FaYao faYao){
         try {
