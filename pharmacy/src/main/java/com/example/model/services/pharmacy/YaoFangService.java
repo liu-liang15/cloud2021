@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -19,11 +18,8 @@ import java.util.List;
 public class YaoFangService {
     @Autowired
     YaoFangDao yaoFangDao;
-//    @Autowired
-//    FeebillDao feebillDaoDao;
-//    @Resource
-//    FeebillDao feebillDao;
-
+   /* @Autowired
+    FeebillDao feebillDaoDao;*/
     public void faYao(FaYao faYao){
         int sum1= yaoFangDao.sum1(faYao.getJfd());
         int sum2= yaoFangDao.sum2(faYao.getJfd());
@@ -43,11 +39,10 @@ public class YaoFangService {
     }
     //查询药房库存
     public List<YpYaoFang> findAll(){
-    return yaoFangDao.findAllYFYP();
+        return yaoFangDao.findAllYFYP();
     }
-
-//    public List<Feebill> findAllDFYP(){
-//        return feebillDao.findAllDFYP();
-//    }
+   /* public List<Feebill> findAllDFYP(){
+        return feebillDaoDao.findAllDFYP();
+    }*/
 
 }
