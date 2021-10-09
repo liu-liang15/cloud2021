@@ -4,9 +4,9 @@
     <resultMap id="SurItemMapper" type="com.pojos.inpatient.SurItem">
         <id column="sur_no" property="surNo"/>
         <result column="sur_name" property="surName"/>
-        <result column="sur_txt" property="surTxt"/>
+        <result column="sur_type" property="surType"/>
         <result column="sur_pay" property="surPay"/>
-        <result column="ope_no" property="opeNo"/>
+        <result column="sur_sco" property="surSco"/>
         <association property="opeRoom" javaType="com.pojos.inpatient.OpeRoom">
             <id column="ope_no" property="opeNo"/>
             <result column="ope_name" property="opeName"/>

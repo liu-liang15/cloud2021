@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/outpatient")
 public class HospregController {
