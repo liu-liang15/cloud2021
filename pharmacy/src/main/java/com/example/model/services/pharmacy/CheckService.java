@@ -36,7 +36,6 @@ public class CheckService {
 
        Collection<PangDainXd> pangDainXds= panDian.getPangDainXds();
         for (PangDainXd s : pangDainXds) {
-            System.out.println(s.getSjSl()+"ZZZZ"+s.getYgSl());
             int sum1= Integer.parseInt(s.getYgSl());
             int sum2= Integer.parseInt(s.getSjSl());
             String id=s.getRkpcId();

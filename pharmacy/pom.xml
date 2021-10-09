@@ -38,11 +38,11 @@
             <artifactId>spring-cloud-openfeign-core</artifactId>
         </dependency>
         <!--            seata 分布式事务         -->
-        <dependency>
+      <!--  <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
             <exclusions>
-                <!--移除掉该starter中自带的依赖，该依赖版本较低-->
+                &lt;!&ndash;移除掉该starter中自带的依赖，该依赖版本较低&ndash;&gt;
                 <exclusion>
                     <groupId>io.seata</groupId>
                     <artifactId>seata-spring-boot-starter</artifactId>
@@ -53,7 +53,7 @@
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
             <version>1.4.0</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-openfeign-core</artifactId>
