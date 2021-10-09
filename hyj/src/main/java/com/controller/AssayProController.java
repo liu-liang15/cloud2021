@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("hyj/")
 public class AssayProController {
