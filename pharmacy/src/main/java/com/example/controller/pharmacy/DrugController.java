@@ -52,10 +52,11 @@ public class DrugController {
         try {
             if(yaoPingXx.getDrugId()==0){
                 drugService.addDrug(yaoPingXx);
+                return "ok1";
             }else{
                 drugService.updateDrug(yaoPingXx);
+                return "ok2";
             }
-            return "ok";
         } catch (Exception e) {
             e.printStackTrace();
             return "fail";

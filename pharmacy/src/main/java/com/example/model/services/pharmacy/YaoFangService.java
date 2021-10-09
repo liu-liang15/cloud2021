@@ -1,9 +1,7 @@
 package com.example.model.services.pharmacy;
 
-import com.example.model.dao.pharmacy.FeebillDao;
 import com.example.model.dao.pharmacy.YaoFangDao;
 
-import com.pojos.outpatient.Feebill;
 import com.pojos.pharmacy.FaYao;
 import com.pojos.pharmacy.FaoYaoXd;
 import com.pojos.pharmacy.YpYaoFang;
@@ -41,8 +39,4 @@ public class YaoFangService {
     public List<YpYaoFang> findAll(){
         return yaoFangDao.findAllYFYP();
     }
-   /* public List<Feebill> findAllDFYP(){
-        return feebillDaoDao.findAllDFYP();
-    }*/
-
 }
