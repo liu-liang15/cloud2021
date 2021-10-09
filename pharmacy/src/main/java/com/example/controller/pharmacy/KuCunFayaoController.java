@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Mapper
 @RestController
 @RequestMapping("pharmacy/")
 public class KuCunFayaoController {

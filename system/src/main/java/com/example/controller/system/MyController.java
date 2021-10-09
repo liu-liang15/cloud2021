@@ -3,13 +3,10 @@ package com.example.controller.system;
 
 import com.example.model.services.system.*;
 import com.pojos.system.*;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("system/")
 public class MyController {
