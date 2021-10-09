@@ -4,6 +4,7 @@ package com.pojos.inpatient;
 public class Bed {
 
   private long bedNo;
+  private long bedNumber;
   private String bedZt;
   private String wardNo;
   private String resNo;
@@ -40,6 +41,14 @@ public class Bed {
 
   public void setBedZt(String bedZt) {
     this.bedZt = bedZt;
+  }
+
+  public long getBedNumber() {
+    return bedNumber;
+  }
+
+  public void setBedNumber(long bedNumber) {
+    this.bedNumber = bedNumber;
   }
 
   public String getWardNo() {

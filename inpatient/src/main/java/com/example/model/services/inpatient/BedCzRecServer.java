@@ -14,7 +14,7 @@ public class BedCzRecServer {
     @Autowired
     BedCzRecDao bedCzRecDao;
     //查看床位操作记录
-    public List<BedCzRec> selBedCzRec(){
-        return bedCzRecDao.selBedCzRec();
+    public List<BedCzRec> selBedCzRec(String param){
+        return bedCzRecDao.selBedCzRec(param);
     }
 }

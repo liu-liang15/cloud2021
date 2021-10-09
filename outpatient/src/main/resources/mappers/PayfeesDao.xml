@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.outpatient.PayfeesDao">
+    <resultMap id="payfees" type="com.pojos.outpatient.Payfees">
+        <id column="no" property="no" />
+        <result column="ks" property="ks" />
+        <result column="ys" property="ys" />
+        <result column="zjg" property="zjg" />
+    </resultMap>
+    <resultMap id="payfeesdetails" type="com.pojos.outpatient.PayfeesDetails">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="count" property="count" />
+        <result column="type" property="type" />
+        <result column="xiaoji" property="xiaoji" />
+    </resultMap>
+
+<!--  新增缴费单  -->
+    <insert id="insertFeebill" useGeneratedKeys="true" keyProperty="feebillNo" parameterType="com.pojos.outpatient.Feebill">
+        insert into feebill(feebill_seedo_number,feebill_money,feebill_type,feebill_remark)
+        values(#{feebillSeedoNumber},#{feebillMoney},#{feebillType},#{feebillRemark})
+    </insert>
+    <!--  新增缴费详单  -->
+    <insert id="insertFeebillDetails" parameterType="com.pojos.outpatient.FeebillDetails">
+        insert into feebilldetails(febide_feebill_no,febide_id,febide_name,febide_money,febide_type,febide_count)
+        values(#{febideFeebillNo},#{febideId},#{febideName},#{febideMoney},#{febideType},#{febideCount})
+    </insert>
+
+    <!--修改药品处方详单状态-->
+    <update id="updatePayZtYp">
+        update prescription set pres_state = 2 where pres_seedo_number = #{param}
+    </update>
+
+    <!--修改化验处方详单状态-->
+    <update id="updatePayZtHy">
+        update assay set assay_state = 2 where assay_seedo_number = #{param}
+    </update>
+
+    <!--修改检查处方详单状态-->
+    <update id="updatePayZtJc">
+        update examineorder set exaord_state = 2 where exaord_seedo_number = #{param}
+    </update>
+
+    <!--修改手术处方详单状态-->
+    <update id="updatePayZtSs">
+        update mzshoushucf set ss_zt = 2 where ss_seedo_number = #{param}
+    </update>
+
+    <!--查询药品缴费详单-->
+    <select id="findpaycf" resultMap="payfeesdetails">
+        select p.drug_id as id,p.drug_name as name,p.number as count,p.xiaoji as xiaoji
+        from prescriptiondetails p
+            inner join prescription pr on p.predet_pres_no = pr.pres_no
+        where pr.pres_seedo_number = #{param}
+    </select>
+
+    <!--查询化验缴费详单-->
+    <select id="findpayhy" resultMap="payfeesdetails">
+        select l.assay_meal_id as id,am.assay_meal_name as name,l.labdet_count as count,l.assay_meal_price as xiaoji
+        from labworkdetails l
+            inner join assay a on a.assay_no = l.labdet_assay_no
+            inner join assay_meal am on am.assay_meal_id = l.assay_meal_id
+        where a.assay_seedo_number = #{param}
+    </select>
+
+    <!--查询检查缴费详单-->
+    <select id="findpayjc" resultMap="payfeesdetails">
+        select ed.assay_meal_id as id,am.assay_meal_name as name,ed.exadet_count as count,ed.assay_meal_price as xiaoji
+        from examinedetails ed
+            inner join examineorder e on e.exaord_no = ed.exadet_exaord_no
+            inner join assay_meal am on am.assay_meal_id = ed.assay_meal_id
+        where exaord_seedo_number = #{param}
+    </select>
+
+    <!--查询手术缴费详单-->
+    <select id="findpayss" resultMap="payfeesdetails">
+        select x.sur_no as id,s.sur_name as name,x.sq_count as count,x.sur_pay as xiaoji
+        from mzshoushuxq x
+            inner join mzshoushucf c on c.ss_no = x.sq_ss_no
+            inner join sur_item s on x.sur_no = s.sur_no
+        where c.ss_seedo_number = #{param}
+    </select>
+
+    <!--查询总缴费单-->
+    <select id="selJiuZhenZJG" resultMap="payfees">
+        select t2.* from (
+        select s.seedo_number as no,s.seedo_famiroom_name as ks,s.seedo_doctor_name as ys,
+        sum(IFNULL(p.pres_money,0)+IFNULL(a.assay_money,0)+IFNULL(e.exaord_money,0)+IFNULL(m.ss_money,0)) as zjg
+        from seedoctor s
+            left join prescription p on (s.seedo_number = p.pres_seedo_number) and p.pres_state = 1
+            left join assay a on (s.seedo_number = a.assay_seedo_number) and a.assay_state = 1
+            left join examineorder e on (s.seedo_number = e.exaord_seedo_number) and e.exaord_state = 1
+            left join mzshoushucf m on (s.seedo_number = m.ss_seedo_number) and m.ss_zt = 1
+            inner join patient pa on pa.patient_no = s.seedo_patient_no
+        where 1 = 1
+            and s.seedo_number = #{param}
+            or pa.patient_idcart = #{param}
+            group by s.seedo_number
+        ) t2  where zjg != 0
+    </select>
+</mapper>

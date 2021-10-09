@@ -12,4 +12,6 @@ public interface AdmNotDao extends BaseMapper<AdmNot> {
     public List<AdmNot> selAdm(String param);
     //修改住院通知单状态
     public void alterAdm(String hosNo);
+    //新增住院通知单
+    public void addAdm(AdmNot admNot);
 }

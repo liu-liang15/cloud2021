@@ -4,6 +4,7 @@
     <resultMap id="BedMapper" type="com.pojos.inpatient.Bed">
         <id column="bed_no" property="bedNo"/>
         <result column="bed_zt" property="bedZt"/>
+        <result column="bed_number" property="bedNumber"/>
         <result column="ward_no" property="wardNo"/>
         <result column="res_no" property="resNo"/>
         <association property="hosAlone" javaType="com.pojos.inpatient.HosAlone">
@@ -59,23 +60,25 @@
     </resultMap>
     <select id="selBed" resultMap="BedMapper">
         select * from bed where ward_no=#{wardNo}
-        <if test="zt==1">
-            and bed_zt='0' and res_no is null
+       <if test="zt==1">
+          and bed_zt='0' and res_no is null
         </if>
         <if test="zt==2">
-            and bed_zt='0' and res_no is not null
+           and res_no is not null
         </if>
     </select>
     <!--查询病床与患者-->
     <select id="allocBed" resultMap="BedMapper">
-        select * from bed b INNER JOIN ward w on b.ward_no=w.ward_no
-            right JOIN hos_alone h on b.res_no=h.res_no
-            LEFT join adm_not a on h.hos_no=a.hos_no
-            LEFT join medicalcard m on a.patient = m.medi_no
-            LEFT join patient p on m.medi_patient_no=p.patient_no
+        select * from hos_alone h left join
+        bed b on h.res_no=b.res_no left join
+        ward w on b.ward_no=w.ward_no
+        LEFT join adm_not a on h.hos_no=a.hos_no
+        LEFT join medicalcard m on a.patient = m.medi_no
+        LEFT join patient p on m.medi_patient_no=p.patient_no
         <if test="param!=''">
-            where b.res_no=#{param}
+            where b.res_no like '%${param}%' or w.ward_name like '%${param}%' or p.patient_name like '%${param}%'
         </if>
+        order by h.res_no
     </select>
     <!--查询住院单详情-->
     <select id="hosXq" resultMap="BedMapper">
@@ -89,7 +92,7 @@
     </select>
     <!--新增床位-->
     <insert id="addBed" parameterType="com.pojos.inpatient.Bed">
-        insert into bed(ward_no) values(#{wardNo})
+        insert into bed(ward_no,bed_number) values(#{wardNo},#{bedNumber})
     </insert>
     <!--床位修改-->
     <update id="updateBed">
@@ -104,4 +107,8 @@
         </set>
         where bed_no=#{bedNo}
     </update>
+    <!--根据住院单号查看床位-->
+    <select id="selBed2" resultMap="BedMapper">
+        select * from bed where res_no=#{resNo}
+    </select>
 </mapper>

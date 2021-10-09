@@ -22,6 +22,10 @@
     </insert>
     <!--查询病房操作记录-->
     <select id="selWardRec" resultMap="WardRecMapper">
-        select * from ward_rec wr INNER JOIN ward w on wr.ward_no=w.ward_no ORDER BY wr.ward_time desc
+        select * from ward_rec wr INNER JOIN ward w on wr.ward_no=w.ward_no
+        <if test="param!=''">
+            where w.ward_name like '%${param}%'
+        </if>
+        ORDER BY wr.ward_time desc
     </select>
 </mapper>

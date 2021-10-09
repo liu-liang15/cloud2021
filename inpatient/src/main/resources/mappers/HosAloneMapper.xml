@@ -53,8 +53,8 @@
     </select>
     <!--新增住院单-->
     <insert id="addHos" parameterType="com.pojos.inpatient.HosAlone">
-        insert into hos_alone(linkman,phone,hos_no,nurse,pay_type,hos_cond,hos_money,hos_zt)
-        values(#{linkman},#{phone},#{hosNo},'李云',#{payType},#{hosCond},#{hosMoney},'0')
+        insert into hos_alone(linkman,phone,hos_no,nurse,hos_money,hos_zt)
+        values(#{linkman},#{phone},#{hosNo},#{nurse},#{hosMoney},'0')
     </insert>
 </mapper>
 
