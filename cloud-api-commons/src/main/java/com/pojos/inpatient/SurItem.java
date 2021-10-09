@@ -5,9 +5,9 @@ public class SurItem {
 
   private long surNo;
   private String surName;
-  private String surTxt;
+  private String surType;
   private double surPay;
-  private String opeNo;
+  private String surSco;
   private OpeRoom opeRoom;
 
   public OpeRoom getOpeRoom() {
@@ -37,11 +37,11 @@ public class SurItem {
 
 
   public String getSurTxt() {
-    return surTxt;
+    return surType;
   }
 
-  public void setSurTxt(String surTxt) {
-    this.surTxt = surTxt;
+  public void setSurType(String surType) {
+    this.surType = surType;
   }
 
 
@@ -53,13 +53,12 @@ public class SurItem {
     this.surPay = surPay;
   }
 
-
-  public String getOpeNo() {
-    return opeNo;
+  public String getsurSco() {
+    return surSco;
   }
 
-  public void setOpeNo(String opeNo) {
-    this.opeNo = opeNo;
+  public void setSurSco(String surSco) {
+    this.surSco = surSco;
   }
 
 }
