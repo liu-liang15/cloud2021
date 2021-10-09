@@ -7,23 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hyj" />
-        <module name="pharmacy" />
+        <module name="api-commons" />
+        <module name="system2" />
+        <module name="system" />
         <module name="cloud-config-client-3737" />
+        <module name="inpatient" />
+        <module name="pharmacy" />
+        <module name="hyj" />
+        <module name="consumer80" />
         <module name="outpatient" />
         <module name="cloud-gateway9527" />
-        <module name="system2" />
-        <module name="api-commons" />
-        <module name="system" />
-        <module name="consumer80" />
-        <module name="system02" />
-        <module name="cloud-api-commons" />
-        <module name="inpatient" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="system (1)" target="1.8" />
-      <module name="system02" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
