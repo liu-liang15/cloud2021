@@ -22,7 +22,7 @@ public class XiaoHuiService {
         xiaoHuiDao.editXiaoHui(zt, xhsqId);
     }
     public void XHChuKu(ChuKu chuKu){
-        xiaoHuiDao.addXHCK(chuKu);
+        xiaoHuiDao.addCK(chuKu);
         xiaoHuiDao.editXiaoHui(chuKu.getZt(), chuKu.getXhsqId());
         xiaoHuiDao.addXHCKXQ(chuKu.getChuKuJiLus(), chuKu.getChukuId());
         List<ChuKuJiLu> chuKuJiLus= (List<ChuKuJiLu>) chuKu.getChuKuJiLus();

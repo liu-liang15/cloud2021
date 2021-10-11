@@ -1,6 +1,7 @@
 package com.example.controller.pharmacy;
 
 import com.example.model.services.pharmacy.KuCunFayaoService;
+import com.pojos.pharmacy.ChuKu;
 import com.pojos.pharmacy.DiaoBoSq;
 import com.pojos.pharmacy.XiaoHuiSq;
 import com.pojos.pharmacy.YpKuCun;
@@ -61,8 +62,15 @@ public class KuCunFayaoController {
         kuCunFayaoService.updateYPSQ(sqZhuangTai,dbShengQing);
     }
 
-  /*  @RequestMapping
-    public void addChuKu(@RequestBody DiaoBoSq diaoBoSq){
-        kuCunFayaoService.addChuKu(diaoBoSq);
-    }*/
+    @RequestMapping("dbck")
+    public String addChuKu(@RequestBody ChuKu chuKu){
+        try {
+            kuCunFayaoService.addDBChuKu(chuKu);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+
+    }
 }

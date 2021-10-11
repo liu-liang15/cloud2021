@@ -20,6 +20,7 @@
             <result column="DRUG_CLASS" property="drugClass" />
             <result column="DRUG_STATE" property="drugState" />
             <result column="DRUG_MESSAGE" property="drugMessage" />
+            <result column="DRUG_GRAIN" property="drugGrain"/>
             <association property="yaoPingGgs" javaType="com.pojos.pharmacy.YaoPingGg">
                 <id column="DRUG_SPEC_ID" property="drugSpecId" />
                 <result column="DRUG_SPEC_NAME" property="drugSpecName"/>

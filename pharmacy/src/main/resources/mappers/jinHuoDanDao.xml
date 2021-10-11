@@ -44,6 +44,7 @@
                 <result column="DRUG_CLASS" property="drugClass" />
                 <result column="DRUG_STATE" property="drugState" />
                 <result column="DRUG_MESSAGE" property="drugMessage" />
+                <result column="DRUG_GRAIN" property="drugGrain"/>
             </association>
             <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
                 <id column="CONSU_ID" property="consuId" />
