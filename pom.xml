@@ -30,7 +30,7 @@
         <lombok.version>1.18.20</lombok.version>
         <mysql.version>8.0.25</mysql.version>
         <druid.version>1.1.23</druid.version>
-        <mybatis.plus.version>3.4.3</mybatis.plus.version>
+        <mybatis.plus.version>3.4.0</mybatis.plus.version>
         <fastjson.version>1.2.35</fastjson.version>
         <api.commons>1.0.1-SNAPSHOT</api.commons>
         <redis.version>2.5.2</redis.version>

@@ -17,6 +17,7 @@
         <result column="DRUG_CLASS" property="drugClass" />
         <result column="DRUG_STATE" property="drugState" />
         <result column="DRUG_MESSAGE" property="drugMessage" />
+        <result column="DRUG_GRAIN" property="drugGrain"/>
         <association property="yaoPingGgs" javaType="com.pojos.pharmacy.YaoPingGg">
             <id column="DRUG_SPEC_ID" property="drugSpecId" />
             <result column="DRUG_SPEC_NAME" property="drugSpecName"/>
@@ -101,7 +102,7 @@
         values (null,#{drugName},#{drugPym},#{drugTypeId},
                 #{drugSortId},#{drugSpecId},#{drugJinjia},
                 #{drugShoujia},#{drugRiqi},#{drugMatr},
-                #{supplyId},#{drugClass},1,#{drugMessage})
+                #{supplyId},#{drugClass},1,#{drugMessage},#{drugGrain})
     </insert>
     <!--修改供应商信息-->
     <update id="updateDrug" parameterType="com.pojos.pharmacy.YaoPingXx">
@@ -111,7 +112,7 @@
                                DRUG_SHOUJIA=#{drugShoujia} ,DRUG_RIQI=#{drugRiqi},
                                DRUG_MATR=#{drugMatr},SUPPLY_ID=#{supplyId},
                                DRUG_CLASS=#{drugClass},DRUG_STATE=#{drugState},
-                               DRUG_MESSAGE=#{drugMessage} where DRUG_ID = #{drugId}
+                               DRUG_MESSAGE=#{drugMessage},DRUG_GRAIN=#{drugGrain} where DRUG_ID = #{drugId}
     </update>
     <!--根据供应商id修改药品状态，用于供应商停用时修改他所供应的所有药品-->
     <update id="update" parameterType="com.pojos.pharmacy.YaoPingXx">

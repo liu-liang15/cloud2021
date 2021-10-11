@@ -13,6 +13,6 @@ public interface XiaoHuiDao {
     List<XiaoHuiSq> findAllXHD(int  sq);
     void editXiaoHui(@Param("zt")int zt,@Param("xhsqId")String xhsqId);
     void deltetKucun(Integer rkpcId);
-    void addXHCK(ChuKu chuKu);
+    void addCK(ChuKu chuKu);
     void addXHCKXQ(Collection<ChuKuJiLu> chuKuJiLus, String chukuId);
 }

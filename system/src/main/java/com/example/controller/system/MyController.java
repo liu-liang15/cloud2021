@@ -244,8 +244,9 @@ YongHuservice yongHuservice;
      * 根据时间 科室 职位 查排班的员工
      * @return
      */
-    @GetMapping("pbyg/{ksId}/{gwId}/{rq}")
-    public List<YuanGo> getpbyg(@PathVariable("ksId")String ksId,@PathVariable("gwId") String gwId,@PathVariable("rq") String rq){
+    @GetMapping("pbyg")
+    public List<YuanGo> getpbyg(String ksId,String gwId,String rq){
+
         return paiBanService.getpbyg(ksId,gwId,rq);
     }
 
