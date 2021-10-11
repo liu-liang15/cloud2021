@@ -35,6 +35,8 @@ public class PaiBan implements Serializable {
     /**
      * 班次
      */
+    @TableField(exist = false)
+    private BanCi bc;
     private String bcId;
 
     /**

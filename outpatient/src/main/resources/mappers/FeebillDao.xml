@@ -37,11 +37,52 @@
             </association>
         </collection>
     </resultMap>
+    
+    <resultMap id="payment" type="com.pojos.outpatient.Payment">
+        <id column="no" property="no" />
+        <result column="mzh" property="mzh" />
+        <result column="xm" property="xm" />
+        <result column="zjg" property="zjg" />
+        <result column="zffs" property="zffs" />
+        <result column="zfsj"  property="zfsj" />
+    </resultMap>
+
+    <resultMap id="feebillDetails" type="com.pojos.outpatient.FeebillDetails">
+        <id column="febide_no" property="febideNo" />
+        <result column="febide_feebill_no" property="febideFeebillNo" />
+        <result column="febide_id" property="febideId" />
+        <result column="febide_name" property="febideName" />
+        <result column="febide_money" property="febideMoney" />
+        <result column="febide_type" property="febideType" />
+        <result column="febide_count" property="febideCount" />
+        <result column="febide_state" property="febideState" />
+    </resultMap>
+    
     <select id="findFeebillByNo" resultMap="feebill">
         select * from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no
     </select>
     <!--查询所有以缴费的待发药品-->
     <select id="findAllDFYP" resultMap="feebill">
         select * from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no INNER JOIN yao_ping_xx ypxx on fs.febide_id=ypxx.drug_id where fs.febide_type='药品' and fs.febide_state=1
+    </select>
+    <!--查询缴费记录selJiaoFeiJiLu-->
+    <select id="selJiaoFeiJiLu" resultMap="payment">
+        select f.feebill_no as no,f.feebill_seedo_number as mzh,p.patient_name as xm,f.feebill_money as zjg,f.feebill_type as zffs,f.feebill_date as zfsj
+        from feebill f
+            inner join hospreg h on f.feebill_seedo_number = h.horeg_no
+            inner join patient p on h.horeg_patient_no = p.patient_no
+        where 1 = 1
+        <if test="param != null and param!=''">
+            and f.feebill_seedo_number = #{param}
+            or p.patient_idcart = #{param}
+        </if>
+          and to_days(f.feebill_date) = to_days(now())
+        group by f.feebill_date desc
+    </select>
+    <!--查询缴费记录详情selJiaoFeiJiLuXq-->
+    <select id="selJiaoFeiJiLuXq" resultMap="feebillDetails">
+        select * from feebilldetails
+        where 1 = 1
+          and febide_feebill_no = #{param}
     </select>
 </mapper>
