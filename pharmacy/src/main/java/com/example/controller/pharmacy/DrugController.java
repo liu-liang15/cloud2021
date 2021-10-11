@@ -1,10 +1,7 @@
 package com.example.controller.pharmacy;
 
 import com.example.model.services.pharmacy.DrugService;
-import com.pojos.pharmacy.YaoPingGg;
-import com.pojos.pharmacy.YaoPingLb;
-import com.pojos.pharmacy.YaoPingLx;
-import com.pojos.pharmacy.YaoPingXx;
+import com.pojos.pharmacy.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;

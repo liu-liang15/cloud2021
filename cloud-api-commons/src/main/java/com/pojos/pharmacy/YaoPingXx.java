@@ -16,10 +16,19 @@ public class YaoPingXx {
   private String drugClass;
   private int drugState;
   private String drugMessage;
+  private double drugGrain;
   private YaoPingGg yaoPingGgs;
   private YaoPingLb yaoPingLbs;
   private YaoPingLx yaoPingLxes;
   private GoYingShang goYingShangs;
+
+  public double getDrugGrain() {
+    return drugGrain;
+  }
+
+  public void setDrugGrain(double drugGrain) {
+    this.drugGrain = drugGrain;
+  }
 
   public String getDrugMessage() {
     return drugMessage;

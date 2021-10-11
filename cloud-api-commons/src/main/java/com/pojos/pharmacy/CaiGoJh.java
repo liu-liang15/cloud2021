@@ -11,10 +11,7 @@ public class CaiGoJh {
   private String planId;
   private String supplyId;
   private String userId;
-  //返回前端注解
   private Date planTime = new Date();
-  //返回前端注解
-  private Date planXiugai  = new Date();
   private double planPrice;
   private GoYingShang goYingShangs ;
   private YongHu yongHu;
@@ -79,16 +76,6 @@ public class CaiGoJh {
     this.planTime = planTime;
   }
 
-
-  public Date getPlanXiugai() {
-    return planXiugai;
-  }
-
-  public void setPlanXiugai(Date planXiugai) {
-    this.planXiugai = planXiugai;
-  }
-
-
   public double getPlanPrice() {
     return planPrice;
   }
@@ -104,7 +91,6 @@ public class CaiGoJh {
             ", supplyId='" + supplyId + '\'' +
             ", userId='" + userId + '\'' +
             ", planTime=" + planTime +
-            ", planXiugai=" + planXiugai +
             ", planPrice=" + planPrice +
             '}';
   }
