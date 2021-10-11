@@ -17,7 +17,7 @@
     </resultMap>
     <!--新增手术项目-->
     <insert id="addSur">
-        insert into sur_item(sur_name,sur_txt,sur_pay,ope_no) values (#{surName},#{surTxt},#{surPay},#{opeNo})
+        insert into sur_item(sur_name,sur_type,sur_pay,sur_sco) values (#{surName},#{surType},#{surPay},#{surSco})
         <selectKey keyProperty="surNo" resultType="long">
             select LAST_INSERT_ID()
         </selectKey>
@@ -35,6 +35,12 @@
             </if>
             <if test="surPay!=''">
                 sur_pay=#{surPay},
+            </if>
+            <if test="surSco!=''">
+                sur_sco=#{surSco},
+            </if>
+            <if test="surType!=''">
+                sur_type=#{surType}
             </if>
         </set>
         where sur_no=#{surNo}

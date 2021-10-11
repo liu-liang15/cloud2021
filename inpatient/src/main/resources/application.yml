@@ -66,32 +66,7 @@ mybatis-plus:
 #    map-underscore-to-camel-case: true
 #    cache-enabled: true
 
-seata:
-  enabled: true
-  application-id: ${spring.application.name}
-  # 事务群组（可以每个应用独立取名，也可以使用相同的名字），要与服务端nacos-config.txt中service.vgroup_mapping的后缀对应
-  tx-service-group: ${spring.application.name}-tx-group
-  #    配置seata的注册中心，告诉seata client怎么去访问seata server（TC）
-  config:
-    type: nacos
-    # 需要和server在同一个注册中心下
-    nacos:
-      namespace: 65e57d3b-eeeb-4528-a75c-754027af1967
-      serverAddr: localhost:8848
-      # 需要server端(registry和config)、nacos配置client端(registry和config)保持一致
-      group: SEATA_GROUP
-      username: "nacos"
-      password: "nacos"
-  registry:
-    type: nacos
-    nacos:
-      # 需要和server端保持一致，即server在nacos中的名称，默认为seata-server
-      application: seata-server
-      server-addr: localhost:8848
-      group: SEATA_GROUP
-      namespace: 65e57d3b-eeeb-4528-a75c-754027af1967
-      username: "nacos"
-      password: "nacos"
+
 
 
 
