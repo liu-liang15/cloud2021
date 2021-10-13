@@ -1,13 +1,15 @@
 package com.pojos.inpatient;
 
 
+import com.pojos.pharmacy.YaoPingXx;
+
 public class DispensingXq {
 
   private long disXqId;
   private String disId;
   private String drugId;
   private long drugNumber;
-
+  private YaoPingXx yaoPingXx;
 
   public long getDisXqId() {
     return disXqId;
@@ -42,6 +44,14 @@ public class DispensingXq {
 
   public void setDrugNumber(long drugNumber) {
     this.drugNumber = drugNumber;
+  }
+
+  public YaoPingXx getYaoPingXx() {
+    return yaoPingXx;
+  }
+
+  public void setYaoPingXx(YaoPingXx yaoPingXx) {
+    this.yaoPingXx = yaoPingXx;
   }
 
   public DispensingXq() {

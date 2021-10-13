@@ -6,9 +6,32 @@
         <result column="dis_id" property="disId"/>
         <result column="drug_id" property="drugId"/>
         <result column="drug_number" property="drugNumber"/>
+        <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+            <id column="DRUG_ID" property="drugId" />
+            <result column="DRUG_NAME" property="drugName" />
+            <result column="DRUG_PYM" property="drugPym" />
+            <result column="DRUG_TYPE_ID" property="drugTypeId" />
+            <result column="DRUG_SORT_ID" property="drugSortId" />
+            <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+            <result column="DRUG_JINJIA" property="drugJinjia" />
+            <result column="DRUG_SHOUJIA" property="drugShoujia" />
+            <result column="DRUG_RIQI" property="drugRiqi" />
+            <result column="DRUG_MATR" property="drugMatr" />
+            <result column="SUPPLY_ID"  property="supplyId" />
+            <result column="DRUG_CLASS" property="drugClass" />
+            <result column="DRUG_STATE" property="drugState" />
+            <result column="DRUG_MESSAGE" property="drugMessage" />
+        </association>
     </resultMap>
 <!--新增发药详单    -->
     <insert id="addDisXq">
         insert into dispensing_xq(dis_id,drug_id,drug_number) values (#{disId},#{drugId},#{drugNumber})
     </insert>
+    <!--查看发药详单-->
+    <select id="selDisXq" resultMap="DispensingXqMapper">
+        select * from dispensing_xq dx
+          inner join dispensing ds on dx.dis_id=ds.dis_id
+          inner join yao_ping_xx d on dx.drug_id=d.drug_id
+        where dx.dis_id=#{param}
+    </select>
 </mapper>
