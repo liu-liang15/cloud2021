@@ -21,11 +21,11 @@
             <result property="assayProUnit" column="assay_pro_unit"></result>
         </collection>
     </resultMap>
-    <select id="findRes" resultMap="assayPerson">
+    <!--<select id="findRes" resultMap="assayPerson">
         select * from assay_person ap inner join assay_res ar
             on ap.assay_person_id = ar.assay_person_id and ap.assay_meal_name = ar.assay_meal_name
             where ap.assay_person_id = #{assayPersonId}
-    </select>
+    </select>-->
     <resultMap id="selectMeal" type="com.pojos.hyj.AssayMeal">
         <id column="assay_meal_id" property="assayMealId"></id>
         <result column="assay_meal_name" property="assayMealName"></result>
@@ -46,28 +46,65 @@
         where am.assay_meal_name = #{assayMealName}
     </select>
     <!--查询体检结果-->
-    <select id="findPersonRes" resultMap="assayPerson">
+    <!--<select id="findPersonRes" resultMap="assayPerson">
         select * from assay_person ap inner join assay_res ar
         on ap.assay_person_id = ar.assay_person_id and ap.assay_meal_name = ar.assay_meal_name
-        where ap.assay_k = 1;
+        where pay_type = 1
+    </select>-->
+    <resultMap id="assayInfo" type="com.pojos.hyj.AssayInfo">
+        <id column="info_id" property="infoId"></id>
+        <result column="assay_person_id" property="assayPersonId"/>
+        <result column="assay_person_name" property="assayPersonName"/>
+        <result column="assay_person_sex" property="assayPersonSex"/>
+        <result column="assay_person_age" property="assayPersonAge"/>
+        <result column="assay_person_card" property="assayPersonCard"/>
+        <result column="assay_person_phone" property="assayPersonPhone"/>
+        <result column="assay_person_time" property="assayPersonTime"/>
+        <result column="assay_meal_name" property="assayMealName"/>
+        <result column="yg_name" property="ygName"/>
+        <result column="ks_name" property="ksName"/>
+        <result column="assay_pay_num" property="assayPayNum"/>
+        <result column="keyboarder" property="keyboarder"/>
+        <collection property="assayRes" ofType="com.pojos.hyj.AssayRes">
+            <id property="assayResId" column="assay_res_id"></id>
+            <result property="assayPersonId" column="assay_person_id"></result>
+            <result property="assayMealName" column="assay_meal_name"></result>
+            <result property="assayProName" column="assay_pro_name"></result>
+            <result property="assayResInform" column="assay_res_inform"></result>
+            <result property="assayProRef" column="assay_pro_ref"></result>
+            <result property="assayProUnit" column="assay_pro_unit"></result>
+            <result column="assay_pay_num" property="assayPayNum"/>
+        </collection>
+    </resultMap>
+    <select id="findPersonRes" resultMap="assayInfo">
+        select * from assay_info ai inner join assay_res ar
+        on ai.assay_pay_num = ar.assay_pay_num where ai.keyboarder !=null or ai.keyboarder !=''
+    </select>
+    <select id="findRes" resultMap="assayInfo">
+        select * from assay_info ai inner join assay_res ar
+        on ai.assay_person_id = ar.assay_person_id and ai.assay_pay_num = ar.assay_pay_num
     </select>
     <!--体检结果录入界面的table查询-->
-    <select id="findEnterRes" resultMap="assayPerson">
-        select * from assay_person
-        where assay_k = 0;
+    <select id="findEnterRes" resultMap="selectMeal">
+        select * from assay_meal
+        where assay_meal_name = #{assayMealName}
     </select>
     <!--录入体检结果-->
     <insert id="addRes">
-        insert into assay_res(assay_pro_name,assay_res_inform,assay_pro_unit,assay_pro_ref,assay_person_id,assay_meal_name)
+        insert into assay_res(assay_pro_name,assay_res_inform,assay_pro_unit,assay_pro_ref,assay_person_id,assay_meal_name,assay_pay_num)
         values
         <foreach collection="list" item="obj" separator=",">
-            (#{obj.assayProName},#{obj.assayResInform},#{obj.assayProUnit},#{obj.assayProRef},#{obj.assayPersonId},#{obj.assayMealName})
+            (#{obj.assayProName},#{obj.assayResInform},#{obj.assayProUnit},#{obj.assayProRef},#{obj.assayPersonId},#{obj.assayMealName},#{obj.assayPayNum})
         </foreach>
     </insert>
-    <!--修改assay_k状态-->
-    <update id="editOneK">
-        update assay_person set assay_k = 1 where assay_person_id = #{assayPersonId}
+    <!--录入成功修改操作员-->
+    <update id="editKeyboarder">
+        update assay_info set keyboarder = #{keyboarder} where assay_pay_num = #{assayPayNum}
     </update>
+    <!--修改assay_k状态-->
+    <!--<update id="editOneK">
+        update assay_person set assay_k = 1 where assay_person_id = #{assayPersonId}
+    </update>-->
     <update id="editZeroK">
         update assay_person set assay_k = 0 where assay_person_id = #{assayPersonId}
     </update>
@@ -75,4 +112,8 @@
     <delete id="delPersonRes">
         delete from assay_res where assay_person_id = #{assayPersonId} and assay_meal_name = #{assayMealName}
     </delete>
+    <!--根据体检项目查询科室-->
+    <select id="findKsByMeal" resultMap="selectMeal">
+        select * from assay_meal where assay_meal_name = #{assayMealName}
+    </select>
 </mapper>
