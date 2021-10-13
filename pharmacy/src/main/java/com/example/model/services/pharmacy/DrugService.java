@@ -30,7 +30,11 @@ public class DrugService {
         return drugDao.findAllDrug(yaoPingXx);
     };
     public void addDrug(YaoPingXx yaoPingXx){
-        drugDao.addDrug(yaoPingXx);
+            drugDao.addDrug(yaoPingXx);
+    }
+
+    public int findId(String name,String matr){
+        return drugDao.findId(name,matr);
     }
     public void updateDrug(YaoPingXx yaoPingXx){
         drugDao.updateDrug(yaoPingXx);

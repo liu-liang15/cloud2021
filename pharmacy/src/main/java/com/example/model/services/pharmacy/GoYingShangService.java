@@ -26,4 +26,7 @@ public class GoYingShangService {
     public void update(GoYingShang goYingShang){
         goYingShangDao.update(goYingShang);
     }
+    public int findId(String name){
+        return goYingShangDao.findId(name);
+    }
 }
