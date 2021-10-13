@@ -20,7 +20,7 @@ public class PayfeesService {
 
     public void updatePayZt(double zongJinE,String param,List<PayfeesDetails> list){
         param = param.substring(1,param.length()-1);
-        Feebill feebill = new Feebill(0,param,zongJinE,"微信",null,1,null);
+        Feebill feebill = new Feebill(0,param,zongJinE,"诊疗卡",null,1,null);
         //新增缴费单
         payfeesDao.insertFeebill(feebill);
         for(PayfeesDetails l : list){
