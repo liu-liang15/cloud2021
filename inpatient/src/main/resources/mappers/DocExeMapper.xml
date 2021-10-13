@@ -8,7 +8,7 @@
         <result column="doc_nur" property="docNur"/>
         <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
             <id column="DRUG_ID" property="drugId" />
-            <result column="DRUG_NAME" property="drugName" />
+            <result column="DRUG_NAME" property="drugName"/>
             <result column="DRUG_PYM" property="drugPym" />
             <result column="DRUG_TYPE_ID" property="drugTypeId" />
             <result column="DRUG_SORT_ID" property="drugSortId" />
@@ -20,6 +20,8 @@
             <result column="SUPPLY_ID"  property="supplyId" />
             <result column="DRUG_CLASS" property="drugClass" />
             <result column="DRUG_STATE" property="drugState" />
+            <result column="DRUG_MESSAGE" property="drugMessage" />
+            <result column="DRUG_GRAIN" property="drugGrain"/>
         </association>
         <association property="docAdvXq" javaType="com.pojos.inpatient.DocAdvXq">
             <id column="doc_adv_id" property="docAdvId"/>

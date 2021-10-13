@@ -3,6 +3,8 @@ package com.pojos.inpatient;
 
 import com.pojos.outpatient.Patient;
 import com.pojos.outpatient.Medicalcard;
+import com.pojos.system.KeShi;
+import com.pojos.system.YuanGo;
 
 public class AdmNot {
 
@@ -15,6 +17,8 @@ public class AdmNot {
   private String admZt;
   private Medicalcard medicalcard;
   private Patient pat;
+  private YuanGo yg;
+  private KeShi ks;
 
   public Medicalcard getMedicalcard() {
     return medicalcard;
@@ -94,4 +98,19 @@ public class AdmNot {
     this.admZt = admZt;
   }
 
+  public YuanGo getYg() {
+    return yg;
+  }
+
+  public void setYg(YuanGo yg) {
+    this.yg = yg;
+  }
+
+  public KeShi getKs() {
+    return ks;
+  }
+
+  public void setKs(KeShi ks) {
+    this.ks = ks;
+  }
 }

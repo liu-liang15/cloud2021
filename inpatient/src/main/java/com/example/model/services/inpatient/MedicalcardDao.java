@@ -17,3 +17,4 @@ public interface MedicalcardDao {
     @GetMapping("outpatient/updatepat")
     void updatePat(Medicalcardjfjl med);
 }
+
