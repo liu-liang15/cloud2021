@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.DispensingXqDao">
+    <resultMap id="DispensingXqMapper" type="com.pojos.inpatient.DispensingXq">
+        <id column="dis_xq_id" property="disXqId"/>
+        <result column="dis_id" property="disId"/>
+        <result column="drug_id" property="drugId"/>
+        <result column="drug_number" property="drugNumber"/>
+    </resultMap>
+<!--新增发药详单    -->
+    <insert id="addDisXq">
+        insert into dispensing_xq(dis_id,drug_id,drug_number) values (#{disId},#{drugId},#{drugNumber})
+    </insert>
+</mapper>

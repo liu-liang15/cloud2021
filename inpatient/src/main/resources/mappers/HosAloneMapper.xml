@@ -41,6 +41,14 @@
                 <result column="" property="patientAddress"/>
                 <result column="patient_date" property="patientDate"/>
             </association>
+            <association property="yg" javaType="com.pojos.system.YuanGo">
+                <id column="yg_id" jdbcType="INTEGER" property="ygId" />
+                <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
+            </association>
+            <association property="ks" javaType="com.pojos.system.KeShi">
+                <id column="ks_id" property="ksId"/>
+                <result column="ks_name" property="ksName"/>
+            </association>
         </association>
     </resultMap>
     <!--查询所有住院单-->

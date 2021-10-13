@@ -23,8 +23,8 @@ public class ResMealServer {
     public void addResMeal(DocAdv docAdv, List<AssayMeal> assayMeals){
         for(AssayMeal a:assayMeals){
             ResMeal resMeal=new ResMeal(docAdv.getResNo(),a.getAssayMealId()+"",docAdv.getDocPer());
-            ExpCal e=new ExpCal(docAdv.getResNo(),a.getAssayMealName(),a.getAssayMealPrice());
-            expCalDao.addExpCal(e);
+            //ExpCal e=new ExpCal(docAdv.getResNo(),a.getAssayMealName(),a.getAssayMealPrice());
+            //expCalDao.addExpCal(e);
             resMealDao.addResMeal(resMeal);
         }
     }

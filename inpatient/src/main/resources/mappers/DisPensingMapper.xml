@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.DisPensingDao">
+    <resultMap id="DisPensingMapper" type="com.pojos.inpatient.Dispensing">
+        <id column="dis_id" property="disId"/>
+        <result column="dis_fin" property="disFin"/>
+        <result column="dis_nur" property="disNur"/>
+        <result column="dis_per" property="disPer"/>
+        <result column="res_no" property="resNo"/>
+    </resultMap>
+<!--新增发药单   -->
+    <insert id="addDis">
+        insert into dispensing(dis_nur,res_no) values(#{disNur},#{resNo})
+        <selectKey keyProperty="disId" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+</mapper>

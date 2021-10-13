@@ -8,6 +8,8 @@
         <result column="exp_pay" property="expPay"/>
         <result column="exp_time" property="expTime"/>
         <result column="exp_zt" property="expZt"/>
+        <result column="exp_num" property="expNum"/>
+        <result column="exp_type" property="expType"/>
     </resultMap>
     <!--查看消费记录-->
     <select id="selExpCal" resultMap="ExpCalMapper">
@@ -15,6 +17,6 @@
     </select>
     <!--新增消费记录-->
     <insert id="addExpCal">
-        insert into exp_cal(res_no,med_text,exp_pay) values (#{resNo},#{medText},#{expPay})
+        insert into exp_cal(res_no,med_text,exp_pay,exp_num,exp_type) values (#{resNo},#{medText},#{expPay},#{expNum},#{expType})
     </insert>
 </mapper>
