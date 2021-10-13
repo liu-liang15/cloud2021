@@ -66,6 +66,9 @@
     <select id="findAllType" resultMap="TypeMapper">
         select * from yao_ping_lx where 1 = 1
     </select>
+    <select id="findId" resultType="_int">
+        SELECT COUNT(*) from yao_ping_xx where DRUG_NAME=#{name} and DRUG_MATR=#{matr}
+    </select>
     <!--查询药品信息-->
     <select id="findAllDrug" resultMap="DrugMapper">
         SELECT * FROM yao_ping_xx xx INNER JOIN yao_ping_gg gg
