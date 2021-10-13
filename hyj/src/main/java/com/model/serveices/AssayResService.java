@@ -1,6 +1,7 @@
 package com.model.serveices;
 
 import com.model.dao.AssayResMapper;
+import com.pojos.hyj.AssayInfo;
 import com.pojos.hyj.AssayMeal;
 import com.pojos.hyj.AssayPerson;
 import com.pojos.hyj.AssayRes;
@@ -19,11 +20,11 @@ public class AssayResService {
     public List<AssayMeal> findMealPro(AssayMeal assayMeal){
         return assayResMapper.findMealPro(assayMeal);
     }
-    public List<AssayPerson> findPersonRes(){
+    public List<AssayInfo> findPersonRes(){
         return assayResMapper.findPersonRes();
     }
-    public List<AssayPerson> findEnterRes(){
-        return assayResMapper.findEnterRes();
+    public List<AssayMeal> findEnterRes(AssayMeal assayMeal){
+        return assayResMapper.findEnterRes(assayMeal);
     }
     public void addRes(AssayRes assayRes){
         assayResMapper.addRes(assayRes.getAssayRes());
@@ -36,5 +37,11 @@ public class AssayResService {
     }
     public void delPersonRes(AssayRes assayRes){
         assayResMapper.delPersonRes(assayRes);
+    }
+    public void editKeyboarder(AssayInfo assayInfo){
+        assayResMapper.editKeyboarder(assayInfo);
+    }
+    public List<AssayMeal> findKsByMeal(AssayMeal assayMeal){
+        return assayResMapper.findKsByMeal(assayMeal);
     }
 }

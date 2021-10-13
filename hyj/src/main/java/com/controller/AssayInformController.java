@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.model.serveices.AssayResService;
+import com.pojos.hyj.AssayInfo;
 import com.pojos.hyj.AssayMeal;
 import com.pojos.hyj.AssayPerson;
 import com.pojos.hyj.AssayRes;
@@ -25,12 +26,12 @@ public class AssayInformController {
         return assayResService.findMealPro(assayMeal);
     }
     @RequestMapping("findPersonRes")
-    public List<AssayPerson> findPersonRes(){
+    public List<AssayInfo> findPersonRes(){
         return assayResService.findPersonRes();
     }
     @RequestMapping("findEnterRes")
-    public List<AssayPerson> findEnterRes(){
-        return assayResService.findEnterRes();
+    public List<AssayMeal> findEnterRes(@RequestBody AssayMeal assayMeal){
+        return assayResService.findEnterRes(assayMeal);
     }
     @RequestMapping("addRes")
     public void addRes(@RequestBody AssayRes assayRes){
