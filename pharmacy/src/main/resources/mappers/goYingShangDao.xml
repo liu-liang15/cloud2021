@@ -18,7 +18,9 @@
         insert into go_ying_shang values(null,#{supplyName},#{supplyContacts}
                                   ,#{supplyPhone},#{supplySite},#{supplyState})
     </insert>
-
+    <select id="findId" resultType="_int">
+        SELECT COUNT(*) from go_ying_shang where SUPPLY_NAME=#{name}
+    </select>
     <!--修改供应商信息-->
     <update id="update" parameterType="com.pojos.pharmacy.GoYingShang">
         update go_ying_shang set SUPPLY_NAME=#{supplyName},SUPPLY_CONTACTS=#{supplyContacts}

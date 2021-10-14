@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.AssayInfoMapper">
+    <resultMap id="SelectInfo" type="com.pojos.hyj.AssayInfo">
+        <id column="info_id" property="infoId"></id>
+        <result column="assay_person_id" property="assayPersonId"/>
+        <result column="assay_person_name" property="assayPersonName"/>
+        <result column="assay_person_sex" property="assayPersonSex"/>
+        <result column="assay_person_age" property="assayPersonAge"/>
+        <result column="assay_person_card" property="assayPersonCard"/>
+        <result column="assay_person_phone" property="assayPersonPhone"/>
+        <result column="assay_person_time" property="assayPersonTime"/>
+        <result column="assay_meal_name" property="assayMealName"/>
+        <result column="yg_name" property="ygName"/>
+        <result column="ks_name" property="ksName"/>
+        <result column="assay_pay_num" property="assayPayNum"/>
+        <result column="keyboarder" property="keyboarder"/>
+    </resultMap>
+    <insert id="addAssayInfo">
+        insert into assay_info(assay_person_id,assay_person_name,assay_person_sex,assay_person_age,assay_person_card,assay_person_phone,assay_person_time,assay_meal_name,yg_name,ks_name,assay_pay_num)
+        values(#{assayPersonId},#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonCard},#{assayPersonPhone},now(),#{assayMealName},#{ygName},#{ksName},#{assayPayNum})
+    </insert>
+    <!--缴费成功之后新增一条缴费记录-->
+    <insert id="addPay">
+        insert into assay_pay(assay_pay_num,assay_person_id,assay_pay_money,assay_pay_type,assay_pay_time,assay_pay_remark)
+        values(#{assayPayNum},#{assayPersonId},#{assayPayMoney},#{assayPayType},now(),#{assayPayRemark})
+    </insert>
+    <!--缴费完把状态修改为不可查询-->
+    <update id="editPersonK">
+        update assay_person set assay_k = 1 where assay_person_id = #{assayPersonId}
+    </update>
+    <select id="selectInfo" resultMap="SelectInfo">
+        select * from assay_info ai inner join assay_pay ap
+        on ai.assay_pay_num = ap.assay_pay_num
+        where ai.keyboarder = null or ai.keyboarder =''
+    </select>
+</mapper>

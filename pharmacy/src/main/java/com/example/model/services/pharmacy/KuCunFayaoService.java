@@ -82,6 +82,5 @@ public class KuCunFayaoService {
         }
         //删除库存数量为0的所有库存信息,应对调拨数真好对应某一库存数量时未删除库存记录
         kuCunFayaoDao.delectKuCun();
-
     }
 }

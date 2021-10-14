@@ -39,6 +39,10 @@ public class MedicalcardCzjlController {
         System.err.println(med.getMecajfjlMoney()+"guolai修改卡余额"+Integer.parseInt(med.getMecajfjlMediNo()));
         medicalcardCzjlService.updatePat(med.getMecajfjlMoney(),Integer.parseInt(med.getMecajfjlMediNo()));
     }
-
+    //修改卡余额2
+    @RequestMapping("/updatepat1")
+    public void updatePat2(double mecajfjlMoney,String mecajfjlNo){
+        medicalcardCzjlService.updatePat(mecajfjlMoney,Integer.parseInt(mecajfjlNo));
+    }
 
 }

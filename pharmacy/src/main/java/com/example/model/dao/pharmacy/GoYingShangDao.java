@@ -3,6 +3,7 @@ package com.example.model.dao.pharmacy;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pojos.pharmacy.GoYingShang;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface GoYingShangDao extends BaseMapper<GoYingShang> {
     void insert2(GoYingShang goYingShang);
     //修改供应商信息
     void update(GoYingShang goYingShang);
+    int findId(@Param("name") String name);
 }

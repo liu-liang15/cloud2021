@@ -23,6 +23,7 @@ public class AssayRes {
     private String assayProRef;//参考值
     private int assayPersonId;//体检人id
     private String assayMealName;//体检套餐
+    private String assayPayNum;
     private int assayK;//状态
     private List<AssayRes> assayRes;
 }

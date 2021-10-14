@@ -23,6 +23,7 @@ public class MzshoushucfService {
         int ssNo = Integer.parseInt(sqSsNo);
         for(Mzshoushuxq p : list){
             p.setSqSsNo(ssNo);
+            p.setSqCount(1);
             mzshoushucfDao.insertMzshoushuxq(p);
         }
     }

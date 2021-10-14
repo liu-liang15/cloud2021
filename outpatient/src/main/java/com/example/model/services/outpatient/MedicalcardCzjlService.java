@@ -27,7 +27,6 @@ public class MedicalcardCzjlService {
     }
     //修改卡余额
     public void updatePat(double mediBalance,Integer mediNo){
-        System.err.println("进l");
         medicalcardDao.updatePat(mediBalance,mediNo);
     }
 

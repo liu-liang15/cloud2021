@@ -24,12 +24,18 @@ public class GoYingShangController {
     @RequestMapping("add-supplier")
     public String addSupplier(@RequestBody GoYingShang goYingShang){
         try {
-            if(goYingShang.getSupplyId()==0){
-                goYingShangService.insert(goYingShang);
+            int sum= goYingShangService.findId(goYingShang.getSupplyName());
+            if(goYingShang.getSupplyId()==0) {
+                if (sum == 0) {
+                    goYingShangService.insert(goYingShang);
+                    return "ok1";
+                } else{
+                    return "ok3";
+                }
             }else{
                 goYingShangService.update(goYingShang);
+                return "ok2";
             }
-            return "ok";
         } catch (Exception e) {
             e.printStackTrace();
             return "fail";

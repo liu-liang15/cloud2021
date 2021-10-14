@@ -79,6 +79,9 @@
     <insert id="addCK" parameterType="com.pojos.pharmacy.ChuKu">
         insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime})
     </insert>
+    <insert id="addCKXQ" parameterType="com.pojos.pharmacy.ChuKuJiLu">
+        insert into
+    </insert>
     <insert id="addXHCKXQ" parameterType="java.util.Collection">
         INSERT INTO chu_ku_ji_lu VALUES
         <foreach collection="chuKuJiLus" item="p" separator=",">

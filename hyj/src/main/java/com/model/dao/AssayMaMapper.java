@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface AssayMaMapper extends BaseMapper<AssayPerson> {
-    @Select("select * from assay_person")
+    @Select("select * from assay_person where assay_k = 0")
     public List<AssayPerson> findPerson();
     @Delete("delete from assay_person where assay_person_id = #{assayPersonId}")
     public void delPerson(AssayPerson assayPerson);

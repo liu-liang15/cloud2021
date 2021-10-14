@@ -23,16 +23,7 @@ public class YiShengJiuZhenController {
     ExamineorderService examineorderService;
 
 
-    //新增检查处方详情(化验)
-    @PostMapping("/insertExaminedetails")
-    public void insertExaminedetails(@RequestBody Map<String,Object> map){
-        String exaordNo1= JSON.toJSONString(map.get("exaordNo"));
-        String str= JSON.toJSONString(map.get("examinedetails"));
-        List<Examinedetails>list2=JSON.parseArray(str, Examinedetails.class);
-        System.out.println(list2);
-        System.out.println(exaordNo1);
-        examineorderService.insertExaminedetails(list2,exaordNo1);
-    }
+
     //新增处方检查单
     @RequestMapping("/insertExamineorder")
     public int insertExamineorder(String exaordSeedoNumber,String exaordMoney1){
@@ -41,7 +32,22 @@ public class YiShengJiuZhenController {
         examineorderService.insertExamineorder(examineorder);
         return examineorder.getExaordNo();
     }
-
+    //新增检查处方详情(化验)
+    @PostMapping("/insertExaminedetails")
+    public void insertExaminedetails(@RequestBody Map<String,Object> map){
+        System.out.println("----------map");
+        System.out.println(map);
+        String exaordNo1= JSON.toJSONString(map.get("exaordNo"));
+        System.out.println("----------exaordNo1");
+        System.out.println(exaordNo1);
+        String str= JSON.toJSONString(map.get("examinedetails"));
+        System.out.println("----------str");
+        System.out.println(str);
+        List<Labworkdetails>list2=JSON.parseArray(str, Labworkdetails.class);
+        System.out.println("----------list");
+        System.out.println(list2);
+        examineorderService.insertExaminedetails(list2,exaordNo1);
+    }
 
     //查询检查项目findBlip
     @PostMapping("/findBlip")

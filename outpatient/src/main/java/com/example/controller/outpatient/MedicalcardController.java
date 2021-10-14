@@ -1,20 +1,21 @@
 package com.example.controller.outpatient;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.model.services.outpatient.MedicalcardService;
 import com.example.model.services.outpatient.PatientService;
+import com.pojos.outpatient.Buka;
+import com.pojos.outpatient.Casehistorydetails;
 import com.pojos.outpatient.Medicalcard;
 import com.pojos.outpatient.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/outpatient")
@@ -23,6 +24,21 @@ public class MedicalcardController {
     PatientService patientService;
     @Autowired
     MedicalcardService medicalcardService;
+
+    //新增补卡记录
+    @PostMapping("/insertBuka")
+    public void insertBuka(@RequestBody Map<String,Object> map){
+        String bk= JSON.toJSONString(map.get("buka"));
+        Buka buka = JSONObject.parseObject(bk,Buka.class);
+        System.out.println(buka);
+        medicalcardService.insertBuka(buka);
+    }
+    //查询补卡记录
+    @GetMapping("/selectBuKa")
+    public List<Buka> selectBuKa(String param) {
+        return medicalcardService.selectBuKa(param);
+    }
+
 
     @GetMapping("/findAllMedicalcard")
     public List<Medicalcard> findAllMedicalcard(String param){

@@ -1,6 +1,7 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.MedicalcardDao;
+import com.pojos.outpatient.Buka;
 import com.pojos.outpatient.Medicalcard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,14 @@ public class MedicalcardService {
 
     public void medicalcardBB(int mediNo,String mediCard){
         medicalcardDao.medicalcardBB(mediNo,mediCard);
+    }
+    //新增补卡记录
+    public void insertBuka(Buka buka){
+        medicalcardDao.insertBuka(buka);
+    }
+    //查询补卡记录
+    public List<Buka> selectBuKa(String param) {
+        return medicalcardDao.selectBuKa(param);
     }
 
     public void editPwd(int mediNo,String mediPassword){
