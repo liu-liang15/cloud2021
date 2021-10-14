@@ -15,23 +15,22 @@ public class Prescriptiondetails {
   private String usage;
   private String pinci;
   private String zu;
+  private int state;
 
   public Prescriptiondetails(){}
 
-  @Override
-  public String toString() {
-    return "Prescriptiondetails{" +
-            "predetNo=" + predetNo +
-            ", predetPresNo='" + predetPresNo + '\'' +
-            ", drugId='" + drugId + '\'' +
-            ", drugName='" + drugName + '\'' +
-            ", number='" + number + '\'' +
-            ", drugShoujia=" + drugShoujia +
-            ", xiaoji='" + xiaoji + '\'' +
-            ", usage='" + usage + '\'' +
-            ", pinci='" + pinci + '\'' +
-            ", zu='" + zu + '\'' +
-            '}';
+  public Prescriptiondetails(int predetNo, String predetPresNo, String drugId, String drugName, String number, double drugShoujia, double xiaoji, String usage, String pinci, String zu, int state) {
+    this.predetNo = predetNo;
+    this.predetPresNo = predetPresNo;
+    this.drugId = drugId;
+    this.drugName = drugName;
+    this.number = number;
+    this.drugShoujia = drugShoujia;
+    this.xiaoji = xiaoji;
+    this.usage = usage;
+    this.pinci = pinci;
+    this.zu = zu;
+    this.state = state;
   }
 }
 

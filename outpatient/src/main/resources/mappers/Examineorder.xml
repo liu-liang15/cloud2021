@@ -16,6 +16,7 @@
         <result column="assay_meal_id" property="assayMealId" />
         <result column="exadet_count" property="exadetCount" />
         <result column="meal_blip_price" property="mealBlipPrice" />
+        <result column="exadet_state" property="exadetState" />
     </resultMap>
 
     <insert id="insertExamineorder" useGeneratedKeys="true" keyProperty="exaordNo" parameterType="com.pojos.outpatient.Examineorder">
@@ -25,6 +26,6 @@
 
     <insert id="insertExaminedetails" parameterType="com.pojos.outpatient.Examinedetails">
         insert into examinedetails
-        values(0,#{jianchadan},#{jianchaid},#{count},#{price})
+        values(0,#{jianchadan},#{jianchaid},#{count},#{price},1)
     </insert>
 </mapper>

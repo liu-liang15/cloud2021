@@ -16,6 +16,7 @@
         <result column="labdet_assay_no" property="labdetAssayNo" />
         <result column="labdet_count" property="labdetCount" />
         <result column="assay_meal_price" property="assayMealPrice" />
+        <result column="labdet_state" property="labdetState" />
     </resultMap>
 
     <insert id="insertAssayCF" useGeneratedKeys="true" keyProperty="assayNo" parameterType="com.pojos.outpatient.Assay">
@@ -25,6 +26,6 @@
 
     <insert id="insertLabworkdetailsCF" parameterType="com.pojos.outpatient.Labworkdetails">
         insert into labworkdetails
-        values(0,#{assayMealId},#{labdetAssayNo},#{labdetCount},#{assayMealPrice})
+        values(0,#{assayMealId},#{labdetAssayNo},#{labdetCount},#{assayMealPrice},1)
     </insert>
 </mapper>

@@ -13,6 +13,7 @@
         <result column="usage" property="usage" />
         <result column="pinci" property="pinci" />
         <result column="zu" property="zu" />
+        <result column="state" property="state" />
     </resultMap>
 
     <resultMap id="prescription" type="com.pojos.outpatient.Prescription">
@@ -33,6 +34,6 @@
 
     <insert id="insertChufangXQ" parameterType="com.pojos.outpatient.Prescriptiondetails">
         insert into prescriptiondetails
-        values(0,#{predetPresNo},#{drugId},#{drugName},#{number},#{drugShoujia},#{xiaoji},#{usage},#{pinci},#{zu})
+        values(0,#{predetPresNo},#{drugId},#{drugName},#{number},#{drugShoujia},#{xiaoji},#{usage},#{pinci},#{zu},1)
     </insert>
 </mapper>
