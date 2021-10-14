@@ -2,11 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.model.dao.inpatient.DisPensingDao">
     <resultMap id="DisPensingMapper" type="com.pojos.inpatient.Dispensing">
-        <id column="dis_id" property="disId"/>
-        <result column="dis_fin" property="disFin"/>
+        <id column="did" property="disId"/>
+        <result column="fin" property="disFin"/>
         <result column="dis_nur" property="disNur"/>
         <result column="dis_per" property="disPer"/>
         <result column="res_no" property="resNo"/>
+        <association property="p" javaType="com.pojos.outpatient.Patient">
+            <id column="patient_no" property="patientNo"/>
+            <result column="pname" property="patientName"/>
+        </association>
+        <association property="yg" javaType="com.pojos.system.YuanGo">
+            <result column="nur" property="ygName"/>
+        </association>
+        <association property="yg2" javaType="com.pojos.system.YuanGo">
+            <result column="per" property="ygName"/>
+        </association>
     </resultMap>
 <!--新增发药单   -->
     <insert id="addDis">
@@ -15,4 +25,30 @@
             select LAST_INSERT_ID()
         </selectKey>
     </insert>
+    <!--查看发药单-->
+    <select id="selDis" resultMap="DisPensingMapper">
+        select d.dis_id as did,p.patient_name as pname,y.yg_name as nur,yg.yg_name as per,d.dis_fin as fin from dispensing d
+          inner join hos_alone h on d.res_no=h.res_no
+          inner join adm_not a on h.hos_no=a.hos_no
+          inner join medicalcard m on a.patient = m.medi_no
+          inner join patient p on m.medi_patient_no=p.patient_no
+          inner join yuan_go y on d.dis_nur=y.yg_id
+          left join yuan_go yg on d.dis_per=yg.yg_id
+        <if test="param!=''">
+            where d.res_no=#{param}
+        </if>
+    </select>
+<!--修改发药单  -->
+    <update id="changeDis">
+        update dispensing
+        <set>
+            <if test="disNur!=''">
+                dis_nur=#{disNur}
+            </if>
+            <if test="disFin!=''">
+                dis_fin=#{disFin}
+            </if>
+        </set>
+        where dis_id=#{disId}
+    </update>
 </mapper>

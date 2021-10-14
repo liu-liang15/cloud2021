@@ -1,6 +1,9 @@
 package com.pojos.inpatient;
 
 
+import com.pojos.outpatient.Patient;
+import com.pojos.system.YuanGo;
+
 public class Dispensing {
 
   private long disId;
@@ -8,7 +11,9 @@ public class Dispensing {
   private String disPer;
   private java.sql.Timestamp disFin;
   private String resNo;
-
+  private Patient p;
+  private YuanGo yg;
+  private YuanGo yg2;
 
   public long getDisId() {
     return disId;
@@ -54,4 +59,27 @@ public class Dispensing {
     this.resNo = resNo;
   }
 
+  public Patient getP() {
+    return p;
+  }
+
+  public void setP(Patient p) {
+    this.p = p;
+  }
+
+  public YuanGo getYg() {
+    return yg;
+  }
+
+  public void setYg(YuanGo yg) {
+    this.yg = yg;
+  }
+
+  public YuanGo getYg2() {
+    return yg2;
+  }
+
+  public void setYg2(YuanGo yg2) {
+    this.yg2 = yg2;
+  }
 }
