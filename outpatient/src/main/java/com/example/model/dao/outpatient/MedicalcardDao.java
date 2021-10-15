@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface MedicalcardDao extends BaseMapper<Medicalcard> {
     //查询诊疗卡
-    List<Medicalcard> findAllMedicalcard(String param);
+    List<Medicalcard> findAllMedicalcard(@Param("zlkhao") String zlkhao,@Param("name")String name,@Param("idcard")String idcard,@Param("phone")String phone);
 
     //根据诊疗卡卡号查询信息
     List<Medicalcard> findMedicalcardByMediCard(String mediCard);

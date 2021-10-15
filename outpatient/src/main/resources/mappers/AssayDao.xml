@@ -28,4 +28,21 @@
         insert into labworkdetails
         values(0,#{assayMealId},#{labdetAssayNo},#{labdetCount},#{assayMealPrice},1)
     </insert>
+    <!--//根据门诊删除处方检验详单状态为1的数据-->
+    <delete id="deljycfddzt1">
+        delete from  labworkdetails where labdet_state = 1 and labdet_assay_no = (select assay_no from assay where assay_seedo_number = #{param})
+    </delete>
+
+    <select id="selectjyxqzt1" resultMap="labworkdetails">
+        select * from assay a inner join labworkdetails l on a.assay_no = l.labdet_assay_no
+        where 1 = 1 and l.labdet_state = 1 and a.assay_seedo_number = #{param}
+    </select>
+
+    <select id="selectjydd" resultMap="assay">
+        select * from assay where assay_seedo_number = #{param}
+    </select>
+    
+    <update id="updatecfjyddzjg" parameterType="com.pojos.outpatient.Assay">
+        update assay set assay_money = #{jg} where assay_seedo_number = #{mzhao}
+    </update>
 </mapper>

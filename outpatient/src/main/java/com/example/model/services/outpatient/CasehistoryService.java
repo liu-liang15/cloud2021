@@ -22,8 +22,7 @@ public class CasehistoryService {
         return casehistoryDao.findCaseHistorySFZ(param);
     }
 
-    public List<Casehistory> findAllCaseHistory(String param){
-        return casehistoryDao.findAllCaseHistory(param);
+    public List<Casehistory> findAllCaseHistory(String name,String idcard,String phone,String sex){
+        return casehistoryDao.findAllCaseHistory(name,idcard,phone,sex);
     }
-
 }

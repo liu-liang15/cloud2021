@@ -17,8 +17,8 @@ public class MedicalcardCzjlService {
     @Autowired
     MedicalcardDao medicalcardDao;
 
-    public List<Medicalcardczjl> findAllMedicalcardCzjl(String param){
-        return medicalcardCzjlDao.findAllMedicalcardCzjl(param);
+    public List<Medicalcardczjl> findAllMedicalcardCzjl(String zlkhao,String name,String idcard,String phone,String zffs,String sj1,String sj2){
+        return medicalcardCzjlDao.findAllMedicalcardCzjl(zlkhao,name,idcard,phone,zffs,sj1,sj2);
     }
 
     public void addMedicalcardCzjl(Medicalcardczjl medicalcardczjl){

@@ -10,8 +10,11 @@
     </resultMap>
     <select id="findAllTuiHao" resultMap="tuiHao">
         select * from tuihao where 1 = 1
-        <if test="param!=null and param!=''">
-            and hospreg_no like '%${param}%'
+        <if test="mzhao != null and mzhao != ''">
+            and hospreg_no like '%${mzhao}%'
+        </if>
+        <if test="sj1 !=null and sj1!='' and sj2 !=null and sj2!=''">
+            and tuihao_date between #{sj1} and #{sj2}
         </if>
         order by tuihao_date desc
     </select>

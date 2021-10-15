@@ -1,7 +1,9 @@
 package com.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author 刘亮
@@ -36,5 +38,28 @@ public class DataUtil {
     private static void printDay(Calendar calendar) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd EE");
         System.out.println(dateFormat.format(calendar.getTime()));
+    }
+    /**
+     * 国际时间转换北京时间
+     * @param UTCStr
+     * @param format
+     * @return
+     * @throws ParseException
+     */
+    public String UTCToCST(String UTCStr, String format) throws ParseException {
+        if(UTCStr == null){
+            return null;
+        }else{
+            Date date = null;
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(UTCStr);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 8);
+            //calendar.getTime() 返回的是Date类型，也可以使用calendar.getTimeInMillis()获取时间戳
+            String str = sdf.format(calendar.getTime());
+            String str1 = str.substring(0,10);
+            return str1;
+        }
     }
 }

@@ -12,17 +12,100 @@ import java.util.Map;
 @RequestMapping("/outpatient")
 public class YiShengJiuZhenController {
     @Autowired
+    AssayMealBlipService assayMealBlipService;
+    @Autowired
     PrescriptionService prescriptionService;
     @Autowired
     AssayService assayService;
     @Autowired
     MzshoushucfService mzshoushucfService;
     @Autowired
-    AssayMealBlipService assayMealBlipService;
-    @Autowired
     ExamineorderService examineorderService;
 
+//    修改处方检验订单的总价格
+    @RequestMapping("/updatecfjyddzjg")
+    public void updatecfjyddzjg(String jiage,String mzhao){
+        double jg = Double.parseDouble(jiage);
+        assayService.updatecfjyddzjg(jg,mzhao);
+    }
+    //    修改处方检查订单的总价格
+    @RequestMapping("/updatecfjcddzjg")
+    public void updatecfjcddzjg(String jiage,String mzhao){
+        double jg = Double.parseDouble(jiage);
+        examineorderService.updatecfjcddzjg(jg,mzhao);
+    }
+    //    修改处方手术订单的总价格
+    @RequestMapping("/updatecfssddzjg")
+    public void updatecfssddzjg(String jiage,String mzhao){
+        double jg = Double.parseDouble(jiage);
+        mzshoushucfService.updatecfssddzjg(jg,mzhao);
+    }
+    //    修改处方药品订单的总价格
+    @RequestMapping("/updatecfypddzjg")
+    public void updatecfypddzjg(String jiage,String mzhao){
+        double jg = Double.parseDouble(jiage);
+        prescriptionService.updatecfypddzjg(jg,mzhao);
+    }
 
+    //查询药品详单的状态为1的记录
+    @RequestMapping("/selectypxqzt1")
+    public List<Prescriptiondetails> selectypxqzt1(String param){
+        return prescriptionService.selectypxqzt1(param);
+    }
+    //    查询药品订单，根据门诊号
+    @RequestMapping("/selectypdd")
+    public Prescription selectypdd(String param){
+        return prescriptionService.selectypdd(param);
+    }
+
+    //查询检查详单的状态为1的记录
+    @RequestMapping("/selectjcxqzt1")
+    public List<Examinedetails> selectjcxqzt1(String param){
+        return examineorderService.selectjcxqzt1(param);
+    }
+    //    查询检查订单，根据门诊号
+    @RequestMapping("/selectjcdd")
+    public Examineorder selectjcdd(String param){
+        return examineorderService.selectjcdd(param);
+    }
+
+    //查询检验详单的状态为1的记录
+    @RequestMapping("/selectjyxqzt1")
+    public List<Labworkdetails> selectjyxqzt1(String param){
+        return assayService.selectjyxqzt1(param);
+    }
+    //    查询检验订单，根据门诊号
+    @RequestMapping("/selectjydd")
+    public Assay selectjydd(String param){
+        return assayService.selectjydd(param);
+    }
+
+    //查询手术详单的状态为1的记录
+    @RequestMapping("/selectssxqzt1")
+    public List<Mzshoushuxq> selectssxqzt1(String param){
+        return mzshoushucfService.selectssxqzt1(param);
+    }
+    //    查询手术订单，根据门诊号
+    @RequestMapping("/selectssdd")
+    public Mzshoushucf selectssdd(String param){
+        return mzshoushucfService.selectssdd(param);
+    }
+
+    //删除所有详单状态为一的数据
+    @RequestMapping("/delcfddzt1")
+    public void delcfddzt1(String param){
+        System.out.println("-----------------");
+        System.out.println(param);
+        //根据门诊删除处方手术详单状态为1的数据
+        mzshoushucfService.delsscfddzt1(param);
+        //根据门诊删除处方检验详单状态为1的数据
+        assayService.deljycfddzt1(param);
+        //根据门诊删除处方检查详单状态为1的数据
+        examineorderService.deljccfddzt1(param);
+        //根据门诊删除处方药品详单状态为1的数据
+        prescriptionService.delypypddzt1(param);
+
+    }
 
     //新增处方检查单
     @RequestMapping("/insertExamineorder")
@@ -35,17 +118,9 @@ public class YiShengJiuZhenController {
     //新增检查处方详情(化验)
     @PostMapping("/insertExaminedetails")
     public void insertExaminedetails(@RequestBody Map<String,Object> map){
-        System.out.println("----------map");
-        System.out.println(map);
         String exaordNo1= JSON.toJSONString(map.get("exaordNo"));
-        System.out.println("----------exaordNo1");
-        System.out.println(exaordNo1);
         String str= JSON.toJSONString(map.get("examinedetails"));
-        System.out.println("----------str");
-        System.out.println(str);
         List<Labworkdetails>list2=JSON.parseArray(str, Labworkdetails.class);
-        System.out.println("----------list");
-        System.out.println(list2);
         examineorderService.insertExaminedetails(list2,exaordNo1);
     }
 
@@ -61,8 +136,6 @@ public class YiShengJiuZhenController {
         String sqSsNo1= JSON.toJSONString(map.get("sqSsNo"));
         String str= JSON.toJSONString(map.get("mzshoushuxq"));
         List<Mzshoushuxq>list2=JSON.parseArray(str, Mzshoushuxq.class);
-        System.out.println(list2);
-        System.out.println(sqSsNo1);
         mzshoushucfService.insertMzshoushuxq(list2,sqSsNo1);
     }
     //新增处方手术单
@@ -81,7 +154,6 @@ public class YiShengJiuZhenController {
         String assayNo= JSON.toJSONString(map.get("assayNo"));
         String str= JSON.toJSONString(map.get("labworkDetails"));
         List<Labworkdetails>list2=JSON.parseArray(str, Labworkdetails.class);
-        System.out.println(list2);
         assayService.insertLabworkdetailsCF(list2,assayNo);
     }
     //新增处方化验单
@@ -90,7 +162,6 @@ public class YiShengJiuZhenController {
         double assayMoney = Double.parseDouble(assayMoney1);
         Assay assay = new Assay(0,assaySeedoNumber,assayMoney,null,0);
         assayService.insertAssayCF(assay);
-        System.out.println(assay.getAssayNo());
         return assay.getAssayNo();
     }
 
@@ -101,7 +172,6 @@ public class YiShengJiuZhenController {
         String predetPresNo= JSON.toJSONString(map.get("predetPresNo"));
         String str= JSON.toJSONString(map.get("prede"));
         List<Prescriptiondetails>list2=JSON.parseArray(str, Prescriptiondetails.class);
-        System.out.println(list2);
         prescriptionService.insertChufangXQ(list2,predetPresNo);
     }
     //新增处方

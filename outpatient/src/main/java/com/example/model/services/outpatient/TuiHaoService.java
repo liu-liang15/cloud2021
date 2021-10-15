@@ -14,8 +14,8 @@ public class TuiHaoService {
     @Autowired
     TuiHaoDao tuiHaoDao;
 
-    public List<Tuihao> findAllTuiHao(String param){
-        return tuiHaoDao.findAllTuiHao(param);
+    public List<Tuihao> findAllTuiHao(String mzhao,String sj1,String sj2){
+        return tuiHaoDao.findAllTuiHao(mzhao,sj1,sj2);
     }
 
     public void insertTuiHao(Tuihao tuihao) {

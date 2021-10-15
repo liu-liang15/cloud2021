@@ -26,4 +26,21 @@ public class ExamineorderService {
             examineorderDao.insertExaminedetails(exaordNo1,p.getAssayMealId(),1,p.getAssayMealPrice());
         }
     }
+
+    //根据门诊删除处方检查详单状态为1的数据
+    public void deljccfddzt1(String param) {
+        examineorderDao.deljccfddzt1(param);
+    }
+
+    public List<Examinedetails> selectjcxqzt1(String param) {
+        return examineorderDao.selectjcxqzt1(param);
+    }
+
+    public Examineorder selectjcdd(String param) {
+        return examineorderDao.selectjcdd(param);
+    }
+
+    public void updatecfjcddzjg(double jg, String mzhao) {
+        examineorderDao.updatecfjcddzjg(jg,mzhao);
+    }
 }

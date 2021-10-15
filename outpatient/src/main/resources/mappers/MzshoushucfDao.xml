@@ -28,4 +28,25 @@
         insert into mzshoushuxq
         values(0,#{surNo},#{sqSsNo},#{surPay},#{sqCount},1)
     </insert>
+
+    <!--查询手术详单的状态为1的记录-->
+    <select id="selectssxqzt1" resultMap="mzshoushuxq">
+        select * from mzshoushucf mc inner join mzshoushuxq mx on mc.ss_no = mx.sq_ss_no
+        where 1 = 1 and mx.sq_state = 1 and mc.ss_seedo_number = #{param}
+    </select>
+
+    <!--查询手术订单，根据门诊号-->
+    <select id="selectssdd" resultMap="mzshoushucf">
+        select * from mzshoushucf where ss_seedo_number = #{param}
+    </select>
+<!--    //根据门诊删除处方手术详单状态为1的数据-->
+    <delete id="delsscfddzt1">
+        delete from  mzshoushuxq where sq_state = 1 and sq_ss_no = (select ss_no from mzshoushucf where ss_seedo_number = #{param})
+    </delete>
+
+    <update id="updatecfssddzjg" parameterType="com.pojos.outpatient.Mzshoushucf">
+        update mzshoushucf set ss_money = #{jg} where ss_seedo_number = #{mzhao}
+    </update>
+
+
 </mapper>

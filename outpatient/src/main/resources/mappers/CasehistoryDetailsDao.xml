@@ -8,6 +8,7 @@
         <result column="cahide_zhusu" property="cahideZhusu" />
         <result column="cahide_xianbingshi" property="cahideXianbingshi" />
         <result column="cahide_jiwangshi" property="cahideJiwangshi" />
+        <result column="cahide_zhenduanjieguo" property="cahideZhenduanjieguo" />
         <result column="cahide_zhiliaoyijian" property="cahideZhiliaoyijian" />
         <result column="cahide_ysqianming" property="cahideYsqianming" />
         <result column="cahide_date" property="cahideDate" />
@@ -30,8 +31,8 @@
     </resultMap>
 
     <insert id="insertBingLiXQ" useGeneratedKeys="true" keyProperty="cahideNo" parameterType="com.pojos.outpatient.Casehistorydetails">
-        insert into casehistorydetails(cahide_cashis_no,cahide_keshi_name,cahide_zhusu,cahide_xianbingshi,cahide_jiwangshi,cahide_zhiliaoyijian,cahide_ysqianming)
-        values(#{cahideCashisNo},#{cahideKeshiName},#{cahideZhusu},#{cahideXianbingshi},#{cahideJiwangshi},#{cahideZhiliaoyijian},#{cahideYsqianming})
+        insert into casehistorydetails(cahide_cashis_no,cahide_keshi_name,cahide_zhusu,cahide_xianbingshi,cahide_jiwangshi,cahide_zhiliaoyijian,cahide_ysqianming,cahide_zhenduanjieguo)
+        values(#{cahideCashisNo},#{cahideKeshiName},#{cahideZhusu},#{cahideXianbingshi},#{cahideJiwangshi},#{cahideZhiliaoyijian},#{cahideYsqianming},#{cahideZhenduanjieguo})
     </insert>
 
     <select id="findCasehisDetails" resultMap="casehistorydetails">
@@ -41,4 +42,15 @@
         </if>
         order by c.cahide_date desc
     </select>
+
+    <!--根据就诊记录的门诊号查询病历详情-->
+    <select id="findCasehisDetailsBySeenumber" resultMap="casehistorydetails">
+        select * from seedoctor s inner join casehistorydetails cd on s.seedo_cahide_no = cd.cahide_no
+        where 1 = 1 and s.seedo_number = #{param}
+    </select>
+
+<!--  修改诊断结果  editzhenduanjieguo-->
+    <update id="editzhenduanjieguo">
+        update casehistorydetails set cahide_zhenduanjieguo = #{cahideZhenduanjieguo} where cahide_no = #{cahideNo}
+    </update>
 </mapper>

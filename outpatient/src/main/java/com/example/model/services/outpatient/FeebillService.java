@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -22,8 +23,8 @@ public class FeebillService {
         return feebillDao.findAllDFYP();
     }
     //查询缴费记录
-    public List<Payment> selJiaoFeiJiLu(String param) {
-        return feebillDao.selJiaoFeiJiLu(param);
+    public List<Payment> selJiaoFeiJiLu(String mzhao,String name,String idcard,String phone,String zffs,String sj1,String sj2) throws ParseException {
+        return feebillDao.selJiaoFeiJiLu(mzhao,name,idcard,phone,zffs,sj1,sj2);
     }
     //查询缴费记录详情
     public List<FeebillDetails> selJiaoFeiJiLuXq(String param) {

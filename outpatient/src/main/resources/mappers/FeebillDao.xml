@@ -72,9 +72,23 @@
             inner join hospreg h on f.feebill_seedo_number = h.horeg_no
             inner join patient p on h.horeg_patient_no = p.patient_no
         where 1 = 1
-        <if test="param != null and param!=''">
-            and f.feebill_seedo_number = #{param}
-            or p.patient_idcart = #{param}
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="idcard!=null and idcard!=''">
+            and p.patient_idcart like '%${idcard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            and p.patient_phone like '%${phone}%'
+        </if>
+        <if test="mzhao!=null and mzhao!=''">
+            and f.feebill_seedo_number like '%${mzhao}%'
+        </if>
+        <if test="zffs!=null and zffs!=''">
+            and f.feebill_type like '%${zffs}%'
+        </if>
+        <if test="sj1 !=null and sj1!='' and sj2 !=null and sj2!=''">
+            and f.feebill_date between #{sj1} and #{sj2}
         </if>
           and to_days(f.feebill_date) = to_days(now())
         group by f.feebill_date desc

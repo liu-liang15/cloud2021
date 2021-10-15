@@ -16,6 +16,19 @@ public class CasehistoryDetailsController {
     @Autowired
     CasehistoryDetailsService casehistoryDetailsService;
 
+    //修改诊断结果
+    @RequestMapping("/editzhenduanjieguo")
+    public void editzhenduanjieguo(String cahideZhenduanjieguo,String cahideNo){
+        casehistoryDetailsService.editzhenduanjieguo(cahideZhenduanjieguo,cahideNo);
+    }
+
+
+    //-- 门诊号查询就诊记录，查询病历详情
+    @GetMapping("/findCasehisDetailsBySeenumber")
+    public Casehistorydetails findCasehisDetailsBySeenumber(String param){
+        return casehistoryDetailsService.findCasehisDetailsBySeenumber(param);
+    }
+
     //新增病详情
     @PostMapping("/insertBingLiXQ")
     public int insertBingLiXQ(@RequestBody Map<String,Object> map){

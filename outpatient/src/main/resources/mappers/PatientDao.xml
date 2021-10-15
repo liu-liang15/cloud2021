@@ -15,11 +15,17 @@
     <!--查询病人信息，排序，多条件-->
     <select id="findAllPatient" resultMap="patient">
         select * from patient where 1 = 1
-        <if test="param!=null and param!=''">
-            and patient_name like '%${param}%'
-            or patient_sex like '%${param}%'
-            or patient_phone like '%${param}%'
-            or patient_idcart like '%${param}%'
+        <if test="name!=null and name!=''">
+            and patient_name like '%${name}%'
+        </if>
+        <if test="idcard!=null and idcard!=''">
+            and patient_idcart like '%${idcard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            and patient_phone like '%${phone}%'
+        </if>
+        <if test="sex!=null and sex!=''">
+            and patient_sex like '%${sex}%'
         </if>
         order by patient_date desc
     </select>

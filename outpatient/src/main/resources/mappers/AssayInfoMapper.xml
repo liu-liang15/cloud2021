@@ -36,4 +36,21 @@
         insert into prescriptiondetails
         values(0,#{predetPresNo},#{drugId},#{drugName},#{number},#{drugShoujia},#{xiaoji},#{usage},#{pinci},#{zu},1)
     </insert>
+
+
+<!--    //根据门诊删除处方药品详单状态为1的数据-->
+    <delete id="delypypddzt1">
+        delete from  prescriptiondetails where state = 1 and predet_pres_no = (select pres_no from prescription where pres_seedo_number = #{param})
+    </delete>
+    <update id="updatecfypddzjg"  parameterType="com.pojos.outpatient.Prescription">
+        update prescription set pres_money = #{jg} where pres_seedo_number = #{mzhao}
+    </update>
+
+    <select id="selectypxqzt1" resultMap="prescriptiondetails">
+        select * from prescription p inner join prescriptiondetails pd on p.pres_no = pd.predet_pres_no
+        where 1 = 1 and pd.state = 1 and p.pres_seedo_number = #{param}
+    </select>
+    <select id="selectypdd" resultMap="prescription">
+        select * from prescription where pres_seedo_number = #{param}
+    </select>
 </mapper>

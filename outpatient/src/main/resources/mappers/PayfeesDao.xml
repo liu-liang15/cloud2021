@@ -17,12 +17,32 @@
         <result column="type" property="type" />
         <result column="xiaoji" property="xiaoji" />
     </resultMap>
-
+    <resultMap id="feebillDetails" type="com.pojos.outpatient.FeebillDetails">
+        <id column="febide_no" property="febideNo" />
+        <result column="febide_feebill_no" property="febideFeebillNo" />
+        <result column="febide_id" property="febideId" />
+        <result column="febide_name" property="febideName" />
+        <result column="febide_money" property="febideMoney" />
+        <result column="febide_type" property="febideType" />
+        <result column="febide_count" property="febideCount" />
+        <result column="febide_state" property="febideState" />
+    </resultMap>
 <!--  新增缴费单  -->
     <insert id="insertFeebill" useGeneratedKeys="true" keyProperty="feebillNo" parameterType="com.pojos.outpatient.Feebill">
         insert into feebill(feebill_seedo_number,feebill_money,feebill_type,feebill_remark)
         values(#{feebillSeedoNumber},#{feebillMoney},#{feebillType},#{feebillRemark})
     </insert>
+
+    <select id="findId" resultMap="feebillDetails">
+        select * from feebilldetails where febide_type='检查' or  febide_type='化验' and febide_feebill_no=#{id}
+    </select>
+    
+    <insert id="tjaddjfd" parameterType="com.pojos.hyj.AssayPay">
+        insert into assay_pay()
+        values(null,#{assayPayNum},#{assayPersonId},#{assayPayMoney},#{assayPayType},now(),#{assayFs})
+    </insert>
+
+
     <!--  新增缴费详单  -->
     <insert id="insertFeebillDetails" parameterType="com.pojos.outpatient.FeebillDetails">
         insert into feebilldetails(febide_feebill_no,febide_id,febide_name,febide_money,febide_type,febide_count)
@@ -49,12 +69,34 @@
         update mzshoushucf set ss_zt = 2 where ss_seedo_number = #{param}
     </update>
 
+<!--    &#45;&#45; 修改手术处方详单的编号-->
+    <update id="updateXdZtSs">
+        update mzshoushuxq as alias_1 inner join (select ss_no from mzshoushucf where ss_seedo_number = #{param}) as alias_2
+        set alias_1.sq_state = 2 where alias_1.sq_ss_no = alias_2.ss_no
+    </update>
+<!--    &#45;&#45; 修改检验处方详单的编号-->
+    <update id="updateXdZtJy">
+        update labworkdetails as alias_1 inner join (select assay_no from assay where assay_seedo_number = #{param}) as alias_2
+        set alias_1.labdet_state = 2 where alias_1.labdet_assay_no = alias_2.assay_no
+    </update>
+<!--    &#45;&#45; 修改检查处方详单的编号-->
+    <update id="updateXdZtJc">
+        update examinedetails as alias_1 inner join (select exaord_no from examineorder where exaord_seedo_number = #{param}) as alias_2
+        set alias_1.exadet_state = 2 where alias_1.exadet_exaord_no = alias_2.exaord_no
+    </update>
+
+<!--    &#45;&#45; 修改药品处方详单的编号-->
+    <update id="updateXdZtYp">
+        update prescriptiondetails as alias_1 inner join (select pres_no from prescription where pres_seedo_number = #{param}) as alias_2
+        set alias_1.state = 2 where alias_1.predet_pres_no = alias_2.pres_no
+    </update>
+
     <!--查询药品缴费详单-->
     <select id="findpaycf" resultMap="payfeesdetails">
         select p.drug_id as id,p.drug_name as name,p.number as count,p.xiaoji as xiaoji
         from prescriptiondetails p
             inner join prescription pr on p.predet_pres_no = pr.pres_no
-        where 1 = 1 and p.state and pr.pres_seedo_number = #{param}
+        where 1 = 1 and p.state = 1 and pr.pres_seedo_number = #{param}
     </select>
 
     <!--查询化验缴费详单-->
@@ -96,10 +138,20 @@
             left join mzshoushucf m on (s.seedo_number = m.ss_seedo_number) and m.ss_zt = 1
             inner join patient pa on pa.patient_no = s.seedo_patient_no
         where 1 = 1
-        <if test="param!=null and param!=''">
-            and s.seedo_number like #{param}
-            or pa.patient_idcart like #{param}
+
+        <if test="name!=null and name!=''">
+            and pa.patient_name like '%${name}%'
         </if>
+        <if test="idcard!=null and idcard!=''">
+            and pa.patient_idcart like '%${idcard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            and pa.patient_phone like '%${phone}%'
+        </if>
+        <if test="mzhao!=null and mzhao!=''">
+            and s.seedo_number like '%${mzhao}%'
+        </if>
+            and  to_days(s.seedo_date) = to_days(now())
             group by s.seedo_number desc
         ) t2  where zjg != 0
     </select>

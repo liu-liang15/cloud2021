@@ -25,6 +25,7 @@ public class PayfeesController {
     public int updatePayZt(@RequestBody Map<String,Object> map){
         String mzhao = JSON.toJSONString(map.get("Mzhao"));
         String zongJinE = JSON.toJSONString(map.get("ZongJinE"));
+        String type = JSON.toJSONString(map.get("zfFangshi"));
         zongJinE = zongJinE.substring(1,zongJinE.length()-1);
         double zongJinE1 = Double.parseDouble(zongJinE);
         String payDetailsform= JSON.toJSONString(map.get("PayDetailsform"));
@@ -37,15 +38,14 @@ public class PayfeesController {
             PayfeesDetails payfeesDetails = JSONObject.parseObject(strArr[i],PayfeesDetails.class);
             payfeesDetailsList.add(payfeesDetails);
         }
-        payfeesService.updatePayZt(zongJinE1,mzhao,payfeesDetailsList);
+        payfeesService.updatePayZt(zongJinE1,mzhao,payfeesDetailsList,type);
         return 1;
     }
 
     //查询就诊记录总价格进行缴费
     @GetMapping("/selJiuZhenZJG")
-    public List<Payfees> selJiuZhenZJG(String param){
-        System.out.println(param);
-        return payfeesService.selJiuZhenZJG(param);
+    public List<Payfees> selJiuZhenZJG(String mzhao,String name,String idcard,String phone){
+        return payfeesService.selJiuZhenZJG(mzhao,name,idcard,phone);
     }
 
     @GetMapping("/findpaycf")

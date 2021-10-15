@@ -34,8 +34,8 @@ public class CasehistoryController {
 
     //查询所有病历
     @GetMapping("/findAllCaseHistory")
-    public List<Casehistory> findAllCaseHistory(String param){
-        return casehistoryService.findAllCaseHistory(param);
+    public List<Casehistory> findAllCaseHistory(String name,String idcard,String phone,String sex){
+        return casehistoryService.findAllCaseHistory(name,idcard,phone,sex);
     }
 
 }

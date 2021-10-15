@@ -6,12 +6,13 @@ import com.pojos.outpatient.FeebillDetails;
 import com.pojos.outpatient.Payfees;
 import com.pojos.outpatient.PayfeesDetails;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
 public interface PayfeesDao extends BaseMapper<Payfees> {
-    List<Payfees> selJiuZhenZJG(String param);
+    List<Payfees> selJiuZhenZJG(@Param("mzhao") String mzhao,@Param("name") String name,@Param("idcard") String idcard,@Param("phone") String phone);
 
     void insertFeebill(Feebill feebill);
     void insertFeebillDetails(FeebillDetails feebillDetails);
@@ -21,8 +22,16 @@ public interface PayfeesDao extends BaseMapper<Payfees> {
     void updatePayZtJc(String param);
     void updatePayZtSs(String param);
 
+    void updateXdZtSs(String param);
+    void updateXdZtJy(String param);
+    void updateXdZtJc(String param);
+    void updateXdZtYp(String param);
+
     List<PayfeesDetails> findpaycf(String param);
     List<PayfeesDetails> findpayhy(String param);
     List<PayfeesDetails> findpayjc(String param);
     List<PayfeesDetails> findpayss(String param);
+
+    List<FeebillDetails> findId(String id);
+    //void add
 }

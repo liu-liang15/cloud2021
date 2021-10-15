@@ -27,4 +27,21 @@ public class PrescriptionService {
             prescriptionDao.insertChufangXQ(p);
         }
     }
+
+    //根据门诊删除处方药品详单状态为1的数据
+    public void delypypddzt1(String param) {
+        prescriptionDao.delypypddzt1(param);
+    }
+
+    public void updatecfypddzjg(double jg, String mzhao) {
+        prescriptionDao.updatecfypddzjg(jg,mzhao);
+    }
+
+    public List<Prescriptiondetails> selectypxqzt1(String param) {
+        return prescriptionDao.selectypxqzt1(param);
+    }
+
+    public Prescription selectypdd(String param) {
+        return prescriptionDao.selectypdd(param);
+    }
 }

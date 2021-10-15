@@ -18,8 +18,8 @@ public class PatientController {
 
     //查询病人信
     @GetMapping("/findAllPatient")
-    public List<Patient> findAll(String param){
-        return patientService.findAll(param);
+    public List<Patient> findAll(String name,String idcard,String phone,String sex){
+        return patientService.findAll(name,idcard,phone,sex);
     }
 
     //新增修改

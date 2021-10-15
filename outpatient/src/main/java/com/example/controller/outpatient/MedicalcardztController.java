@@ -3,12 +3,13 @@ package com.example.controller.outpatient;
 import com.alibaba.fastjson.JSONObject;
 import com.example.model.services.outpatient.MedicalcardztService;
 import com.pojos.outpatient.Medicalcardzt;
+import com.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,8 +29,11 @@ public class MedicalcardztController {
     }
 
     @GetMapping("/findAllMedicalcardzt")
-    public List<Medicalcardzt> findAllMedicalcardzt(String param){
-         return medicalcardztService.findAllMedicalcardzt(param);
+    public List<Medicalcardzt> findAllMedicalcardzt(String zlkhao,String sj1,String sj2) throws ParseException {
+        DataUtil da = new DataUtil();
+        String st1 = da.UTCToCST(sj1, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
+        String st2 = da.UTCToCST(sj2, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
+         return medicalcardztService.findAllMedicalcardzt(zlkhao,st1,st2);
     }
 
     //年月日时分秒

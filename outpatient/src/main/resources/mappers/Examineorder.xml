@@ -28,4 +28,22 @@
         insert into examinedetails
         values(0,#{jianchadan},#{jianchaid},#{count},#{price},1)
     </insert>
+
+<!--    //根据门诊删除处方检查详单状态为1的数据-->
+    <delete id="deljccfddzt1">
+        delete from  examinedetails where exadet_state = 1 and exadet_exaord_no = (select exaord_no from examineorder where exaord_seedo_number = #{param})
+    </delete>
+
+    <select id="selectjcdd" resultMap="examineorder">
+        select * from examineorder where exaord_seedo_number = #{param}
+    </select>
+
+    <select id="selectjcxqzt1" resultMap="examinedetails">
+        select * from examineorder e inner join examinedetails ed on e.exaord_no = ed.exadet_exaord_no
+        where 1 = 1 and ed.exadet_state = 1 and e.exaord_seedo_number = #{param}
+    </select>
+
+    <update id="updatecfjcddzjg" parameterType="com.pojos.outpatient.Examineorder">
+        update examineorder set exaord_money = #{jg} where exaord_seedo_number = #{mzhao}
+    </update>
 </mapper>

@@ -21,8 +21,8 @@ public class HospregController {
 
     //查询就诊列表
     @RequestMapping("/findJiuZhenLieBiao")
-    public List<Hospreg> findJiuZhenLieBiao(int horegState, int horegAttendingdocNo){
-        return hopregService.findJiuZhenLieBiao(horegState,horegAttendingdocNo);
+    public List<Hospreg> findJiuZhenLieBiao(int horegState, int horegAttendingdocNo,int asc){
+        return hopregService.findJiuZhenLieBiao(horegState,horegAttendingdocNo,asc);
     }
 
     //改变挂号状态

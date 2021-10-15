@@ -14,9 +14,8 @@ public class PatientService {
     @Autowired
     PatientDao patientDao;
 
-    public List<Patient> findAll(String param){
-        System.out.println(321);
-        return patientDao.findAllPatient(param);
+    public List<Patient> findAll(String name,String idcard,String phone,String sex){
+        return patientDao.findAllPatient(name,idcard,phone,sex);
     }
 
     public void savePatient(Patient patient){

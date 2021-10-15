@@ -33,7 +33,11 @@ public class HospregService {
         hopregDao.updateHospreg(hospreg);
     }
 
-    public List<Hospreg> findJiuZhenLieBiao(int horegState,int horegAttendingdocNo){
-        return hopregDao.findJiuZhenLieBiao(horegState,horegAttendingdocNo);
+    public List<Hospreg> findJiuZhenLieBiao(int horegState,int horegAttendingdocNo,int asc){
+        if(asc == 1){
+            return hopregDao.findJiuZhenLieBiao(horegState,horegAttendingdocNo);
+        }else{
+            return hopregDao.findJiuZhenLieBiao2(horegState,horegAttendingdocNo);
+        }
     }
 }

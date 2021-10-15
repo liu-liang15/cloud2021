@@ -21,5 +21,13 @@ public class CasehistoryDetailsService {
     public List<Casehistorydetails> findCasehisDetails(int param){
         return casehistoryDetailsDao.findCasehisDetails(param);
     }
+    //-- 门诊号查询就诊记录，查询病历详情
+    public Casehistorydetails findCasehisDetailsBySeenumber(String param) {
+        return casehistoryDetailsDao.findCasehisDetailsBySeenumber(param);
+    }
 
+    //修改诊断结果
+    public void editzhenduanjieguo(String cahideZhenduanjieguo, String cahideNo) {
+        casehistoryDetailsDao.editzhenduanjieguo(cahideZhenduanjieguo,cahideNo);
+    }
 }

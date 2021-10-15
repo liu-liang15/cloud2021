@@ -37,12 +37,17 @@
     <!--查询诊疗卡，排序，多条件-->
     <select id="findAllMedicalcard" resultMap="medicalcard">
         select * from medicalcard m inner join patient p on m.medi_patient_no = p.patient_no where 1 = 1
-        <if test="param!=null and param!=''">
-            /*姓名、身份证、诊疗卡号、电话*/
-            and p.patient_name like '%${param}%'
-            or p.patient_phone like '%${param}%'
-            or p.patient_idcart like '%${param}%'
-            or m.medi_card like '%${param}%'
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="idcard!=null and idcard!=''">
+            and p.patient_idcart like '%${idcard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            and p.patient_phone like '%${phone}%'
+        </if>
+        <if test="zlkhao!=null and zlkhao!=''">
+            and m.medi_card like '%${zlkhao}%'
         </if>
         order by m.medi_newdate desc
     </select>

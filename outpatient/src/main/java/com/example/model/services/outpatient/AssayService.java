@@ -1,8 +1,7 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.AssayDao;
-import com.pojos.outpatient.Assay;
-import com.pojos.outpatient.Labworkdetails;
+import com.pojos.outpatient.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +24,21 @@ public class AssayService {
             p.setLabdetCount(1);
             assayDao.insertLabworkdetailsCF(p);
         }
+    }
+    //根据门诊删除处方检验详单状态为1的数据
+    public void deljycfddzt1(String param) {
+        assayDao.deljycfddzt1(param);
+    }
+
+    public List<Labworkdetails> selectjyxqzt1(String param) {
+        return assayDao.selectjyxqzt1(param);
+    }
+
+    public Assay selectjydd(String param) {
+        return assayDao.selectjydd(param);
+    }
+
+    public void updatecfjyddzjg(double jg, String mzhao) {
+        assayDao.updatecfjyddzjg(jg,mzhao);
     }
 }

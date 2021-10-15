@@ -22,4 +22,7 @@ public interface HospregDao extends BaseMapper<Hospreg> {
     void updateHospreg(Hospreg hospreg);
 
     List<Hospreg> findJiuZhenLieBiao(@Param("horegState") int horegState,@Param("horegAttendingdocNo")int horegAttendingdocNo);
+
+    List<Hospreg> findJiuZhenLieBiao2(@Param("horegState") int horegState,@Param("horegAttendingdocNo")int horegAttendingdocNo);
+
 }

@@ -11,8 +11,11 @@
     </resultMap>
     <select id="findAllMedicalcardzt" resultMap="medicalcardzt">
         select * from medicalcardzt where 1 = 1
-        <if test="param!=null and param!=''">
-            and medi_no like '%${param}%'
+        <if test="zlkhao != null and zlkhao != ''">
+            and medi_no like '%${zlkhao}%'
+        </if>
+        <if test="sj1 !=null and sj1!='' and sj2 !=null and sj2!=''">
+            and date between #{sj1} and #{sj2}
         </if>
         order by date desc
     </select>

@@ -15,8 +15,8 @@ public class MedicalcardService {
     @Autowired
     MedicalcardDao medicalcardDao;
 
-    public List<Medicalcard> findAllMedicalcard(String param){
-        return medicalcardDao.findAllMedicalcard(param);
+    public List<Medicalcard> findAllMedicalcard(String zlkhao,String name,String idcard,String phone){
+        return medicalcardDao.findAllMedicalcard(zlkhao,name,idcard,phone);
     }
 
     public List<Medicalcard> findMedicalcardByMediCard(String mediCard){

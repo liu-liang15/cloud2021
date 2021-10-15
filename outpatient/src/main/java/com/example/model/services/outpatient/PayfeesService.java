@@ -17,12 +17,12 @@ public class PayfeesService {
     @Autowired
     PayfeesDao payfeesDao;
 
-
-    public void updatePayZt(double zongJinE,String param,List<PayfeesDetails> list){
+    public void updatePayZt(double zongJinE,String param,List<PayfeesDetails> list,String type){
         param = param.substring(1,param.length()-1);
-        Feebill feebill = new Feebill(0,param,zongJinE,"诊疗卡",null,1,null);
+        Feebill feebill = new Feebill(0,param,zongJinE,type.substring(1,type.length()-1),null,1,null);
         //新增缴费单
         payfeesDao.insertFeebill(feebill);
+
         for(PayfeesDetails l : list){
             //新增缴费详单
             System.out.println(l);
@@ -30,19 +30,27 @@ public class PayfeesService {
             payfeesDao.insertFeebillDetails(feebillDetails);
             if(l.getType().equals("药品")){
                 payfeesDao.updatePayZtYp(param);
+                payfeesDao.updateXdZtYp(param);
             }else if(l.getType().equals("化验")){
                 payfeesDao.updatePayZtHy(param);
+                payfeesDao. updateXdZtJy(param);
             }else if(l.getType().equals("检查")){
                 payfeesDao.updatePayZtJc(param);
+                payfeesDao.updateXdZtJc(param);
             }else if(l.getType().equals("手术")){
                 payfeesDao.updatePayZtSs(param);
+                payfeesDao.updateXdZtSs(param);
             }
+        }
+        List<FeebillDetails> feebillDetails= payfeesDao.findId(feebill.getFeebillNo()+"");
+        for (int i=0;i<feebillDetails.size();i++){
+
         }
     }
 
 
-    public List<Payfees> selJiuZhenZJG(String param){
-        return payfeesDao.selJiuZhenZJG(param);
+    public List<Payfees> selJiuZhenZJG(String mzhao,String name,String idcard,String phone){
+        return payfeesDao.selJiuZhenZJG(mzhao,name,idcard,phone);
     }
 
     public List<PayfeesDetails> findpaycf(String param){

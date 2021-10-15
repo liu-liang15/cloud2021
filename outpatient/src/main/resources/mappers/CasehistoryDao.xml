@@ -32,10 +32,17 @@
 
     <select id="findAllCaseHistory" resultMap="casehistory">
         select * from casehistory c inner join patient p on c.cashis_patient_no = p.patient_no where 1 = 1
-        <if test="param != null and param != ''">
-            and p.patient_name like '%${param}%'
-            or p.patient_phone like '%${param}%'
-            or p.patient_idcart like '%${param}%'
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="idcard!=null and idcard!=''">
+            and p.patient_idcart like '%${idcard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            and p.patient_phone like '%${phone}%'
+        </if>
+        <if test="sex!=null and sex!=''">
+            and p.patient_sex like '%${sex}%'
         </if>
         order by c.cashis_date desc
     </select>
