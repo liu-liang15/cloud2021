@@ -44,6 +44,9 @@ public class PayfeesService {
             }
         }
 
+        //新增体检病人
+
+
         //体检
         List<FeebillDetails> feebillDetails= payfeesDao.findId(feebill.getFeebillNo()+"");
         for (int i=0;i<feebillDetails.size();i++){
