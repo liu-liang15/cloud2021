@@ -12,8 +12,8 @@ import java.util.List;
 @Mapper
 public interface RuKuDao {
     void addRKD(RuKu ruKu);
-    void addRKXD(Collection<RkXiangDan> rkXiangDans, String rkDh);
-    void addKC(Collection<RkXiangDan> kucun);
+    void addRKXD(@Param("rkXiangDans") Collection<RkXiangDan> rkXiangDans,@Param("rkDh") String rkDh);
+    void addKC(@Param("kucun")Collection<RkXiangDan> kucun);
     void updateOrder(@Param("purchaseSjfk")String purchaseSjfk,@Param("times")Date times,@Param("purchaseId") String purchaseId);
     List<RkXiangDan> FindByIdRuku(String rhDh);
 }

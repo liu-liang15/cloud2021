@@ -58,14 +58,16 @@
     <update id="updateFYXD">
         update feebilldetails set febide_state='2' where febide_feebill_no=#{id} and febide_type='药品'
     </update>
+    <!--查询某门诊缴费单内所有项目数量-->
     <select id="sum1" resultType="_int">
         select COUNT(1) as num  from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no where f.feebill_no=#{id}
     </select>
+    <!--查询某门诊缴费单内所有已完成的项目数量-->
     <select id="sum2"  resultType="_int">
         select COUNT(1) as num  from feebill f inner join feebilldetails fs on f.feebill_no = fs.febide_feebill_no where f.feebill_no=#{id} and fs.febide_state=2
     </select>
     <insert id="addFYD" parameterType="com.pojos.pharmacy.FaYao">
-        insert into fa_yao values (#{fyId},#{fyRy},#{jfd},#{fySj})
+        insert into fa_yao values (#{fyId},#{fyRy},#{jfd},#{fySj},#{fyYy})
     </insert>
     <insert id="addFYXD" parameterType="java.util.Collection">
         INSERT INTO fao_yao_xd VALUES
@@ -75,10 +77,14 @@
     </insert>
     <!--查询药房药品库存-->
     <select id="findAllYFYP" resultMap="YaoFangMap">
-        SELECT * FROM yp_yao_fang ypyf INNER JOIN yao_ping_xx xx
-        on ypyf.drug_id= xx.drug_id INNER JOIN yao_ping_gg gg
-        on xx.DRUG_SPEC_ID=gg.DRUG_SPEC_ID INNER JOIN yao_ping_lb lb
-        on xx.DRUG_SORT_ID=lb.DRUG_SORT_ID INNER JOIN yao_ping_lx lx
-        on xx.DRUG_TYPE_ID=lx.DRUG_TYPE_ID  where 1=1
+    SELECT * FROM yp_yao_fang ypyf INNER JOIN yao_ping_xx xx
+    on ypyf.drug_id= xx.drug_id INNER JOIN yao_ping_gg gg
+    on xx.DRUG_SPEC_ID=gg.DRUG_SPEC_ID INNER JOIN yao_ping_lb lb
+    on xx.DRUG_SORT_ID=lb.DRUG_SORT_ID INNER JOIN yao_ping_lx lx
+    on xx.DRUG_TYPE_ID=lx.DRUG_TYPE_ID  where 1=1 and xx.DRUG_STATE=1
     </select>
+    <!--修改发药单-->
+    <update id="changeDis">
+        update dispensing set dis_per=#{userId} where dis_id=#{disId}
+    </update>
 </mapper>

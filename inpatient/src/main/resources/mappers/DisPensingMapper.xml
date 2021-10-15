@@ -18,7 +18,49 @@
             <result column="per" property="ygName"/>
         </association>
     </resultMap>
-<!--新增发药单   -->
+    <resultMap id="DisPensingMapper2" type="com.pojos.inpatient.Dispensing">
+        <id column="dis_id" property="disId"/>
+        <result column="dis_fin" property="disFin"/>
+        <result column="dis_nur" property="disNur"/>
+        <result column="dis_per" property="disPer"/>
+        <result column="res_no" property="resNo"/>
+        <association property="yg" javaType="com.pojos.system.YuanGo">
+            <result column="yg_name" property="ygName"/>
+        </association>
+        <association property="p" javaType="com.pojos.outpatient.Patient">
+            <id column="patient_no" property="patientNo"/>
+            <result column="patient_name" property="patientName"/>
+        </association>
+        <collection property="dispensingXq" javaType="ArrayList" ofType="com.pojos.inpatient.DispensingXq">
+            <id column="dis_xq_id" property="disXqId"/>
+            <result column="dis_id" property="disId"/>
+            <result column="drug_id" property="drugId"/>
+            <result column="drug_number" property="drugNumber"/>
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+                <id column="DRUG_ID" property="drugId" />
+                <result column="DRUG_NAME" property="drugName" />
+                <result column="DRUG_PYM" property="drugPym" />
+                <result column="DRUG_TYPE_ID" property="drugTypeId" />
+                <result column="DRUG_SORT_ID" property="drugSortId" />
+                <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+                <result column="DRUG_JINJIA" property="drugJinjia" />
+                <result column="DRUG_SHOUJIA" property="drugShoujia" />
+                <result column="DRUG_RIQI" property="drugRiqi" />
+                <result column="DRUG_MATR" property="drugMatr" />
+                <result column="SUPPLY_ID"  property="supplyId" />
+                <result column="DRUG_CLASS" property="drugClass" />
+                <result column="DRUG_STATE" property="drugState" />
+                <result column="DRUG_MESSAGE" property="drugMessage" />
+                <result column="DRUG_GRAIN" property="drugGrain"/>
+                <association property="yaoPingLbs" javaType="com.pojos.pharmacy.YaoPingLb">
+                    <id column="DRUG_SORT_ID" property="drugSortId" />
+                    <result column="DRUG_SORT_NAME" property="drugSortName"/>
+                </association>
+            </association>
+        </collection>
+    </resultMap>
+
+    <!--新增发药单   -->
     <insert id="addDis">
         insert into dispensing(dis_nur,res_no) values(#{disNur},#{resNo})
         <selectKey keyProperty="disId" resultType="long">
@@ -28,17 +70,42 @@
     <!--查看发药单-->
     <select id="selDis" resultMap="DisPensingMapper">
         select d.dis_id as did,p.patient_name as pname,y.yg_name as nur,yg.yg_name as per,d.dis_fin as fin from dispensing d
-          inner join hos_alone h on d.res_no=h.res_no
-          inner join adm_not a on h.hos_no=a.hos_no
-          inner join medicalcard m on a.patient = m.medi_no
-          inner join patient p on m.medi_patient_no=p.patient_no
-          inner join yuan_go y on d.dis_nur=y.yg_id
-          left join yuan_go yg on d.dis_per=yg.yg_id
+        inner join hos_alone h on d.res_no=h.res_no
+        inner join adm_not a on h.hos_no=a.hos_no
+        inner join medicalcard m on a.patient = m.medi_no
+        inner join patient p on m.medi_patient_no=p.patient_no
+        inner join yuan_go y on d.dis_nur=y.yg_id
+        left join yuan_go yg on d.dis_per=yg.yg_id
         <if test="param!=''">
             where d.res_no=#{param}
         </if>
     </select>
-<!--修改发药单  -->
+    <select id="selDis2" resultMap="DisPensingMapper2">
+        select * from dispensing d
+                          inner join hos_alone h on d.res_no=h.res_no
+                          inner join adm_not a on h.hos_no=a.hos_no
+                          inner join medicalcard m on a.patient = m.medi_no
+                          inner join patient p on m.medi_patient_no=p.patient_no
+                          inner join dispensing_xq dx on dx.dis_id=d.dis_id
+                          INNER JOIN yao_ping_xx xx on dx.drug_id=xx.drug_id
+                          INNER JOIN yao_ping_lb lb on xx.DRUG_STATE=lb.DRUG_SORT_ID
+                          inner join yuan_go y on d.dis_nur=y.yg_id
+        where d.dis_per is null and lb.DRUG_SORT_NAME= '处方药'
+    </select>
+    <select id="selDis3" resultMap="DisPensingMapper2">
+        select * from dispensing d
+                          inner join hos_alone h on d.res_no=h.res_no
+                          inner join adm_not a on h.hos_no=a.hos_no
+                          inner join medicalcard m on a.patient = m.medi_no
+                          inner join patient p on m.medi_patient_no=p.patient_no
+                          inner join dispensing_xq dx on dx.dis_id=d.dis_id
+                          INNER JOIN yao_ping_xx xx on dx.drug_id=xx.drug_id
+                          INNER JOIN yao_ping_lb lb on xx.DRUG_STATE=lb.DRUG_SORT_ID
+                          inner join yuan_go y on d.dis_nur=y.yg_id
+                          where DATE_ADD( d.dis_fin, interval 1 DAY)>NOW()
+                          and  d.dis_per is null and lb.DRUG_SORT_NAME= '非处方药'
+    </select>
+    <!--修改发药单  -->
     <update id="changeDis">
         update dispensing
         <set>

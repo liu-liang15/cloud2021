@@ -3,16 +3,24 @@ package com.pojos.pharmacy;
 
 public class YpYaoFang {
 
-  private long rkpcId;
+  private long drugId;
   private long drugNumber;
-  private RkXiangDan rkXiangDan;
+  private YaoPingXx yaoPingXx;
 
-  public long getRkpcId() {
-    return rkpcId;
+  public YaoPingXx getYaoPingXx() {
+    return yaoPingXx;
   }
 
-  public void setRkpcId(long rkpcId) {
-    this.rkpcId = rkpcId;
+  public void setYaoPingXx(YaoPingXx yaoPingXx) {
+    this.yaoPingXx = yaoPingXx;
+  }
+
+  public long getDrugId() {
+    return drugId;
+  }
+
+  public void setDrugId(long drugId) {
+    this.drugId = drugId;
   }
 
   public long getDrugNumber() {
@@ -23,11 +31,5 @@ public class YpYaoFang {
     this.drugNumber = drugNumber;
   }
 
-  public RkXiangDan getRkXiangDan() {
-    return rkXiangDan;
-  }
-
-  public void setRkXiangDan(RkXiangDan rkXiangDan) {
-    this.rkXiangDan = rkXiangDan;
-  }
 }
+

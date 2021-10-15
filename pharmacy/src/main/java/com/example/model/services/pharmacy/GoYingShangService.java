@@ -3,6 +3,7 @@ package com.example.model.services.pharmacy;
 
 import com.example.model.dao.pharmacy.GoYingShangDao;
 import com.pojos.pharmacy.GoYingShang;
+import com.pojos.pharmacy.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +16,8 @@ public class GoYingShangService {
     @Autowired
     GoYingShangDao goYingShangDao;
     //查询所有供应商
-    public List<GoYingShang> findAll(){
-        return goYingShangDao.findAll();
+    public List<GoYingShang> findAll(Hibernate hibernate){
+        return goYingShangDao.findAll(hibernate);
     }
     //新增供应商
     public void insert(GoYingShang goYingShang){

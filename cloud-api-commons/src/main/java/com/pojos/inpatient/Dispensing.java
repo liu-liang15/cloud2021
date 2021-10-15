@@ -4,6 +4,8 @@ package com.pojos.inpatient;
 import com.pojos.outpatient.Patient;
 import com.pojos.system.YuanGo;
 
+import java.util.Collection;
+
 public class Dispensing {
 
   private long disId;
@@ -14,6 +16,7 @@ public class Dispensing {
   private Patient p;
   private YuanGo yg;
   private YuanGo yg2;
+  private Collection<DispensingXq> dispensingXq;
 
   public long getDisId() {
     return disId;
@@ -81,5 +84,13 @@ public class Dispensing {
 
   public void setYg2(YuanGo yg2) {
     this.yg2 = yg2;
+  }
+
+  public Collection<DispensingXq> getDispensingXq() {
+    return dispensingXq;
+  }
+
+  public void setDispensingXq(Collection<DispensingXq> dispensingXq) {
+    this.dispensingXq = dispensingXq;
   }
 }

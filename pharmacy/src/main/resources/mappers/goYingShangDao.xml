@@ -12,11 +12,22 @@
     <!--查询供应商信息-->
     <select id="findAll" resultMap="GYSMapper">
         select * from go_ying_shang where 1 = 1
+        <if test="supplyParameter1!=null and supplyParameter1!=''">
+            and SUPPLY_NAME like concat('%','${supplyParameter1}','%')
+            or SUPPLY_CONTACTS like  concat('%','${supplyParameter1}','%')
+            or SUPPLY_PHONE like concat('%','${supplyParameter1}','%')
+        </if>
+        <if test="supplyParameter2!=null and supplyParameter2!=''">
+            and SUPPLY_SITE like concat('%','${supplyParameter2}','%')
+        </if>
+        <if test="supplyState == '启用' or supplyState == '停用'">
+            AND SUPPLY_STATE like #{supplyState}
+        </if>
     </select>
     <!--新增供应商信息-->
     <insert id="insert2" parameterType="com.pojos.pharmacy.GoYingShang">
         insert into go_ying_shang values(null,#{supplyName},#{supplyContacts}
-                                  ,#{supplyPhone},#{supplySite},#{supplyState})
+                                        ,#{supplyPhone},#{supplySite},#{supplyState})
     </insert>
     <select id="findId" resultType="_int">
         SELECT COUNT(*) from go_ying_shang where SUPPLY_NAME=#{name}
