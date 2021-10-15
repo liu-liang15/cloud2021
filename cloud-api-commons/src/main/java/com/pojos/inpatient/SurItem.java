@@ -1,6 +1,8 @@
 package com.pojos.inpatient;
 
 
+import com.pojos.system.KeShi;
+
 public class SurItem {
 
   private long surNo;
@@ -8,14 +10,14 @@ public class SurItem {
   private String surType;
   private double surPay;
   private String surSco;
-  private OpeRoom opeRoom;
+  private KeShi ks;
 
-  public OpeRoom getOpeRoom() {
-    return opeRoom;
+  public KeShi getKs() {
+    return ks;
   }
 
-  public void setOpeRoom(OpeRoom opeRoom) {
-    this.opeRoom = opeRoom;
+  public void setKs(KeShi ks) {
+    this.ks = ks;
   }
 
   public long getSurNo() {
@@ -36,7 +38,7 @@ public class SurItem {
   }
 
 
-  public String getSurTxt() {
+  public String getSurType() {
     return surType;
   }
 

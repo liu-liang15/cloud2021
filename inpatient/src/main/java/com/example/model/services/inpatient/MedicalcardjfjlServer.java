@@ -39,7 +39,7 @@ public class MedicalcardjfjlServer {
     //住院扣费
     public void loseMoney(String resNo,double num){
         Medicalcardjfjl med=new Medicalcardjfjl();
-        List<HosAlone> list = hosAloneDao.allHos(resNo);
+        List<HosAlone> list = hosAloneDao.allHos2(resNo);
         med.setMecajfjlMediNo(list.get(0).getAdmNot().getMedicalcard().getMediNo()+"");
         med.setMecajfjlMoney(num);
         medao.updatePat(med);

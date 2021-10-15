@@ -3,6 +3,7 @@ package com.example.model.dao.inpatient;
 
 import com.pojos.inpatient.Ward;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

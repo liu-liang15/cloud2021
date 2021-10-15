@@ -7,12 +7,9 @@
         <result column="sur_type" property="surType"/>
         <result column="sur_pay" property="surPay"/>
         <result column="sur_sco" property="surSco"/>
-        <association property="opeRoom" javaType="com.pojos.inpatient.OpeRoom">
-            <id column="ope_no" property="opeNo"/>
-            <result column="ope_name" property="opeName"/>
-            <result column="ope_dress" property="opeDress"/>
-            <result column="ope_ks" property="opeKs"/>
-            <result column="ope_zt" property="opeZt"/>
+        <association property="ks" javaType="com.pojos.system.KeShi">
+            <id column="ks_id" property="ksId"/>
+            <result column="ks_name" property="ksName"/>
         </association>
     </resultMap>
     <!--新增手术项目-->
@@ -24,7 +21,18 @@
     </insert>
     <!--查看手术项目-->
     <select id="selSur" resultMap="SurItemMapper">
-        select * from sur_item
+        select * from sur_item s
+            inner join ke_shi k on k.ks_id=s.sur_type
+        where 1=1
+        <if test="param!=''">
+            and surName like '%${param}'
+        </if>
+        <if test="ksId!=''">
+            and sur_type=#{ksId}
+        </if>
+        <if test="surNo!=''">
+            and sur_no=#{surNo}
+        </if>
     </select>
     <!--修改手术项目-->
     <update id="upDateSur">

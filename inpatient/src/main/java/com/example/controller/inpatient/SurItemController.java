@@ -28,8 +28,8 @@ public class SurItemController {
     }
     //查看手术
     @GetMapping("/selSur")
-    public List<SurItem> selSur(){
-        return surItemServer.selSur();
+    public List<SurItem> selSur(String param,String ksId,String surNo){
+        return surItemServer.selSur(param,ksId,surNo);
     }
     //修改手术
     @PostMapping("/upDateSur")

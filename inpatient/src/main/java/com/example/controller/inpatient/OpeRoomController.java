@@ -17,8 +17,8 @@ public class OpeRoomController {
     OpeRoomServer opeRoomServer;
     //查看手术室
     @GetMapping("/selRoom")
-    public List<OpeRoom> selRoom(String param){
-        return opeRoomServer.selRoom(param);
+    public List<OpeRoom> selRoom(String param,String ksId,String zt){
+        return opeRoomServer.selRoom(param,ksId,zt);
     }
     //新增手术表
     @PostMapping("/addRoom")

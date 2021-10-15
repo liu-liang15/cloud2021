@@ -7,6 +7,10 @@
         <result column="ope_dress" property="opeDress"/>
         <result column="ope_ks" property="opeKs"/>
         <result column="ope_zt" property="opeZt"/>
+        <association property="ks" javaType="com.pojos.system.KeShi">
+            <id column="ks_id" property="ksId"/>
+            <result column="ks_name" property="ksName"/>
+        </association>
     </resultMap>
     <!--新增手术室-->
     <insert id="addRoom">
@@ -14,9 +18,16 @@
     </insert>
     <!--查看手术室-->
     <select id="selRoom" resultMap="OpeRoomMapper">
-        select * from ope_room
+        select * from ope_room o
+        inner join ke_shi k on k.ks_id=o.ope_ks where 1=1
         <if test="param!=''">
-            where (ope_name like '%${param}%' or ope_ks like '%${param}%')
+            and (ope_name like '%${param}%' or ope_ks like '%${param}%')
+        </if>
+        <if test="ksId!=''">
+            and k.ks_id=#{ksId}
+        </if>
+        <if test="zt!=''">
+            and o.ope_zt=#{zt}
         </if>
     </select>
     <!--修改手术室-->

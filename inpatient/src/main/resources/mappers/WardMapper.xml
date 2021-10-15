@@ -22,7 +22,6 @@
             and (ward_name like '%${param}%')
         </if>
     </select>
-    <!--新增病房表-->
     <insert id="addWard" parameterType="com.pojos.inpatient.Ward">
         insert into ward(ward_name,ward_dress,ward_mon,ks_id) values(#{wardName},#{wardDress},#{wardMon},#{ksId})
     </insert>

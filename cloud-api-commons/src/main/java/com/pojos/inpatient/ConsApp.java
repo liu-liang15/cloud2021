@@ -1,44 +1,24 @@
 package com.pojos.inpatient;
 
 
+import com.pojos.outpatient.Patient;
+import com.pojos.system.YuanGo;
+
 public class ConsApp {
 
   private long conNo;
   private String resNo;
   private String opeNo;
-  private String seedeNo;
   private String surNo;
-  private String opeDoc;
   private String conPer;
   private String conZt;
+  private java.sql.Timestamp conStar;
+  private String opeDoc;
+  private String opeRust;
+  private String conSp;
   private SurItem surItem;
-  private OpeRoom opeRoom;
-  private HosAlone hosAlone;
-
-  public SurItem getSurItem() {
-    return surItem;
-  }
-
-  public void setSurItem(SurItem surItem) {
-    this.surItem = surItem;
-  }
-
-  public OpeRoom getOpeRoom() {
-    return opeRoom;
-  }
-
-  public void setOpeRoom(OpeRoom opeRoom) {
-    this.opeRoom = opeRoom;
-  }
-
-  public HosAlone getHosAlone() {
-    return hosAlone;
-  }
-
-  public void setHosAlone(HosAlone hosAlone) {
-    this.hosAlone = hosAlone;
-  }
-
+  private Patient patient;
+  private YuanGo yg;
   public long getConNo() {
     return conNo;
   }
@@ -66,30 +46,12 @@ public class ConsApp {
   }
 
 
-  public String getSeedeNo() {
-    return seedeNo;
-  }
-
-  public void setSeedeNo(String seedeNo) {
-    this.seedeNo = seedeNo;
-  }
-
-
   public String getSurNo() {
     return surNo;
   }
 
   public void setSurNo(String surNo) {
     this.surNo = surNo;
-  }
-
-
-  public String getOpeDoc() {
-    return opeDoc;
-  }
-
-  public void setOpeDoc(String opeDoc) {
-    this.opeDoc = opeDoc;
   }
 
 
@@ -111,4 +73,76 @@ public class ConsApp {
   }
 
 
+  public java.sql.Timestamp getConStar() {
+    return conStar;
+  }
+
+  public void setConStar(java.sql.Timestamp conStar) {
+    this.conStar = conStar;
+  }
+
+
+
+  public SurItem getSurItem() {
+    return surItem;
+  }
+
+  public void setSurItem(SurItem surItem) {
+    this.surItem = surItem;
+  }
+
+  public Patient getPatient() {
+    return patient;
+  }
+
+  public void setPatient(Patient patient) {
+    this.patient = patient;
+  }
+
+  public YuanGo getYg() {
+    return yg;
+  }
+
+  public void setYg(YuanGo yg) {
+    this.yg = yg;
+  }
+
+  public String getOpeDoc() {
+    return opeDoc;
+  }
+
+  public void setOpeDoc(String opeDoc) {
+    this.opeDoc = opeDoc;
+  }
+
+  public String getOpeRust() {
+    return opeRust;
+  }
+
+  public void setOpeRust(String opeRust) {
+    this.opeRust = opeRust;
+  }
+
+  public String getConSp() {
+    return conSp;
+  }
+
+  public void setConSp(String conSp) {
+    this.conSp = conSp;
+  }
+
+  @Override
+  public String toString() {
+    return "ConsApp{" +
+            "conNo=" + conNo +
+            ", resNo='" + resNo + '\'' +
+            ", opeNo='" + opeNo + '\'' +
+            ", surNo='" + surNo + '\'' +
+            ", conPer='" + conPer + '\'' +
+            ", conZt='" + conZt + '\'' +
+            ", conStar=" + conStar +
+            ", surItem=" + surItem +
+            ", patient=" + patient +
+            '}';
+  }
 }
