@@ -59,6 +59,12 @@
             and (p.patient_name like '%${param}%' or h.res_no like '%${param}%')
         </if>
     </select>
+    <!--查询住院单 -->
+    <select id="allHos2" resultMap="HosAloneMapper">
+        select * from hos_alone h inner join adm_not a on h.hos_no=a.hos_no inner join medicalcard m on a.patient = m.medi_no inner join patient p on m.medi_patient_no=p.patient_no
+        where h.res_no = #{param}
+    </select>
+
     <!--新增住院单-->
     <insert id="addHos" parameterType="com.pojos.inpatient.HosAlone">
         insert into hos_alone(linkman,phone,hos_no,nurse,hos_money,hos_zt)

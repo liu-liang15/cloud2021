@@ -11,6 +11,8 @@ import java.util.List;
 public interface HosAloneDao extends BaseMapper<HosAlone> {
     //查询住院单
     public List<HosAlone> allHos(String param);
+    //根据住院单号查询住院单
+    public List<HosAlone> allHos2(String param);
     //新增住院单
     public void addHos(HosAlone hosAlone);
 }

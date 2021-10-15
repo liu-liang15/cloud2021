@@ -1,6 +1,8 @@
 package com.pojos.inpatient;
 
 
+import com.pojos.system.KeShi;
+
 public class OpeRoom {
 
   private long opeNo;
@@ -8,7 +10,7 @@ public class OpeRoom {
   private String opeDress;
   private String opeKs;
   private String opeZt;
-
+  private KeShi ks;
 
   public long getOpeNo() {
     return opeNo;
@@ -54,4 +56,11 @@ public class OpeRoom {
     this.opeZt = opeZt;
   }
 
+  public KeShi getKs() {
+    return ks;
+  }
+
+  public void setKs(KeShi ks) {
+    this.ks = ks;
+  }
 }
