@@ -45,4 +45,8 @@
     <delete id="delMiddle">
         delete from assay_meal_middle where assay_meal_id = #{assayMealId}
     </delete>
+    <!--根据项目名查询价格-->
+    <select id="findMealPrice" resultMap="selectMeal">
+        select * from assay_meal where assay_meal_name = #{assayMealName}
+    </select>
 </mapper>

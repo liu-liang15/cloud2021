@@ -35,4 +35,7 @@ public class AssayMealService {
     public List<AssayMeal> findAllMeal(){
         return assayMealMapper.findAllMeal();
     }
+    public List<AssayMeal> findMealPrice(AssayMeal assayMeal){
+        return assayMealMapper.findMealPrice(assayMeal);
+    }
 }

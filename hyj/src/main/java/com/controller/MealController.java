@@ -15,6 +15,10 @@ import java.util.List;
 public class MealController {
     @Autowired
     MealService mealService;
+    @RequestMapping("selectMeal")
+    public List<Meal> selectMeal(){
+        return mealService.selectMeal();
+    }
     @RequestMapping("fMeal")
     public List<Meal> fMeal(){
         return mealService.fMeal();
@@ -30,5 +34,9 @@ public class MealController {
     @RequestMapping("delMeals")
     public void delMeals(@RequestBody Meal meal){
         mealService.delMeals(meal);
+    }
+    @RequestMapping("findPrice")
+    public List<Meal> findPrice(@RequestBody Meal meal){
+        return mealService.findPrice(meal);
     }
 }

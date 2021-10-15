@@ -44,4 +44,24 @@ public class AssayInfoController {
     public List<AssayMeal> findKsByMeal(@RequestBody AssayMeal assayMeal){
         return assayResService.findKsByMeal(assayMeal);
     }
+    @RequestMapping("selectInfoRes")
+    public List<AssayInfo> selectInfoRes(){
+        return assayResService.selectInfo();
+    }
+    @RequestMapping("findInfoRes")
+    public List<AssayInfo> findInfoRes(@RequestBody AssayInfo assayInfo){
+        return assayResService.findInfoRes(assayInfo);
+    }
+    @RequestMapping("findInfoImg")
+    public List<AssayInfo> findInfoImg(@RequestBody AssayInfo assayInfo){
+        return assayResService.findInfoImg(assayInfo);
+    }
+    @RequestMapping("addMealInfo")
+    public void addMealInfo(@RequestBody AssayInfo assayInfo){
+        assayInfoService.addMealInfo(assayInfo);
+    }
+    @RequestMapping("findMealInfo")
+    public List<AssayInfo> findMealInfo(){
+        return assayInfoService.findMealInfo();
+    }
 }

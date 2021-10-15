@@ -4,6 +4,9 @@
 <mapper namespace="com.model.dao.MealImgMapper">
     <insert id="addImg">
         insert into assay_meal_img(meal_img_name,assay_pay_num)
-        values(#{mealImgName},#{assayPayNum})
+        values
+        <foreach collection="list" item="obj" separator=",">
+            (#{obj.mealImgName},#{obj.assayPayNum})
+        </foreach>
     </insert>
 </mapper>

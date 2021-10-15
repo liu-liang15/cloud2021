@@ -11,6 +11,9 @@ import java.util.List;
 public class MealService {
     @Resource
     MealMapper mealMapper;
+    public List<Meal> selectMeal(){
+        return mealMapper.selectMeal();
+    }
     public List<Meal> fMeal(){
         return mealMapper.fMeal();
     }
@@ -24,5 +27,8 @@ public class MealService {
     public void delMeals(Meal meal){
         mealMapper.delMeals(meal);
         mealMapper.delMiddles(meal);
+    }
+    public List<Meal> findPrice(Meal meal){
+        return mealMapper.findPrice(meal);
     }
 }

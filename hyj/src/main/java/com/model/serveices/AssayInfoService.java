@@ -25,4 +25,10 @@ public class AssayInfoService {
     public void addPay(AssayPay assayPay){
         assayInfoMapper.addPay(assayPay);
     }
+    public void addMealInfo(AssayInfo assayInfo){
+        assayInfoMapper.addMealInfo(assayInfo);
+    }
+    public List<AssayInfo> findMealInfo(){
+        return assayInfoMapper.findMealInfo();
+    }
 }

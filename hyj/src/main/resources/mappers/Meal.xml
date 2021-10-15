@@ -15,6 +15,10 @@
             <result column="ks_name" property="ksName"/>
         </collection>
     </resultMap>
+    <!---->
+    <select id="selectMeal" resultMap="Meal">
+        select * from meal
+    </select>
     <!--查询体检套餐-->
     <select id="fMeal" resultMap="Meal">
         select * from meal m INNER JOIN meal_middle mm on m.meal_id = mm.meal_id
@@ -45,4 +49,8 @@
     <delete id="delMiddles">
         delete from meal_middle where meal_id = #{mealId}
     </delete>
+    <!--根据套餐查询价格-->
+    <select id="findPrice" resultMap="Meal">
+        select meal_price from meal where meal_name = #{mealName}
+    </select>
 </mapper>

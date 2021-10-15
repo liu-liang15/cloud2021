@@ -3,14 +3,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.model.dao.AssayMaMapper">
     <resultMap id="PersonResultMap" type="com.pojos.hyj.AssayPerson">
-        <id column="assay_person_id" property="assayPersonId" />
-        <result column="assay_person_name" property="assayPersonName" />
-        <result column="assay_person_sex" property="assayPersonSex" />
-        <result column="assay_person_age" property="assayPersonAge" />
-        <result column="assay_person_phone" property="assayPersonPhone" />
-        <result column="assay_person_time" property="assayPersonTime" />
-        <result column="assay_meal_name" property="assayMealName" />
+        <id property="assayPersonId" column="assay_person_id"></id>
+        <result property="assayPersonName" column="assay_person_name"></result>
+        <result property="assayPersonSex" column="assay_person_sex"></result>
+        <result property="assayPersonAge" column="assay_person_age"></result>
+        <result property="assayPersonPhone" column="assay_person_phone"></result>
+        <result property="assayPersonCard" column="assay_person_card"></result>
+        <result property="assayPersonTime" column="assay_person_time"></result>
+        <result property="assayMealName" column="assay_meal_name"></result>
+        <result property="mealName" column="meal_name"/>
     </resultMap>
+    <insert id="addPerson">
+        insert into assay_person(assay_person_name,assay_person_sex,assay_person_age,assay_person_phone,assay_person_card,assay_person_time,assay_meal_name)
+        values(#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonPhone},#{assayPersonCard},#{assayPersonTime},#{assayMealName})
+    </insert>
+    <insert id="addPersonMeal">
+        insert into assay_person(assay_person_name,assay_person_sex,assay_person_age,assay_person_phone,assay_person_card,assay_person_time,meal_name,pay_type)
+        values(#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonPhone},#{assayPersonCard},#{assayPersonTime},#{mealName},1)
+    </insert>
     <select id="likeFindPerson" resultMap="PersonResultMap">
         select * from assay_person where assay_person_name like '%${assayPersonName}%'
         <if test="assayPersonTime!=null and assayPersonTime2!=null">
@@ -22,5 +32,8 @@
     <if test="assayPersonName!='' or assayPersonName!=null">
         and assay_person_name like '%${assayPersonName}%'
         </if>
+    </select>
+    <select id="selectPersonMeal" resultMap="PersonResultMap">
+        select * from assay_person where pay_type = 1 and assay_k = 0;
     </select>
 </mapper>
