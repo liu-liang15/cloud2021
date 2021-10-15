@@ -8,9 +8,18 @@ public class FaYao {
 
   private String fyId;
   private String fyRy;
+  private String fyYy;
   private String jfd;
   private Date fySj=new Date();
   private Collection<FaoYaoXd> faoYaoXds;
+
+  public String getFyYy() {
+    return fyYy;
+  }
+
+  public void setFyYy(String fyYy) {
+    this.fyYy = fyYy;
+  }
 
   public Collection<FaoYaoXd> getFaoYaoXds() {
     return faoYaoXds;

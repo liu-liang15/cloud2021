@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface CaiGouDao {
 void addCGD(CgDingDan cgDingDan);
-void addCGXD(Collection<CgddXiangDan> cgddXiangDans, String purchaseId);
+void addCGXD(@Param("cgddXiangDans") Collection<CgddXiangDan> cgddXiangDans,@Param("purchaseId") String purchaseId);
 
     //查询采购计划单
     List<CgDingDan> findAllCGD();

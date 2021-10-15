@@ -60,7 +60,5 @@ public class CaiGouController {
             e.printStackTrace();
             return "fail";
         }
-
     }
-
 }

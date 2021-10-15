@@ -68,7 +68,7 @@
     <insert id="addJHD" parameterType="com.pojos.pharmacy.CaiGoJh">
         insert into cai_go_jh
         values (#{planId},#{supplyId},#{userId},
-                #{planTime},#{planXiugai},#{planPrice})
+                #{planTime},#{planPrice})
     </insert>
     <!--批量新增采购详情-->
     <insert id="addJHXD" parameterType="java.util.Collection">

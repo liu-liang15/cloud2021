@@ -13,9 +13,17 @@ import java.util.List;
 public class DispensingServer {
     @Autowired
     DisPensingDao disPensingDao;
-    //查询发药单
+    //根据住院号查询某患者发药单
     public List<Dispensing> selDis(String param){
         return disPensingDao.selDis(param);
+    }
+    //查询长期医嘱的待发药单
+    public List<Dispensing> selDis2(){
+        return disPensingDao.selDis2();
+    }
+    //查询短期医嘱的待发药单
+    public List<Dispensing> selDis3(){
+        return disPensingDao.selDis3();
     }
     //修改发药单
     public void changeDis(Dispensing dispensing){

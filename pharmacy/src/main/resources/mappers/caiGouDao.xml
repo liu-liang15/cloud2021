@@ -107,7 +107,7 @@
     <!--批量新增采购详情-->
     <insert id="addCGXD" parameterType="java.util.Collection">
         INSERT INTO cgdd_xiang_dan VALUES
-        <foreach collection="cgddXiangDans" item="p" separator=", ">
+        <foreach collection="cgddXiangDans" item="p" separator=",">
             (null,#{purchaseId},#{p.drugId},#{p.consuId},#{p.jinjia},#{p.drugNumber})
         </foreach>
     </insert>
