@@ -1,6 +1,7 @@
 package com.example.model.dao.outpatient;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pojos.hyj.AssayPay;
 import com.pojos.outpatient.Feebill;
 import com.pojos.outpatient.FeebillDetails;
 import com.pojos.outpatient.Payfees;
@@ -33,5 +34,6 @@ public interface PayfeesDao extends BaseMapper<Payfees> {
     List<PayfeesDetails> findpayss(String param);
 
     List<FeebillDetails> findId(String id);
-    //void add
+    //体检新增缴费记录
+    void tjaddjfd(AssayPay assayPay);
 }

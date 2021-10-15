@@ -1,6 +1,7 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.PayfeesDao;
+import com.pojos.hyj.AssayPay;
 import com.pojos.outpatient.Feebill;
 import com.pojos.outpatient.FeebillDetails;
 import com.pojos.outpatient.Payfees;
@@ -42,9 +43,18 @@ public class PayfeesService {
                 payfeesDao.updateXdZtSs(param);
             }
         }
+
+        //体检
         List<FeebillDetails> feebillDetails= payfeesDao.findId(feebill.getFeebillNo()+"");
         for (int i=0;i<feebillDetails.size();i++){
-
+            AssayPay assayPay=new AssayPay();
+            payfeesDao.tjaddjfd(assayPay);
+            //体检新增缴费记录
+                if("化验".equals(feebillDetails.get(i).getFebideType())){
+                    //0化验
+                }else if("检查".equals(feebillDetails.get(i).getFebideType())){
+                    //1检查
+                }
         }
     }
 

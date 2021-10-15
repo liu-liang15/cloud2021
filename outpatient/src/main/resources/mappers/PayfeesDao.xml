@@ -36,7 +36,8 @@
     <select id="findId" resultMap="feebillDetails">
         select * from feebilldetails where febide_type='检查' or  febide_type='化验' and febide_feebill_no=#{id}
     </select>
-    
+
+<!--    //体检新增缴费记录-->
     <insert id="tjaddjfd" parameterType="com.pojos.hyj.AssayPay">
         insert into assay_pay()
         values(null,#{assayPayNum},#{assayPersonId},#{assayPayMoney},#{assayPayType},now(),#{assayFs})
