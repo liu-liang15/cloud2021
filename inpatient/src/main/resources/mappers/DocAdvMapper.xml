@@ -7,10 +7,11 @@
         <result column="doc_per" property="docPer"/>
         <result column="doc_adtime" property="docAdtime"/>
         <result column="doc_type" property="docType"/>
+        <result column="doc_txt" property="docTxt"/>
     </resultMap>
     <!--新增医嘱-->
     <insert id="addDocAdv">
-        insert into doc_adv(res_no,doc_per,doc_type) values(#{resNo},#{docPer},#{docType})
+        insert into doc_adv(res_no,doc_per,doc_type,doc_txt) values(#{resNo},#{docPer},#{docType},#{docTxt})
         <selectKey keyProperty="docAdvNo" resultType="long">
             select LAST_INSERT_ID()
         </selectKey>

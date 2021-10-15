@@ -8,6 +8,7 @@ public class DocAdv {
   private String docPer;
   private java.sql.Timestamp docAdtime;
   private String docType;
+  private String docTxt;
 
 
   public long getDocAdvNo() {
@@ -54,4 +55,11 @@ public class DocAdv {
     this.docType = docType;
   }
 
+  public String getDocTxt() {
+    return docTxt;
+  }
+
+  public void setDocTxt(String docTxt) {
+    this.docTxt = docTxt;
+  }
 }

@@ -47,8 +47,13 @@ public class DrugController {
     public String addDrug(@RequestBody YaoPingXx yaoPingXx){
         try {
             if(yaoPingXx.getDrugId()==0){
-                drugService.addDrug(yaoPingXx);
-                return "ok1";
+                int sum=drugService.findId(yaoPingXx.getDrugName(),yaoPingXx.getDrugMatr());
+                if (sum==0){
+                    drugService.addDrug(yaoPingXx);
+                    return "ok1";
+                }else {
+                    return "ok3";
+                }
             }else{
                 drugService.updateDrug(yaoPingXx);
                 return "ok2";

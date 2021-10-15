@@ -3,6 +3,7 @@ package com.example.controller.inpatient;
 
 import com.alibaba.fastjson.JSON;
 import com.example.model.services.inpatient.DocExeServer;
+import com.pojos.inpatient.Dispensing;
 import com.pojos.inpatient.DocExe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,9 @@ public class DocExeController {
         String str= JSON.toJSONString(map.get("docExe"));
         List<DocExe>list=JSON.parseArray(str,DocExe.class);
         String str2=JSON.toJSONString(map.get("resNo"));
-        docExeServer.upDateDocExe(list,str2);
+        String str3= JSON.toJSONString(map.get("dispensing"));
+        Dispensing d = JSON.parseObject(str3,Dispensing.class);
+        docExeServer.upDateDocExe(list,str2,d);
     }
     //临时医嘱
     @GetMapping("/selDocExe2")

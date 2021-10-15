@@ -88,7 +88,10 @@
             inner join patient p on m.medi_patient_no=p.patient_no
             left join bed b on b.res_no=h.res_no
             inner join ward w on b.ward_no=w.ward_no
-        where h.hos_zt='0' and h.res_no=#{param}
+        where h.hos_zt='0'
+        <if test="param!=''">
+            and h.res_no=#{param}
+        </if>
     </select>
     <!--新增床位-->
     <insert id="addBed" parameterType="com.pojos.inpatient.Bed">

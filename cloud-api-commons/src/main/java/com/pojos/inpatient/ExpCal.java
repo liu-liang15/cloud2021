@@ -8,7 +8,8 @@ public class ExpCal {
   private double expPay;
   private java.sql.Timestamp expTime;
   private String expZt;
-
+  private long expNum;
+  private String expType;
 
   public long getExpNo() {
     return expNo;
@@ -63,12 +64,30 @@ public class ExpCal {
     this.expZt = expZt;
   }
 
+  public long getExpNum() {
+    return expNum;
+  }
+
+  public void setExpNum(long expNum) {
+    this.expNum = expNum;
+  }
+
+  public String getExpType() {
+    return expType;
+  }
+
+  public void setExpType(String expType) {
+    this.expType = expType;
+  }
+
   public ExpCal() {
   }
 
-  public ExpCal(String resNo, String medText, double expPay) {
+  public ExpCal(String resNo, String medText, double expPay, long expNum, String expType) {
     this.resNo = resNo;
     this.medText = medText;
     this.expPay = expPay;
+    this.expNum = expNum;
+    this.expType = expType;
   }
 }

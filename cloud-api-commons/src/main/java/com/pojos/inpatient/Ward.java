@@ -1,6 +1,8 @@
 package com.pojos.inpatient;
 
 
+import com.pojos.system.KeShi;
+
 public class Ward {
 
   private long wardNo;
@@ -8,7 +10,8 @@ public class Ward {
   private String wardDress;
   private String wardZt;
   private double wardMon;
-  private String wardDep;
+  private String ksId;
+  private KeShi ks;
 
 
   public long getWardNo() {
@@ -56,12 +59,19 @@ public class Ward {
   }
 
 
-  public String getWardDep() {
-    return wardDep;
+  public String getKsId() {
+    return ksId;
   }
 
-  public void setWardDep(String wardDep) {
-    this.wardDep = wardDep;
+  public void setKsId(String ksId) {
+    this.ksId = ksId;
   }
 
+  public KeShi getKs() {
+    return ks;
+  }
+
+  public void setKs(KeShi ks) {
+    this.ks = ks;
+  }
 }

@@ -3,6 +3,7 @@ package com.example.model.services.outpatient;
 import com.example.model.dao.outpatient.ExamineorderDao;
 import com.pojos.outpatient.Examinedetails;
 import com.pojos.outpatient.Examineorder;
+import com.pojos.outpatient.Labworkdetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +20,10 @@ public class ExamineorderService {
         examineorderDao.insertExamineorder(examineorder);
     }
 
-    public void insertExaminedetails(List<Examinedetails> list, String exaordNo){
+    public void insertExaminedetails(List<Labworkdetails> list, String exaordNo){
         int exaordNo1 = Integer.parseInt(exaordNo);
-        for(Examinedetails p : list){
-            p.setExadetExaordNo(exaordNo1);
-            examineorderDao.insertExaminedetails(p);
+        for(Labworkdetails p : list){
+            examineorderDao.insertExaminedetails(exaordNo1,p.getAssayMealId(),1,p.getAssayMealPrice());
         }
     }
 }

@@ -8,7 +8,7 @@ public class Medicalcardjfjl {
 
   private long mecajfjlNo;
   private String mecajfjlMediNo;
-  private Integer mecajfjlMoney;
+  private double mecajfjlMoney;
   private java.sql.Timestamp mecajfjlDate;
   private String mecajfjlMenzhenjl;
   private String mecajfjlZhuyuanjl;
@@ -32,11 +32,11 @@ public class Medicalcardjfjl {
   }
 
 
-  public Integer getMecajfjlMoney() {
+  public double getMecajfjlMoney() {
     return mecajfjlMoney;
   }
 
-  public void setMecajfjlMoney(Integer mecajfjlMoney) {
+  public void setMecajfjlMoney(double mecajfjlMoney) {
     this.mecajfjlMoney = mecajfjlMoney;
   }
 

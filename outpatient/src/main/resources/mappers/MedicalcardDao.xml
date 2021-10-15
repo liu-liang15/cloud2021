@@ -22,6 +22,18 @@
             <result column="patient_date" property="patientDate" />
         </association>
     </resultMap>
+
+    <resultMap id="buka" type="com.pojos.outpatient.Buka">
+        <id column="bk_no" property="bkNo" />
+        <result column="bk_name" property="bkName" />
+        <result column="bk_idcard" property="bkIdcard" />
+        <result column="bk_date" property="bkDate" />
+        <result column="bk_kahaoq" property="bkKahaoq" />
+        <result column="bk_kahaoh" property="bkKahaoh" />
+        <result column="bk_ren"  property="bkRen" />
+        <result column="bk_yuanyin" property="bkYuanyin" />
+    </resultMap>
+
     <!--查询诊疗卡，排序，多条件-->
     <select id="findAllMedicalcard" resultMap="medicalcard">
         select * from medicalcard m inner join patient p on m.medi_patient_no = p.patient_no where 1 = 1
@@ -58,6 +70,22 @@
     <update id="medicalcardBB" parameterType="com.pojos.outpatient.Medicalcard">
         update medicalcard set medi_card = #{mediCard} where medi_no = #{mediNo}
     </update>
+    <!--新增补卡记录-->
+    <insert id="insertBuka" parameterType="com.pojos.outpatient.Buka">
+        insert into buka(bk_name,bk_idcard,bk_kahaoq,bk_kahaoh,bk_ren,bk_yuanyin) values
+        (#{bkName},#{bkIdcard},#{bkKahaoq},#{bkKahaoh},#{bkRen},#{bkYuanyin})
+    </insert>
+
+    <select id="selectBuKa" resultMap="buka">
+        select * from buka where 1 = 1
+        <if test="param!=null and param!=''">
+            and bk_name like '%${param}%'
+            or bk_idcard like '%${param}%'
+            or bk_kahaoq like '%${param}%'
+            or bk_kahaoh like '%${param}%'
+        </if>
+    </select>
+
     <!--修改诊疗卡密码，修改密码-->
     <update id="editPwd" parameterType="com.pojos.outpatient.Medicalcard">
         update medicalcard set medi_password = #{mediPassword} where medi_no = #{mediNo}
