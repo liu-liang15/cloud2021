@@ -30,5 +30,9 @@ public class AssayInfo {
     private String ksName;
     private String assayPayNum;
     private String keyboarder;
+    private String assayInfoRemark;
+    private int imgBean;
+    private int mealPd;
     private List<AssayRes> assayRes;
+    private List<AssayMealImg> assayMealImg;
 }

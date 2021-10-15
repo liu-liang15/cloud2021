@@ -6,6 +6,7 @@ import com.pojos.hyj.AssayPerson;
 import com.pojos.hyj.AssayRes;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -21,4 +22,7 @@ public interface AssayResMapper {
     public void delPersonRes(AssayRes assayRes);
     void editKeyboarder(AssayInfo assayInfo);
     List<AssayMeal> findKsByMeal(AssayMeal assayMeal);
+    List<AssayInfo> selectInfo();
+    List<AssayInfo> findInfoRes(AssayInfo assayInfo);
+    List<AssayInfo> findInfoImg(AssayInfo assayInfo);
 }

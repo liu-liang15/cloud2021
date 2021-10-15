@@ -19,5 +19,5 @@ public class AssayPay {
     private double assayPayMoney;
     private String assayPayType;
     private Timestamp assayPayTime;
-    private String assayPayRemark;
+    private String assayFs;
 }

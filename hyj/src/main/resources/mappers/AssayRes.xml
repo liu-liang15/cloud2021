@@ -11,6 +11,7 @@
         <result property="assayPersonCard" column="assay_person_card"></result>
         <result property="assayPersonTime" column="assay_person_time"></result>
         <result property="assayMealName" column="assay_meal_name"></result>
+        <result property="mealName" column="meal_name"/>
         <collection property="assayRes" ofType="com.pojos.hyj.AssayRes">
             <id property="assayResId" column="assay_res_id"></id>
             <result property="assayPersonId" column="assay_person_id"></result>
@@ -65,6 +66,8 @@
         <result column="ks_name" property="ksName"/>
         <result column="assay_pay_num" property="assayPayNum"/>
         <result column="keyboarder" property="keyboarder"/>
+        <result column="assay_info_remark" property="assayInfoRemark"/>
+        <result column="img_bean" property="imgBean"/>
         <collection property="assayRes" ofType="com.pojos.hyj.AssayRes">
             <id property="assayResId" column="assay_res_id"></id>
             <result property="assayPersonId" column="assay_person_id"></result>
@@ -74,6 +77,11 @@
             <result property="assayProRef" column="assay_pro_ref"></result>
             <result property="assayProUnit" column="assay_pro_unit"></result>
             <result column="assay_pay_num" property="assayPayNum"/>
+        </collection>
+        <collection property="assayMealImg" ofType="com.pojos.hyj.AssayMealImg">
+            <id property="mealImgId" column="meal_img_id"></id>
+            <result property="mealImgName" column="meal_img_name"></result>
+            <result property="assayPayNum" column="assay_pay_num"/>
         </collection>
     </resultMap>
     <select id="findPersonRes" resultMap="assayInfo">
@@ -99,7 +107,7 @@
     </insert>
     <!--录入成功修改操作员-->
     <update id="editKeyboarder">
-        update assay_info set keyboarder = #{keyboarder} where assay_pay_num = #{assayPayNum}
+        update assay_info set keyboarder = #{keyboarder},assay_info_remark = #{assayInfoRemark},img_bean = #{imgBean} where assay_pay_num = #{assayPayNum}
     </update>
     <!--修改assay_k状态-->
     <!--<update id="editOneK">
@@ -115,5 +123,23 @@
     <!--根据体检项目查询科室-->
     <select id="findKsByMeal" resultMap="selectMeal">
         select * from assay_meal where assay_meal_name = #{assayMealName}
+    </select>
+    <!--查询体检结果人员-->
+    <select id="selectInfo" resultMap="assayInfo">
+        select * from assay_info where keyboarder !=null or keyboarder !=''
+    </select>
+    <!--查询化验结果-->
+    <select id="findInfoRes" resultMap="assayInfo">
+        select * from assay_info ai
+        inner join assay_res ar on ai.assay_pay_num = ar.assay_pay_num
+        where ai.assay_pay_num = #{assayPayNum}
+    </select>
+    <!--查询影像结果-->
+    <select id="findInfoImg" resultMap="assayInfo">
+        select * from assay_info ai
+        <if test="imgBean = 1">
+            inner join assay_meal_img am on ai.assay_pay_num = am.assay_pay_num
+        </if>
+        where ai.assay_pay_num = #{assayPayNum}
     </select>
 </mapper>

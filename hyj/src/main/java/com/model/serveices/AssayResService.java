@@ -44,4 +44,13 @@ public class AssayResService {
     public List<AssayMeal> findKsByMeal(AssayMeal assayMeal){
         return assayResMapper.findKsByMeal(assayMeal);
     }
+    public List<AssayInfo> selectInfo(){
+        return assayResMapper.selectInfo();
+    }
+    public List<AssayInfo> findInfoRes(AssayInfo assayInfo){
+        return assayResMapper.findInfoRes(assayInfo);
+    }
+    public List<AssayInfo> findInfoImg(AssayInfo assayInfo){
+        return assayResMapper.findInfoImg(assayInfo);
+    }
 }

@@ -83,4 +83,8 @@ public class AssayProController {
     public List<AssayMeal> findAllMeal(){
         return assayMealService.findAllMeal();
     }
+    @RequestMapping("findMealPrice")
+    public List<AssayMeal> findMealPrice(@RequestBody AssayMeal assayMeal){
+        return assayMealService.findMealPrice(assayMeal);
+    }
 }

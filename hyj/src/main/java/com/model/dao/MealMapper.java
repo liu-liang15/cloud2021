@@ -9,6 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface MealMapper {
+    public List<Meal> selectMeal();
+
     public List<Meal> fMeal();
 
     public List<Meal> fMealById(Meal meal);
@@ -20,4 +22,6 @@ public interface MealMapper {
     public void delMeals(Meal meal);
 
     public void delMiddles(Meal meal);
+
+    List<Meal> findPrice(Meal meal);
 }

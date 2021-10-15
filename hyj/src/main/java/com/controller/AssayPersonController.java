@@ -18,8 +18,13 @@ public class AssayPersonController {
     }
     @RequestMapping("addPerson")
     public String addPerson(@RequestBody AssayPerson assayPerson){
+        System.err.println(assayPerson);
         assayMaService.insert(assayPerson);
         return "ok";
+    }
+    @RequestMapping("addPersonMeal")
+    public void addPersonMeal(@RequestBody AssayPerson assayPerson){
+        assayMaService.addPersonMeal(assayPerson);
     }
     @RequestMapping("delPerson")
     public String delPerson(@RequestBody AssayPerson assayPerson){
@@ -33,5 +38,9 @@ public class AssayPersonController {
     @RequestMapping("timeChoose")
     public List<AssayPerson> timeChoose(@RequestBody AssayPerson assayPerson){
         return assayMaService.timeChoose(assayPerson);
+    }
+    @RequestMapping("selectPersonMeal")
+    public List<AssayPerson> selectPersonMeal(){
+        return assayMaService.selectPersonMeal();
     }
 }

@@ -21,4 +21,6 @@ public interface AssayMealMapper extends BaseMapper<AssayMeal> {
     public void delMeal(AssayMeal assayMeal);
 
     public List<AssayMeal> findAllMeal();
+
+    List<AssayMeal> findMealPrice(AssayMeal assayMeal);
 }

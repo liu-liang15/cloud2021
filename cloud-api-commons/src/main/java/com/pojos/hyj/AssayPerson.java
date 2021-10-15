@@ -26,6 +26,7 @@ public class AssayPerson {
     private String assayMealName;//体检套餐
     private int assayK;
     private int payType;
+    private String mealName;
     private List<AssayRes> assayRes;//体检结果集合
 
 }

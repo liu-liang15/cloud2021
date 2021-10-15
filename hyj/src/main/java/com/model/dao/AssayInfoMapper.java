@@ -13,4 +13,6 @@ public interface AssayInfoMapper {
     void editPersonK(AssayInfo assayInfo);
     List<AssayInfo> selectInfo();
     void addPay(AssayPay assayPay);
+    void addMealInfo(AssayInfo assayInfo);
+    List<AssayInfo> findMealInfo();
 }
