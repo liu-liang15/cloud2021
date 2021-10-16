@@ -38,7 +38,30 @@
             </association>
         </association>
     </resultMap>
-    
+    <resultMap id="SelectInfo" type="com.pojos.hyj.AssayInfo">
+        <id column="info_id" property="infoId"></id>
+        <result column="assay_person_id" property="assayPersonId"/>
+        <result column="assay_person_name" property="assayPersonName"/>
+        <result column="assay_person_sex" property="assayPersonSex"/>
+        <result column="assay_person_age" property="assayPersonAge"/>
+        <result column="assay_person_card" property="assayPersonCard"/>
+        <result column="assay_person_phone" property="assayPersonPhone"/>
+        <result column="assay_person_time" property="assayPersonTime"/>
+        <result column="assay_meal_name" property="assayMealName"/>
+        <result column="yg_name" property="ygName"/>
+        <result column="ks_name" property="ksName"/>
+        <result column="assay_pay_num" property="assayPayNum"/>
+        <result column="keyboarder" property="keyboarder"/>
+        <result column="meal_pd" property="mealPd"/>
+    </resultMap>
+
+    <select id="selectInfoRes" resultMap="SelectInfo">
+        select * from assay_info a
+                          inner join feebilldetails fd on a.fedibe_no = fd.febide_no
+                          inner join feebill f on fd.febide_feebill_no = f.feebill_no
+        where 1 = 1 and a.assay_fs = '门诊体检' and f.feebill_seedo_number = #{mzhao}
+    </select>
+
     <insert id="insertJiuZhenJiLu" useGeneratedKeys="true" keyProperty="seedoNo" parameterType="com.pojos.outpatient.Seedoctor">
         insert into seedoctor(seedo_number,seedo_cahide_no,seedo_patient_no,seedo_doctor_name,seedo_famiroom_name,seedo_record)
         values(#{seedoNumber},#{seedoCahideNo},#{seedoPatientNo},#{seedoDoctorName},#{seedoFamiroomName},#{seedoRecord})

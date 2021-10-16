@@ -10,6 +10,17 @@
         <result column="ys" property="ys" />
         <result column="zjg" property="zjg" />
     </resultMap>
+    <resultMap id="patient" type="com.pojos.outpatient.Patient">
+        <id column="patient_no" property="patientNo" />
+        <result column="patient_name" property="patientName" />
+        <result column="patient_sex" property="patientSex" />
+        <result column="patient_phone" property="patientPhone" />
+        <result column="patient_idcart" property="patientIdcart" />
+        <result column="patient_age"  property="patientAge" />
+        <result column="patient_birthdate" property="patientBirthdate" />
+        <result column="patient_address" property="patientAddress" />
+        <result column="patient_date" property="patientDate" />
+    </resultMap>
     <resultMap id="payfeesdetails" type="com.pojos.outpatient.PayfeesDetails">
         <id column="id" property="id" />
         <result column="name" property="name" />
@@ -17,6 +28,7 @@
         <result column="type" property="type" />
         <result column="xiaoji" property="xiaoji" />
     </resultMap>
+
     <resultMap id="feebillDetails" type="com.pojos.outpatient.FeebillDetails">
         <id column="febide_no" property="febideNo" />
         <result column="febide_feebill_no" property="febideFeebillNo" />
@@ -27,14 +39,12 @@
         <result column="febide_count" property="febideCount" />
         <result column="febide_state" property="febideState" />
     </resultMap>
-<!--  新增缴费单  -->
-    <insert id="insertFeebill" useGeneratedKeys="true" keyProperty="feebillNo" parameterType="com.pojos.outpatient.Feebill">
-        insert into feebill(feebill_seedo_number,feebill_money,feebill_type,feebill_remark)
-        values(#{feebillSeedoNumber},#{feebillMoney},#{feebillType},#{feebillRemark})
-    </insert>
-
+    <resultMap id="selectMeal" type="com.pojos.hyj.AssayMeal">
+        <result column="ks_name" property="ksName"></result>
+    </resultMap>
+    <!--查询缴费单详情检验和检查的数据，根据门诊号-->
     <select id="findId" resultMap="feebillDetails">
-        select * from feebilldetails where febide_type='检查' or  febide_type='化验' and febide_feebill_no=#{id}
+        select * from feebilldetails where (febide_type='检查' or  febide_type='化验') and febide_feebill_no=#{id}
     </select>
 
 <!--    //体检新增缴费记录-->
@@ -42,7 +52,30 @@
         insert into assay_pay()
         values(null,#{assayPayNum},#{assayPersonId},#{assayPayMoney},#{assayPayType},now(),#{assayFs})
     </insert>
+    <!--体检新增结果记录-->
+    <insert id="inserttijgjl"  parameterType="com.pojos.hyj.AssayInfo">
+        insert into assay_info(assay_person_id,assay_person_name,assay_person_sex,assay_person_age,assay_person_card,assay_person_phone,assay_person_time,assay_meal_name,yg_name,ks_name,assay_pay_num,fedibe_no,assay_fs)
+        values(#{assayPersonId},#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonCard},#{assayPersonPhone},now(),#{assayMealName},#{ygName},#{ksName},#{assayPayNum},#{fedibeNo},#{assayFs})
+    </insert>
 
+
+    <select id="selectAssayMealById" resultMap="selectMeal">
+        select ks_name from assay_meal where assay_meal_id = #{param}
+    </select>
+
+<!--  查询病人信息，根据门诊号-->
+    <select id="selectPatientByMzhao" resultMap="patient">
+        select * from patient p
+                          inner join seedoctor s on p.patient_no = s.seedo_patient_no
+        where 1 = 1 and
+            s.seedo_number = #{param}
+    </select>
+
+    <!--  新增缴费单  -->
+    <insert id="insertFeebill" useGeneratedKeys="true" keyProperty="feebillNo" parameterType="com.pojos.outpatient.Feebill">
+        insert into feebill(feebill_seedo_number,feebill_money,feebill_type,feebill_remark)
+        values(#{feebillSeedoNumber},#{feebillMoney},#{feebillType},#{feebillRemark})
+    </insert>
 
     <!--  新增缴费详单  -->
     <insert id="insertFeebillDetails" parameterType="com.pojos.outpatient.FeebillDetails">
@@ -70,23 +103,23 @@
         update mzshoushucf set ss_zt = 2 where ss_seedo_number = #{param}
     </update>
 
-<!--    &#45;&#45; 修改手术处方详单的编号-->
+<!--  修改手术处方详单的编号-->
     <update id="updateXdZtSs">
         update mzshoushuxq as alias_1 inner join (select ss_no from mzshoushucf where ss_seedo_number = #{param}) as alias_2
         set alias_1.sq_state = 2 where alias_1.sq_ss_no = alias_2.ss_no
     </update>
-<!--    &#45;&#45; 修改检验处方详单的编号-->
+<!--  修改检验处方详单的编号-->
     <update id="updateXdZtJy">
         update labworkdetails as alias_1 inner join (select assay_no from assay where assay_seedo_number = #{param}) as alias_2
         set alias_1.labdet_state = 2 where alias_1.labdet_assay_no = alias_2.assay_no
     </update>
-<!--    &#45;&#45; 修改检查处方详单的编号-->
+<!--  修改检查处方详单的编号-->
     <update id="updateXdZtJc">
         update examinedetails as alias_1 inner join (select exaord_no from examineorder where exaord_seedo_number = #{param}) as alias_2
         set alias_1.exadet_state = 2 where alias_1.exadet_exaord_no = alias_2.exaord_no
     </update>
 
-<!--    &#45;&#45; 修改药品处方详单的编号-->
+<!--  修改药品处方详单的编号-->
     <update id="updateXdZtYp">
         update prescriptiondetails as alias_1 inner join (select pres_no from prescription where pres_seedo_number = #{param}) as alias_2
         set alias_1.state = 2 where alias_1.predet_pres_no = alias_2.pres_no

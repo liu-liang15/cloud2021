@@ -14,8 +14,8 @@ public class HospregService {
     @Autowired
     HospregDao hopregDao;
 
-    public List<Hospreg> findAllHopreg(String param){
-        return hopregDao.findAllHopreg(param);
+    public List<Hospreg> findAllHopreg(String mzhao,String ghks,String name,String idcard,String phone,String sj1,String sj2){
+        return hopregDao.findAllHopreg(mzhao,ghks,name,idcard,phone,sj1,sj2);
     }
 
     //新增挂号

@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface HospregDao extends BaseMapper<Hospreg> {
     //查询所有挂号记录
-    List<Hospreg> findAllHopreg(String param);
+    List<Hospreg> findAllHopreg(@Param("mzhao")String mzhao,@Param("ghks")String ghks,@Param("name")String name,@Param("idcard")String idcard,@Param("phone")String phone,@Param("sj1")String sj1,@Param("sj2") String sj2);
 
     //新增挂号
     void insertHospreg(Hospreg hospreg);

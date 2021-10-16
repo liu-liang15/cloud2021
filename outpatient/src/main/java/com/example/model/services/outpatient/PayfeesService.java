@@ -1,15 +1,17 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.PayfeesDao;
+import com.pojos.hyj.AssayInfo;
+import com.pojos.hyj.AssayMeal;
 import com.pojos.hyj.AssayPay;
-import com.pojos.outpatient.Feebill;
-import com.pojos.outpatient.FeebillDetails;
-import com.pojos.outpatient.Payfees;
-import com.pojos.outpatient.PayfeesDetails;
+import com.pojos.outpatient.*;
+import com.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,10 +20,11 @@ public class PayfeesService {
     @Autowired
     PayfeesDao payfeesDao;
 
-    public void updatePayZt(double zongJinE,String param,List<PayfeesDetails> list,String type){
+    public void updatePayZt(double zongJinE,String param,List<PayfeesDetails> list,String type,String dlr){
         param = param.substring(1,param.length()-1);
+        dlr = dlr.substring(1,dlr.length()-1);
         Feebill feebill = new Feebill(0,param,zongJinE,type.substring(1,type.length()-1),null,1,null);
-        //新增缴费单
+//        //新增缴费单
         payfeesDao.insertFeebill(feebill);
 
         for(PayfeesDetails l : list){
@@ -44,26 +47,39 @@ public class PayfeesService {
             }
         }
 
-        //新增体检病人
 
 
+        //病人信息
+        Patient p = payfeesDao.selectPatientByMzhao(param);
         //体检
+        System.out.println(param);
+        System.out.println(feebill.getFeebillNo());
+        //缴费详单
         List<FeebillDetails> feebillDetails= payfeesDao.findId(feebill.getFeebillNo()+"");
+        //dlr 登陆人
         for (int i=0;i<feebillDetails.size();i++){
-            AssayPay assayPay=new AssayPay();
-            payfeesDao.tjaddjfd(assayPay);
-            //体检新增缴费记录
-                if("化验".equals(feebillDetails.get(i).getFebideType())){
-                    //0化验
-                }else if("检查".equals(feebillDetails.get(i).getFebideType())){
-                    //1检查
-                }
+            FeebillDetails fd = feebillDetails.get(i);
+                //          编号 ldWorker  nextId
+                IdWorker idWorker = new IdWorker(1,1,1);
+                long tjid = idWorker.nextId();
+
+                //查询体检科室根据编号
+                AssayMeal jyjcKs = payfeesDao.selectAssayMealById(fd.getFebideId());
+                System.out.println(jyjcKs);
+                System.out.println(fd);
+
+                AssayPay assayPay=new AssayPay(0,tjid+"",0,fd.getFebideMoney(),type.substring(1,type.length()-1),new Date(),"门诊体检");
+                //体检新增缴费记录
+                payfeesDao.tjaddjfd(assayPay);
+
+                AssayInfo assayInfo = new AssayInfo(p.getPatientName(),p.getPatientSex(),Integer.parseInt(p.getPatientAge()),p.getPatientIdcart(),p.getPatientPhone(),new Date(),fd.getFebideName(),dlr,jyjcKs.getKsName(),tjid+"",fd.getFebideNo(),"门诊体检");
+                payfeesDao.inserttijgjl(assayInfo);
         }
     }
 
 
-    public List<Payfees> selJiuZhenZJG(String mzhao,String name,String idcard,String phone){
-        return payfeesDao.selJiuZhenZJG(mzhao,name,idcard,phone);
+    public List<Payfees> selJiuZhenZJG(String mzhao1,String name2,String idcard3,String phone4){
+        return payfeesDao.selJiuZhenZJG(mzhao1,name2,idcard3,phone4);
     }
 
     public List<PayfeesDetails> findpaycf(String param){

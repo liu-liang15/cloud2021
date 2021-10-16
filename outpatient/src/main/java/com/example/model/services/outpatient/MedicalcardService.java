@@ -39,8 +39,8 @@ public class MedicalcardService {
         medicalcardDao.insertBuka(buka);
     }
     //查询补卡记录
-    public List<Buka> selectBuKa(String param) {
-        return medicalcardDao.selectBuKa(param);
+    public List<Buka> selectBuKa(String name,String idcard,String zlkhao,String sj1,String sj2) {
+        return medicalcardDao.selectBuKa(name,idcard,zlkhao,sj1,sj2);
     }
 
     public void editPwd(int mediNo,String mediPassword){

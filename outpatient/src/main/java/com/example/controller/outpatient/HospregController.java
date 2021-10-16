@@ -3,12 +3,14 @@ package com.example.controller.outpatient;
 import com.alibaba.fastjson.JSONObject;
 import com.example.model.services.outpatient.HospregService;
 import com.pojos.outpatient.Hospreg;
+import com.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,8 +35,11 @@ public class HospregController {
 
     //查询所有挂号记录
     @GetMapping("/findAllHopreg")
-    public List<Hospreg> findAllHopreg(String param){
-        return hopregService.findAllHopreg(param);
+    public List<Hospreg> findAllHopreg(String mzhao,String ghks,String name,String idcard,String phone,String sj1,String sj2) throws ParseException {
+        DataUtil da = new DataUtil();
+        String st1 = da.UTCToCST(sj1, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
+        String st2 = da.UTCToCST(sj2, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
+        return hopregService.findAllHopreg(mzhao,ghks,name,idcard,phone,st1,st2);
     }
 
     //新增挂号

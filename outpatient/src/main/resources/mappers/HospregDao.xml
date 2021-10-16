@@ -53,11 +53,23 @@
         inner join ke_shi k on k.ks_id = h.horeg_famiroom_no
         inner join hospregcate hc on hc.hospregcate_no = h.horeg_category_no
         inner join yuan_go y on y.yg_id = h.horeg_attendingdoc_no where 1 = 1
-        <if test="param!=null and param!=''">
-            and p.patient_name like '%${param}%'
-            or h.horeg_no like '%${param}%'
-            or p.patient_phone like '%${param}%'
-            or p.patient_idcart like '%${param}%'
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="idcard!=null and idcard!=''">
+            and p.patient_idcart like '%${idcard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            and p.patient_phone like '%${phone}%'
+        </if>
+        <if test="mzhao!=null and mzhao!=''">
+            and h.horeg_no like '%${mzhao}%'
+        </if>
+        <if test="ghks!=null and ghks!=''">
+            and h.horeg_famiroom_no like '%${ghks}%'
+        </if>
+        <if test="sj1 !=null and sj1!='' and sj2 !=null and sj2!=''">
+            and h.horeg_date between #{sj1} and #{sj2}
         </if>
         and to_days(horeg_date) = to_days(now())
         order by h.horeg_date desc

@@ -8,9 +8,11 @@ import com.pojos.outpatient.Buka;
 import com.pojos.outpatient.Casehistorydetails;
 import com.pojos.outpatient.Medicalcard;
 import com.pojos.outpatient.Patient;
+import com.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,8 +37,11 @@ public class MedicalcardController {
     }
     //查询补卡记录
     @GetMapping("/selectBuKa")
-    public List<Buka> selectBuKa(String param) {
-        return medicalcardService.selectBuKa(param);
+    public List<Buka> selectBuKa(String name,String idcard,String zlkhao,String sj1,String sj2) throws ParseException {
+        DataUtil da = new DataUtil();
+        String st1 = da.UTCToCST(sj1, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
+        String st2 = da.UTCToCST(sj2, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
+        return medicalcardService.selectBuKa(name,idcard,zlkhao,st1,st2);
     }
 
 

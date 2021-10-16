@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +19,6 @@ public class AssayPay {
     private int assayPersonId;
     private double assayPayMoney;
     private String assayPayType;
-    private Timestamp assayPayTime;
+    private Date assayPayTime;
     private String assayFs;
 }

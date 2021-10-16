@@ -23,6 +23,7 @@ public class PayfeesController {
     //修改状态，生成缴费单，详单
     @RequestMapping("updatePayZt")
     public int updatePayZt(@RequestBody Map<String,Object> map){
+        String dlr = JSON.toJSONString(map.get("dlr"));
         String mzhao = JSON.toJSONString(map.get("Mzhao"));
         String zongJinE = JSON.toJSONString(map.get("ZongJinE"));
         String type = JSON.toJSONString(map.get("zfFangshi"));
@@ -38,13 +39,14 @@ public class PayfeesController {
             PayfeesDetails payfeesDetails = JSONObject.parseObject(strArr[i],PayfeesDetails.class);
             payfeesDetailsList.add(payfeesDetails);
         }
-        payfeesService.updatePayZt(zongJinE1,mzhao,payfeesDetailsList,type);
+        payfeesService.updatePayZt(zongJinE1,mzhao,payfeesDetailsList,type,dlr);
         return 1;
     }
 
     //查询就诊记录总价格进行缴费
     @GetMapping("/selJiuZhenZJG")
     public List<Payfees> selJiuZhenZJG(String mzhao,String name,String idcard,String phone){
+//        System.out.println(mzhao+"--1--"+name+"--2--"+idcard+"--3--"+phone);
         return payfeesService.selJiuZhenZJG(mzhao,name,idcard,phone);
     }
 

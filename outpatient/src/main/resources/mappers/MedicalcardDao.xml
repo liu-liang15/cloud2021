@@ -83,11 +83,18 @@
 
     <select id="selectBuKa" resultMap="buka">
         select * from buka where 1 = 1
-        <if test="param!=null and param!=''">
-            and bk_name like '%${param}%'
-            or bk_idcard like '%${param}%'
-            or bk_kahaoq like '%${param}%'
-            or bk_kahaoh like '%${param}%'
+        <if test="name!=null and name!=''">
+            and bk_name like '%${name}%'
+        </if>
+        <if test="idcard!=null and idcard!=''">
+            and bk_idcard like '%${idcard}%'
+        </if>
+        <if test="zlkhao!=null and zlkhao!=''">
+            and (bk_kahaoq like '%${zlkhao}%'
+            or  bk_kahaoh like '%${zlkhao}%')
+        </if>
+        <if test="sj1 !=null and sj1!='' and sj2 !=null and sj2!=''">
+            and bk_date between #{sj1} and #{sj2}
         </if>
     </select>
 

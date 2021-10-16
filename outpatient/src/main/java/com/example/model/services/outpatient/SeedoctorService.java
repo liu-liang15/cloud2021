@@ -22,4 +22,7 @@ public class SeedoctorService {
         return seedoctorDao.findseedoctor(param);
     }
 
+    public List<Seedoctor> selectInfoRes(String mzhao) {
+        return seedoctorDao.selectInfoRes(mzhao);
+    }
 }

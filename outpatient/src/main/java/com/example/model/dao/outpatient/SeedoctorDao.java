@@ -11,4 +11,6 @@ public interface SeedoctorDao extends BaseMapper<Seedoctor> {
     List<Seedoctor> findseedoctor(int param);
 
     void insertJiuZhenJiLu(Seedoctor seedoctor);
+
+    List<Seedoctor> selectInfoRes(String mzhao);
 }

@@ -1,11 +1,10 @@
 package com.example.model.dao.outpatient;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pojos.hyj.AssayInfo;
+import com.pojos.hyj.AssayMeal;
 import com.pojos.hyj.AssayPay;
-import com.pojos.outpatient.Feebill;
-import com.pojos.outpatient.FeebillDetails;
-import com.pojos.outpatient.Payfees;
-import com.pojos.outpatient.PayfeesDetails;
+import com.pojos.outpatient.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,4 +35,9 @@ public interface PayfeesDao extends BaseMapper<Payfees> {
     List<FeebillDetails> findId(String id);
     //体检新增缴费记录
     void tjaddjfd(AssayPay assayPay);
+
+    Patient selectPatientByMzhao(String param);
+    AssayMeal selectAssayMealById(int param);
+
+    void inserttijgjl(AssayInfo assayInfo);
 }

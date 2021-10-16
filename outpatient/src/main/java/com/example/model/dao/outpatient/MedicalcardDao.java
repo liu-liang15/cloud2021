@@ -28,7 +28,7 @@ public interface MedicalcardDao extends BaseMapper<Medicalcard> {
     void insertBuka(Buka buka);
 
     //查询补卡记录
-    List<Buka> selectBuKa(String param);
+    List<Buka> selectBuKa(@Param("name")String name,@Param("idcard")String idcard,@Param("zlkhao")String zlkhao,@Param("sj1")String sj1,@Param("sj2")String sj2);
 
     void editPwd(@Param("mediNo")int mediNo,@Param("mediPassword")String mediPassword);
 

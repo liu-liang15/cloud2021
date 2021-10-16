@@ -16,6 +16,13 @@ public class SeedoctorController {
     @Autowired
     SeedoctorService seedoctorService;
 
+
+    //查询就诊记录
+    @GetMapping("/selectInfoRes")
+    public List<Seedoctor> selectInfoRes(String mzhao){
+        return seedoctorService.selectInfoRes(mzhao);
+    }
+
     //新增就诊记录
     @PostMapping("/insertJiuZhenJiLu")
     public int insertJiuZhenJiLu(@RequestBody Map<String,Object> map){
