@@ -1,6 +1,7 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.PayfeesDao;
+import com.example.model.dao.outpatient.SeedoctorDao;
 import com.pojos.hyj.AssayInfo;
 import com.pojos.hyj.AssayMeal;
 import com.pojos.hyj.AssayPay;
@@ -19,10 +20,14 @@ import java.util.List;
 public class PayfeesService {
     @Autowired
     PayfeesDao payfeesDao;
+    @Autowired
+            SeedoctorDao seedoctorDao;
 
     public void updatePayZt(double zongJinE,String param,List<PayfeesDetails> list,String type,String dlr){
         param = param.substring(1,param.length()-1);
         dlr = dlr.substring(1,dlr.length()-1);
+        //病人信息
+        Patient p = payfeesDao.selectPatientByMzhao(param);
         Feebill feebill = new Feebill(0,param,zongJinE,type.substring(1,type.length()-1),null,1,null);
 //        //新增缴费单
         payfeesDao.insertFeebill(feebill);
@@ -33,24 +38,25 @@ public class PayfeesService {
             FeebillDetails feebillDetails = new FeebillDetails(0,feebill.getFeebillNo(),l.getId(),l.getName(),l.getXiaoji(),l.getType(),l.getCount());
             payfeesDao.insertFeebillDetails(feebillDetails);
             if(l.getType().equals("药品")){
-                payfeesDao.updatePayZtYp(param);
+                payfeesDao.updatePayZtYp(param,2);
                 payfeesDao.updateXdZtYp(param);
             }else if(l.getType().equals("化验")){
-                payfeesDao.updatePayZtHy(param);
+                payfeesDao.updatePayZtHy(param,2);
                 payfeesDao. updateXdZtJy(param);
             }else if(l.getType().equals("检查")){
-                payfeesDao.updatePayZtJc(param);
+                payfeesDao.updatePayZtJc(param,2);
                 payfeesDao.updateXdZtJc(param);
             }else if(l.getType().equals("手术")){
-                payfeesDao.updatePayZtSs(param);
+                Mzshoushujieguo mz = new Mzshoushujieguo(param,p.getPatientNo(),l.getId(),l.getName());
+                seedoctorDao.insertmzshoushujieguo(mz);
+                payfeesDao.updatePayZtSs(param,2);
                 payfeesDao.updateXdZtSs(param);
             }
         }
 
 
 
-        //病人信息
-        Patient p = payfeesDao.selectPatientByMzhao(param);
+
         //体检
         System.out.println(param);
         System.out.println(feebill.getFeebillNo());

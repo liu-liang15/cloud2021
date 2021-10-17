@@ -85,22 +85,22 @@
 
     <!--修改药品处方详单状态-->
     <update id="updatePayZtYp">
-        update prescription set pres_state = 2 where pres_seedo_number = #{param}
+        update prescription set pres_state = #{zt} where pres_seedo_number = #{param}
     </update>
 
     <!--修改化验处方详单状态-->
     <update id="updatePayZtHy">
-        update assay set assay_state = 2 where assay_seedo_number = #{param}
+        update assay set assay_state = #{zt} where assay_seedo_number = #{param}
     </update>
 
     <!--修改检查处方详单状态-->
     <update id="updatePayZtJc">
-        update examineorder set exaord_state = 2 where exaord_seedo_number = #{param}
+        update examineorder set exaord_state = #{zt} where exaord_seedo_number = #{param}
     </update>
 
     <!--修改手术处方详单状态-->
     <update id="updatePayZtSs">
-        update mzshoushucf set ss_zt = 2 where ss_seedo_number = #{param}
+        update mzshoushucf set ss_zt = #{zt} where ss_seedo_number = #{param}
     </update>
 
 <!--  修改手术处方详单的编号-->

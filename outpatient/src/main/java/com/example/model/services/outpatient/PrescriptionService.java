@@ -1,5 +1,6 @@
 package com.example.model.services.outpatient;
 
+import com.example.model.dao.outpatient.PayfeesDao;
 import com.example.model.dao.outpatient.PrescriptionDao;
 import com.pojos.outpatient.Prescription;
 import com.pojos.outpatient.Prescriptiondetails;
@@ -14,6 +15,8 @@ import java.util.List;
 public class PrescriptionService {
     @Autowired
     PrescriptionDao prescriptionDao;
+    @Autowired
+    PayfeesDao payfeesDao;
 
     public void insertChufang(Prescription p){
         prescriptionDao.insertChufang(p);
@@ -35,6 +38,8 @@ public class PrescriptionService {
 
     public void updatecfypddzjg(double jg, String mzhao) {
         prescriptionDao.updatecfypddzjg(jg,mzhao);
+
+        payfeesDao.updatePayZtYp(mzhao,1);
     }
 
     public List<Prescriptiondetails> selectypxqzt1(String param) {

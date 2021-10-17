@@ -17,10 +17,10 @@ public interface PayfeesDao extends BaseMapper<Payfees> {
     void insertFeebill(Feebill feebill);
     void insertFeebillDetails(FeebillDetails feebillDetails);
 
-    void updatePayZtYp(String param);
-    void updatePayZtHy(String param);
-    void updatePayZtJc(String param);
-    void updatePayZtSs(String param);
+    void updatePayZtYp(@Param("param") String param,@Param("zt")int zt);
+    void updatePayZtHy(@Param("param")String param,@Param("zt")int zt);
+    void updatePayZtJc(@Param("param")String param,@Param("zt")int zt);
+    void updatePayZtSs(@Param("param")String param,@Param("zt")int zt);
 
     void updateXdZtSs(String param);
     void updateXdZtJy(String param);

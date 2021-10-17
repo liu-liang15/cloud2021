@@ -30,12 +30,10 @@ public class MedicalcardCzjlController {
         return medicalcardCzjlService.findAllMedicalcardCzjl(zlkhao,name,idcard,phone,zffs,st1,st2);
     }
 
-    //新增诊疗卡
+    //新增诊疗卡充值记录
     @RequestMapping("/addMedicalcardCzjl")
     public void addMedicalcardCzjl(String Medicalcardczjl){
         System.out.println(Medicalcardczjl);
-
-//        medicalcardService.findMedicalcardByMediCard(mediCard);
         Medicalcardczjl Medicalcardczjl1 = JSONObject.parseObject(Medicalcardczjl,Medicalcardczjl.class);
         medicalcardCzjlService.addMedicalcardCzjl(Medicalcardczjl1);
     }

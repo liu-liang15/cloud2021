@@ -1,6 +1,7 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.AssayDao;
+import com.example.model.dao.outpatient.PayfeesDao;
 import com.pojos.outpatient.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import java.util.List;
 public class AssayService {
     @Autowired
     AssayDao assayDao;
+    @Autowired
+    PayfeesDao payfeesDao;
 
     public void insertAssayCF(Assay assay){
         assayDao.insertAssayCF(assay);
@@ -40,5 +43,7 @@ public class AssayService {
 
     public void updatecfjyddzjg(double jg, String mzhao) {
         assayDao.updatecfjyddzjg(jg,mzhao);
+
+        payfeesDao.updatePayZtHy(mzhao,1);
     }
 }

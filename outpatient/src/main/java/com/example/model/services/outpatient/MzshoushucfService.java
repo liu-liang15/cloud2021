@@ -1,6 +1,7 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.MzshoushucfDao;
+import com.example.model.dao.outpatient.PayfeesDao;
 import com.pojos.outpatient.Mzshoushucf;
 import com.pojos.outpatient.Mzshoushuxq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.List;
 public class MzshoushucfService {
     @Autowired
     MzshoushucfDao mzshoushucfDao;
+    @Autowired
+    PayfeesDao payfeesDao;
 
     public void insertMzshoushucf(Mzshoushucf mzshoushucf){
         mzshoushucfDao.insertMzshoushucf(mzshoushucf);
@@ -42,5 +45,7 @@ public class MzshoushucfService {
 
     public void updatecfssddzjg(double jg, String mzhao) {
         mzshoushucfDao.updatecfssddzjg(jg,mzhao);
+
+        payfeesDao.updatePayZtSs(mzhao,1);
     }
 }

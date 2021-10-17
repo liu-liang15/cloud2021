@@ -54,12 +54,48 @@
         <result column="keyboarder" property="keyboarder"/>
         <result column="meal_pd" property="mealPd"/>
     </resultMap>
+    <resultMap id="mzshoushujieguo" type="com.pojos.outpatient.Mzshoushujieguo">
+        <id column="no" property="no"></id>
+        <result column="mzhao" property="mzhao"/>
+        <result column="patient_no" property="patientNo"/>
+        <result column="shoushu_no" property="shoushuNo"/>
+        <result column="shoushu_name" property="shoushuName"/>
+        <result column="jieguo" property="jieguo"/>
+        <result column="date" property="date"/>
+        <association property="patient" javaType="com.pojos.outpatient.Patient">
+            <result column="patient_name" property="patientName"/>
+            <result column="patient_phone" property="patientPhone"/>
+            <result column="patient_idcart" property="patientIdcart"/>
+        </association>
+    </resultMap>
 
+<!--    根据门诊号查询门诊手术结果-->
+<!--    select * from mzshoushujieguo m inner join patient p on p.patient_no = m.patient_no where m.mzhao = #{param}-->
+    <select id="selectmzshoushujieguo" resultMap="mzshoushujieguo">
+        select * from mzshoushujieguo m inner join patient p on p.patient_no = m.patient_no where m.mzhao = #{param}
+    </select>
+
+<!--    &#45;&#45; 修改门诊手术结果，根据编号-->
+<!--    update mzshoushujieguo set jieguo = #{jieguo} where no = #{no}-->
+    <update id="updatemzshoushujieguo">
+        update mzshoushujieguo set jieguo = #{jieguo} where no = #{no}
+    </update>
+
+<!--    &#45;&#45; 新增门诊手术结果-->
+<!--    insert into mzshoushujieguo(mzhao,patient_no,shoushu_no,shoushu_name) values(#{mzhao},#{patientNo},#{shoushuNo},#{shoushuName})-->
+    <insert id="insertmzshoushujieguo" parameterType="com.pojos.outpatient.Mzshoushujieguo">
+        insert into mzshoushujieguo(mzhao,patient_no,shoushu_no,shoushu_name) values(#{mzhao},#{patientNo},#{shoushuNo},#{shoushuName})
+    </insert>
+
+    <!--查询检验检查结果-->
     <select id="selectInfoRes" resultMap="SelectInfo">
         select * from assay_info a
                           inner join feebilldetails fd on a.fedibe_no = fd.febide_no
                           inner join feebill f on fd.febide_feebill_no = f.feebill_no
-        where 1 = 1 and a.assay_fs = '门诊体检' and f.feebill_seedo_number = #{mzhao}
+        where 1 = 1
+          and a.assay_fs = '门诊体检'
+          and f.feebill_seedo_number = #{mzhao}
+        order by a.info_id desc
     </select>
 
     <insert id="insertJiuZhenJiLu" useGeneratedKeys="true" keyProperty="seedoNo" parameterType="com.pojos.outpatient.Seedoctor">

@@ -1,6 +1,7 @@
 package com.example.model.services.outpatient;
 
 import com.example.model.dao.outpatient.ExamineorderDao;
+import com.example.model.dao.outpatient.PayfeesDao;
 import com.pojos.outpatient.Examinedetails;
 import com.pojos.outpatient.Examineorder;
 import com.pojos.outpatient.Labworkdetails;
@@ -15,6 +16,8 @@ import java.util.List;
 public class ExamineorderService {
     @Autowired
     ExamineorderDao examineorderDao;
+    @Autowired
+    PayfeesDao payfeesDao;
 
     public void insertExamineorder(Examineorder examineorder){
         examineorderDao.insertExamineorder(examineorder);
@@ -42,5 +45,7 @@ public class ExamineorderService {
 
     public void updatecfjcddzjg(double jg, String mzhao) {
         examineorderDao.updatecfjcddzjg(jg,mzhao);
+
+        payfeesDao.updatePayZtJc(mzhao,1);
     }
 }

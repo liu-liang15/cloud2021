@@ -8,6 +8,8 @@
         <result column="cardczjl_date" property="cardczjlDate" />
         <result column="cardczjl_card" property="cardczjlCard" />
         <result column="cardczjl_type"  property="cardczjlType" />
+        <result column="cardczjl_yuanyin" property="cardczjlYuanyin" />
+        <result column="cardczjl_leixing"  property="cardczjlLeixing" />
         <association property="medicalcard" javaType="com.pojos.outpatient.Medicalcard">
             <id column="medi_no" property="mediNo" />
             <result column="medi_card" property="mediCard" />
@@ -56,7 +58,7 @@
     </select>
     <!--新增诊疗卡充值记录addMedicalcardczjl-->
     <insert id="addMedicalcardCzjl" parameterType="com.pojos.outpatient.Medicalcardczjl">
-        insert into medicalcardczjl(cardczjl_medi_no,cardczjl_money,cardczjl_card,cardczjl_type) values
-        (#{cardczjlMediNo},#{cardczjlMoney},#{cardczjlCard},#{cardczjlType})
+        insert into medicalcardczjl(cardczjl_medi_no,cardczjl_money,cardczjl_card,cardczjl_type,cardczjl_leixing,cardczjl_yuanyin) values
+        (#{cardczjlMediNo},#{cardczjlMoney},#{cardczjlCard},#{cardczjlType},#{cardczjlLeixing},#{cardczjlYuanyin})
     </insert>
 </mapper>

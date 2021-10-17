@@ -14,6 +14,8 @@ public class Medicalcardczjl implements Serializable {
   private Date cardczjlDate;
   private String cardczjlCard;
   private String cardczjlType;
+  private String cardczjlYuanyin;
+  private String cardczjlLeixing;
   private Medicalcard medicalcard;
 
   private static final long serialVersionUID = 1L;
@@ -21,12 +23,15 @@ public class Medicalcardczjl implements Serializable {
   public Medicalcardczjl() {
   }
 
-  public Medicalcardczjl(Integer cardczjlNo, Integer cardczjlMediNo, double cardczjlMoney, Date cardczjlDate, String cardczjlCard, String cardczjlType) {
+  public Medicalcardczjl(Integer cardczjlNo, Integer cardczjlMediNo, double cardczjlMoney, Date cardczjlDate, String cardczjlCard, String cardczjlType, String cardczjlYuanyin, String cardczjlLeixing, Medicalcard medicalcard) {
     this.cardczjlNo = cardczjlNo;
     this.cardczjlMediNo = cardczjlMediNo;
     this.cardczjlMoney = cardczjlMoney;
     this.cardczjlDate = cardczjlDate;
     this.cardczjlCard = cardczjlCard;
     this.cardczjlType = cardczjlType;
+    this.cardczjlYuanyin = cardczjlYuanyin;
+    this.cardczjlLeixing = cardczjlLeixing;
+    this.medicalcard = medicalcard;
   }
 }
