@@ -22,6 +22,7 @@ public class ResMealController {
         DocAdv docAdv =JSON.parseObject(str,DocAdv.class);
         String str2=JSON.toJSONString(map.get("checkHuaYan"));
         List<AssayMeal>list=JSON.parseArray(str2, AssayMeal.class);
-        resMealServer.addResMeal(docAdv,list);
+        String str3=JSON.toJSONString(map.get("docName"));
+        resMealServer.addResMeal(docAdv,list,str3);
     }
 }

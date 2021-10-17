@@ -1,6 +1,10 @@
 package com.pojos.inpatient;
 
 
+import com.pojos.system.YuanGo;
+
+import java.sql.Timestamp;
+
 public class DocAdv {
 
   private long docAdvNo;
@@ -9,8 +13,8 @@ public class DocAdv {
   private java.sql.Timestamp docAdtime;
   private String docType;
   private String docTxt;
-
-
+  private java.sql.Timestamp docEnd;
+  private YuanGo yuanGo;
   public long getDocAdvNo() {
     return docAdvNo;
   }
@@ -61,5 +65,21 @@ public class DocAdv {
 
   public void setDocTxt(String docTxt) {
     this.docTxt = docTxt;
+  }
+
+  public Timestamp getDocEnd() {
+    return docEnd;
+  }
+
+  public void setDocEnd(Timestamp docEnd) {
+    this.docEnd = docEnd;
+  }
+
+  public YuanGo getYuanGo() {
+    return yuanGo;
+  }
+
+  public void setYuanGo(YuanGo yuanGo) {
+    this.yuanGo = yuanGo;
   }
 }

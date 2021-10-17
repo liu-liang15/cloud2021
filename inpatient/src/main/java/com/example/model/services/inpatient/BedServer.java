@@ -5,6 +5,7 @@ import com.example.model.dao.inpatient.BedDao;
 import com.example.model.dao.inpatient.BedRecDao;
 import com.pojos.inpatient.Bed;
 import com.pojos.inpatient.BedCzRec;
+import com.pojos.inpatient.ExpCal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +21,15 @@ public class BedServer {
     BedRecDao bedRecDao;
     @Autowired
     BedCzRecDao bedCzRecDao;
+    @Autowired
+    MedicalcardjfjlServer medicalcardjfjlServer;
     //查询床位
     public List<Bed> selBed(String wardNo, String zt){
         return  bedDao.selBed(wardNo,zt);
     }
     //新增床位
     public void addBed(Bed bed,int number){
-        int num=1;
+        int num=0;
         List<Bed>list=bedDao.selBed(bed.getWardNo(),"");
         if(!list.isEmpty()){
             num=list.size();
@@ -36,7 +39,7 @@ public class BedServer {
             bedDao.addBed(bed);
         }
     }
-    //查看患者与床位
+    //查看患者的床位
     public List<Bed> allocBed(String param){
         return bedDao.allocBed(param);
     }
@@ -61,5 +64,15 @@ public class BedServer {
     //查看住院单详表
     public List<Bed> hosXq(String param){
         return bedDao.hosXq(param);
+    }
+    //查看有床位的患者并进行床位费扣费
+    public void losebedMoney(){
+        List<Bed>list=bedDao.selHasBed();
+        if(!list.isEmpty()){
+            for(int i=0;i<list.size();i++){
+                ExpCal e=new ExpCal(list.get(i).getResNo(),"床位日结",list.get(i).getWard().getWardMon(),1,"床位费");
+                medicalcardjfjlServer.loseMoney(list.get(i).getResNo(),(-list.get(i).getWard().getWardMon()));
+            }
+        }
     }
 }

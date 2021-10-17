@@ -11,12 +11,70 @@
         <result column="exp_num" property="expNum"/>
         <result column="exp_type" property="expType"/>
     </resultMap>
+
+    <resultMap id="ExpCalMapper2" type="com.pojos.inpatient.ExpCal">
+        <result column="type" property="type"/>
+        <result column="mon" property="mon"/>
+    </resultMap>
+    <resultMap id="selectMeal" type="com.pojos.hyj.AssayMeal">
+        <result column="ks_name" property="ksName"></result>
+    </resultMap>
+
+    <resultMap id="SelectInfo" type="com.pojos.hyj.AssayInfo">
+        <id column="info_id" property="infoId"></id>
+        <result column="assay_person_id" property="assayPersonId"/>
+        <result column="assay_person_name" property="assayPersonName"/>
+        <result column="assay_person_sex" property="assayPersonSex"/>
+        <result column="assay_person_age" property="assayPersonAge"/>
+        <result column="assay_person_card" property="assayPersonCard"/>
+        <result column="assay_person_phone" property="assayPersonPhone"/>
+        <result column="assay_person_time" property="assayPersonTime"/>
+        <result column="assay_meal_name" property="assayMealName"/>
+        <result column="yg_name" property="ygName"/>
+        <result column="ks_name" property="ksName"/>
+        <result column="assay_pay_num" property="assayPayNum"/>
+        <result column="keyboarder" property="keyboarder"/>
+        <result column="meal_pd" property="mealPd"/>
+    </resultMap>
+
+    <!--    //体检新增缴费记录-->
+    <insert id="tjaddjfd" parameterType="com.pojos.hyj.AssayPay">
+        insert into assay_pay()
+        values(null,#{assayPayNum},#{assayPersonId},#{assayPayMoney},#{assayPayType},now(),#{assayFs})
+    </insert>
+    <!--体检新增结果记录-->
+    <insert id="inserttijgjl"  parameterType="com.pojos.hyj.AssayInfo">
+        insert into assay_info(assay_person_id,assay_person_name,assay_person_sex,assay_person_age,assay_person_card,assay_person_phone,assay_person_time,assay_meal_name,yg_name,ks_name,assay_pay_num,fedibe_no,assay_fs)
+        values(#{assayPersonId},#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonCard},#{assayPersonPhone},now(),#{assayMealName},#{ygName},#{ksName},#{assayPayNum},#{fedibeNo},#{assayFs})
+    </insert>
+
+
     <!--查看消费记录-->
     <select id="selExpCal" resultMap="ExpCalMapper">
         select * from exp_cal where res_no=#{param}
     </select>
     <!--新增消费记录-->
-    <insert id="addExpCal">
+    <insert id="addExpCal" useGeneratedKeys="true" keyProperty="expNo" parameterType="com.pojos.inpatient.ExpCal">
         insert into exp_cal(res_no,med_text,exp_pay,exp_num,exp_type) values (#{resNo},#{medText},#{expPay},#{expNum},#{expType})
     </insert>
+
+    <!--消费类型总额    -->
+    <select id="selMon" resultMap="ExpCalMapper2">
+        select exp_type as type,sum(exp_pay) as mon from exp_cal where res_no=#{param} GROUP BY exp_type
+    </select>
+    <!--查询检查或化验-->
+    <select id="selJcHy" resultMap="ExpCalMapper">
+        select * from exp_cal where exp_type="检查" or exp_type="化验"
+    </select>
+<!--    -->
+    <select id="selectAssayMealByName" resultMap="selectMeal">
+        select ks_name from assay_meal where assay_meal_name = #{param}
+    </select>
+
+    <!--查看检查和化验-->
+    <select id="selectInfoRes" resultMap="SelectInfo">
+        select * from assay_info a
+        inner join exp_cal c on a.fedibe_no = c.exp_no
+        where 1 = 1 and a.assay_fs = '住院体检' and c.res_no = #{param} order by a.info_id desc
+    </select>
 </mapper>

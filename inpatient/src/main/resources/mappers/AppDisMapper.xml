@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.inpatient.AppDisDao">
+    <resultMap id="AppDisMapper" type="com.pojos.inpatient.AppDis">
+        <id column="app_dis_no" property="appDisNo"/>
+        <result column="res_no" property="resNo"/>
+        <result column="app_me" property="appMe"/>
+        <result column="doc_adv" property="docAdv"/>
+        <result column="dis_doc" property="disDoc"/>
+        <result column="out_date" property="outDate"/>
+        <result column="out_per" property="outPer"/>
+        <result column="app_zt" property="appZt"/>
+        <association property="patient" javaType="com.pojos.outpatient.Patient">
+            <result column="patient_name" property="patientName"/>
+        </association>
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
+            <result column="yg_name" property="ygName"/>
+        </association>
+        <association property="hosAlone" javaType="com.pojos.inpatient.HosAlone">
+            <id column="res_no" property="resNo"/>
+            <result column="hos_stay" property="hosStay"/>
+        </association>
+        <association property="medicalcard" javaType="com.pojos.outpatient.Medicalcard">
+            <result column="medi_balance" property="mediBalance"/>
+        </association>
+    </resultMap>
+    <!--新增出院申请表-->
+    <insert id="addAppDis">
+        insert into app_dis(res_no,app_me,doc_adv,dis_doc) values (#{resNo},#{appMe},#{docAdv},#{disDoc})
+    </insert>
+    <!--查看出院申请表-->
+    <select id="selAppDis" resultMap="AppDisMapper">
+        select * from app_dis ad
+        inner join hos_alone h on ad.res_no=h.res_no
+        inner join adm_not a on h.hos_no=a.hos_no
+        inner join medicalcard m on a.patient = m.medi_no
+        inner join patient p on m.medi_patient_no=p.patient_no
+        inner join ke_shi k on k.ks_id=a.section
+        inner join yuan_go y on ad.dis_doc=y.yg_id
+        <if test="param!='' and param!=null">
+            and (p.patient_name like '%${param}' or ad.app_dis_no like '%${param}')
+        </if>
+    </select>
+    <!--修改出院申请表为已通过    -->
+    <update id="changeAppDis">
+        update app_dis set out_date=current_timestamp,out_per=#{outPer},app_zt=1 where app_dis_no=#{appDisNo}
+    </update>
+</mapper>

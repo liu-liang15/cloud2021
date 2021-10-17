@@ -22,4 +22,10 @@
             </if>
         </where>
     </select>
+    <!--新增诊疗卡充值记录addMedicalcardczjl-->
+    <insert id="addMedicalcardCzjl" parameterType="com.pojos.outpatient.Medicalcardczjl">
+        insert into medicalcardczjl(cardczjl_medi_no,cardczjl_money,cardczjl_card,cardczjl_type,cardczjl_leixing,cardczjl_yuanyin) values
+        (#{cardczjlMediNo},#{cardczjlMoney},#{cardczjlCard},#{cardczjlType},#{cardczjlLeixing},#{cardczjlYuanyin})
+        /*诊疗卡号*/                 金额
+    </insert>
 </mapper>

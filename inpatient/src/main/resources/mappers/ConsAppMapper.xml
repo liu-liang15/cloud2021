@@ -44,6 +44,24 @@
     </select>
     <!--修改手术申请单状态-->
     <update id="changeCons">
-        update cons_app set ope_no=#{opeNo},ope_doc=#{opeDoc},con_sp=#{conSp},con_zt=#{conZt} where con_no=#{conNo}
+        update cons_app
+        <set>
+            <if test="opeDoc!=''">
+                ope_doc=#{opeDoc},
+            </if>
+            <if test="conSp!=''">
+                con_sp=#{conSp},
+            </if>
+            <if test="conZt!=''">
+                con_zt=#{conZt},
+            </if>
+            <if test="opeNo!=''">
+                ope_no=#{opeNo}
+            </if>
+            <if test="opeRust!=''">
+                ope_rust=#{opeRust}
+            </if>
+        </set>
+         where con_no=#{conNo}
     </update>
 </mapper>

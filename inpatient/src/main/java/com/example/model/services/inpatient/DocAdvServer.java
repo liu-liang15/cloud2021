@@ -37,4 +37,6 @@ public class DocAdvServer {
     public List<DocAdv> selDocAdv(String param){
         return docAdvDao.selDocAdv(param);
     }
+    //停止医嘱
+    public void stopAdv(String param){docAdvDao.stopAdv(param);}
 }

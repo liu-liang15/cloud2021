@@ -12,4 +12,6 @@ public interface DocAdvDao {
     public void addDocAdv(DocAdv docAdv);
     //查看医嘱
     public List<DocAdv> selDocAdv(String param);
+    //停止医嘱
+    public void stopAdv(String param);
 }

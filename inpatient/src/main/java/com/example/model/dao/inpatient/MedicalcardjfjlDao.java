@@ -2,6 +2,7 @@ package com.example.model.dao.inpatient;
 
 
 import com.pojos.inpatient.Medicalcardjfjl;
+import com.pojos.outpatient.Medicalcardczjl;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface MedicalcardjfjlDao {
     public void addJfjl(Medicalcardjfjl med);
     //查询缴费记录
     public List<Medicalcardjfjl> selPay(Medicalcardjfjl med);
+    //诊疗卡记录
+    public void addMedicalcardCzjl(Medicalcardczjl medicalcardczjl);
 }

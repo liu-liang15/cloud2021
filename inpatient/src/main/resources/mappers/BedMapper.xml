@@ -75,6 +75,7 @@
         LEFT join adm_not a on h.hos_no=a.hos_no
         LEFT join medicalcard m on a.patient = m.medi_no
         LEFT join patient p on m.medi_patient_no=p.patient_no
+
         <if test="param!=''">
             where b.res_no like '%${param}%' or w.ward_name like '%${param}%' or p.patient_name like '%${param}%'
         </if>
@@ -113,5 +114,18 @@
     <!--根据住院单号查看床位-->
     <select id="selBed2" resultMap="BedMapper">
         select * from bed where res_no=#{resNo}
+    </select>
+    <!--空出床位-->
+    <update id="bedEmpty">
+        update bed set res_no=null where res_no=#{param}
+    </update>
+    <!--查询有床位的患者-->
+    <select id="selHasBed" resultMap="BedMapper">
+    select * from hos_alone h
+    inner join adm_not a on h.hos_no=a.hos_no
+    inner join medicalcard m on a.patient = m.medi_no
+    inner join patient p on m.medi_patient_no=p.patient_no
+    inner join bed b on b.res_no=h.res_no
+    inner join ward w on b.ward_no=w.ward_no
     </select>
 </mapper>

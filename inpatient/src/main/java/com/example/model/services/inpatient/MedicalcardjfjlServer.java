@@ -5,11 +5,13 @@ import com.example.model.dao.inpatient.MedicalcardjfjlDao;
 import com.pojos.inpatient.HosAlone;
 import com.pojos.inpatient.Medicalcardjfjl;
 //import io.seata.spring.annotation.GlobalTransactional;
+import com.pojos.outpatient.Medicalcardczjl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,5 +45,12 @@ public class MedicalcardjfjlServer {
         med.setMecajfjlMediNo(list.get(0).getAdmNot().getMedicalcard().getMediNo()+"");
         med.setMecajfjlMoney(num);
         medao.updatePat(med);
+        Medicalcardczjl medicalcardczjl=new Medicalcardczjl();
+        medicalcardczjl.setCardczjlMediNo(list.get(0).getAdmNot().getMedicalcard().getMediNo());
+        medicalcardczjl.setCardczjlMoney(num);
+        medicalcardczjl.setCardczjlLeixing("缴费");
+        medicalcardczjl.setCardczjlYuanyin("住院缴费");
+        medDao.addMedicalcardCzjl(medicalcardczjl);
     }
+
 }

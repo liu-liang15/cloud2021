@@ -2,7 +2,7 @@ package com.pojos.inpatient;
 
 public class ExpCal {
 
-  private long expNo;
+  private int expNo;
   private String resNo;
   private String medText;
   private double expPay;
@@ -10,12 +10,14 @@ public class ExpCal {
   private String expZt;
   private long expNum;
   private String expType;
+  private String type;
+  private double mon;
 
-  public long getExpNo() {
+  public int getExpNo() {
     return expNo;
   }
 
-  public void setExpNo(long expNo) {
+  public void setExpNo(int expNo) {
     this.expNo = expNo;
   }
 
@@ -78,6 +80,22 @@ public class ExpCal {
 
   public void setExpType(String expType) {
     this.expType = expType;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public double getMon() {
+    return mon;
+  }
+
+  public void setMon(double mon) {
+    this.mon = mon;
   }
 
   public ExpCal() {

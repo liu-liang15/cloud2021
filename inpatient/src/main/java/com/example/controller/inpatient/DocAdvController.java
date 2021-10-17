@@ -31,4 +31,9 @@ public class DocAdvController {
     public List<DocAdv> selDocAdv(String param){
         return docAdvServer.selDocAdv(param);
     }
+    //停止医嘱
+    @RequestMapping("stopAdv")
+    public void stopAdv(String param){
+        docAdvServer.stopAdv(param);
+    }
 }

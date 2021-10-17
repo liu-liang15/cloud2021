@@ -2,7 +2,10 @@ package com.example.controller.inpatient;
 
 
 import com.alibaba.fastjson.JSON;
+import com.example.model.dao.inpatient.ExpCalDao;
 import com.example.model.services.inpatient.ConsAppServer;
+import com.example.model.services.inpatient.ExpCalServer;
+import com.pojos.hyj.AssayInfo;
 import com.pojos.inpatient.ConsApp;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +45,12 @@ public class ConsAppController {
     public List<ConsApp> selConsApp(String resNo){
         return consAppServer.selConsApp(resNo);
     }
-
     //修改手术申请单
     @PostMapping("changeCons")
     public void changeCons(@RequestBody ConsApp consApp){
         consAppServer.changeCons(consApp);
     }
+
     /**
      * 国际时间转换北京时间
      * @param UTCStr

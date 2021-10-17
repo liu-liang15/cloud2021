@@ -15,4 +15,11 @@ public interface HosAloneDao extends BaseMapper<HosAlone> {
     public List<HosAlone> allHos2(String param);
     //新增住院单
     public void addHos(HosAlone hosAlone);
+    //根据诊疗卡查询
+    public List<HosAlone> allHos3(String param);
+    //改变诊疗卡
+    public void changeHos(String param);
+    //查询诊疗卡根据诊疗卡id
+    public List<HosAlone> selByPatient(String parma);
+
 }

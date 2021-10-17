@@ -24,13 +24,13 @@
         select * from sur_item s
             inner join ke_shi k on k.ks_id=s.sur_type
         where 1=1
-        <if test="param!=''">
+        <if test="param!='' and param!=null">
             and surName like '%${param}'
         </if>
-        <if test="ksId!=''">
+        <if test="ksId!='' and ksId!=null">
             and sur_type=#{ksId}
         </if>
-        <if test="surNo!=''">
+        <if test="surNo!='' and surNo!=null">
             and sur_no=#{surNo}
         </if>
     </select>

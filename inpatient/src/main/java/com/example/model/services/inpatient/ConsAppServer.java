@@ -3,6 +3,7 @@ package com.example.model.services.inpatient;
 import com.example.model.dao.inpatient.ConsAppDao;
 import com.example.model.dao.inpatient.ExpCalDao;
 import com.example.model.dao.inpatient.SurItemDao;
+import com.pojos.hyj.AssayInfo;
 import com.pojos.inpatient.ConsApp;
 import com.pojos.inpatient.ExpCal;
 import com.pojos.inpatient.SurItem;
@@ -42,4 +43,5 @@ public class ConsAppServer {
     public void changeCons(ConsApp consApp){
         consAppDao.changeCons(consApp);
     }
+
 }

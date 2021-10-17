@@ -44,12 +44,13 @@
         select * from adm_not a
         inner join medicalcard m on a.patient = m.medi_no
         inner join patient p on m.medi_patient_no=p.patient_no
-        inner join ke_shi k on k.ks_id=a.section
-        inner join yuan_go y on a.doctor=y.yg_id
+        left join ke_shi k on k.ks_id=a.section
+        left join yuan_go y on a.doctor=y.yg_id
         where a.adm_zt='0'
        <if test="param!=null and param!=''">
             and (p.patient_name like '%${param}%' or a.hos_no like '%${param}%')
        </if>
+        order by a.hos_no desc
     </select>
     <!--修改登记单状态-->
     <update id="alterAdm">
@@ -59,4 +60,8 @@
     <insert id="addAdm">
         insert into adm_not(patient,section,doctor,result) values(#{patient},#{section},#{doctor},#{result})
     </insert>
+    <!--根据病人就诊卡编号判断   -->
+    <select id="selByPatient" resultMap="AdmNotmapper">
+        select * from adm_not where patient=#{param}
+    </select>
 </mapper>

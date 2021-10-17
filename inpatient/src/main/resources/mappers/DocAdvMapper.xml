@@ -8,6 +8,10 @@
         <result column="doc_adtime" property="docAdtime"/>
         <result column="doc_type" property="docType"/>
         <result column="doc_txt" property="docTxt"/>
+        <result column="doc_end" property="docEnd"/>
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
+            <result column="yg_name" property="ygName"/>
+        </association>
     </resultMap>
     <!--新增医嘱-->
     <insert id="addDocAdv">
@@ -18,6 +22,11 @@
     </insert>
     <!--查看医嘱-->
     <select id="selDocAdv" resultMap="DocAdvMappper">
-        select * from doc_adv where res_no=#{param}
+        select * from doc_adv d
+        inner join yuan_go y on d.doc_per=y.yg_id where res_no=#{param}
     </select>
+    <!--停止医嘱    -->
+    <update id="stopAdv">
+        update doc_adv set doc_end=date_sub(curdate(),interval - 1 day) where doc_adv_no=#{docAdvNo}
+    </update>
 </mapper>

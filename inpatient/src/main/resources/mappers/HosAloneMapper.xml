@@ -38,7 +38,7 @@
                 <result column="patient_idcart" property="patientIdcart"/>
                 <result column="patient_age" property="patientAge"/>
                 <result column="patient_birthdate" property="patientBirthdate"/>
-                <result column="" property="patientAddress"/>
+                <result column="patient_address" property="patientAddress"/>
                 <result column="patient_date" property="patientDate"/>
             </association>
             <association property="yg" javaType="com.pojos.system.YuanGo">
@@ -47,28 +47,54 @@
             </association>
             <association property="ks" javaType="com.pojos.system.KeShi">
                 <id column="ks_id" property="ksId"/>
-                <result column="ks_name" property="ksName"/>
+                <result column="kname"  property="ksName"/>
             </association>
         </association>
     </resultMap>
     <!--查询所有住院单-->
     <select id="allHos" resultMap="HosAloneMapper">
-        select * from hos_alone h inner join adm_not a on h.hos_no=a.hos_no inner join medicalcard m on a.patient = m.medi_no inner join patient p on m.medi_patient_no=p.patient_no
+        select *,k.ks_name as kname from hos_alone h
+        inner join adm_not a on h.hos_no=a.hos_no
+        inner join medicalcard m on a.patient = m.medi_no
+        inner join patient p on m.medi_patient_no=p.patient_no
+        inner join yuan_go y on y.yg_id=h.hos_cond
+        inner join ke_shi k on k.ks_id=h.pay_type
         where h.hos_zt='0'
         <if test="param!=null and param!=''">
             and (p.patient_name like '%${param}%' or h.res_no like '%${param}%')
         </if>
+        order by h.hos_stay desc
     </select>
-    <!--查询住院单 -->
+    <!--查询住院单根据住院号 -->
     <select id="allHos2" resultMap="HosAloneMapper">
         select * from hos_alone h inner join adm_not a on h.hos_no=a.hos_no inner join medicalcard m on a.patient = m.medi_no inner join patient p on m.medi_patient_no=p.patient_no
         where h.res_no = #{param}
     </select>
 
+    <!--查询住院单根据住院号 -->
+    <select id="allHos3" resultMap="HosAloneMapper">
+        select * from hos_alone h inner join adm_not a on h.hos_no=a.hos_no inner join medicalcard m on a.patient = m.medi_no inner join patient p on m.medi_patient_no=p.patient_no
+        where h.hos_zt='0' and m.medi_card = #{param}
+    </select>
+
     <!--新增住院单-->
     <insert id="addHos" parameterType="com.pojos.inpatient.HosAlone">
-        insert into hos_alone(linkman,phone,hos_no,nurse,hos_money,hos_zt)
-        values(#{linkman},#{phone},#{hosNo},#{nurse},#{hosMoney},'0')
+        insert into hos_alone(linkman,phone,hos_no,nurse,hos_money,hos_zt,pay_type,hos_cond)
+        values(#{linkman},#{phone},#{hosNo},#{nurse},#{hosMoney},'0',#{payType},#{hosCond})
     </insert>
+    <!--修改住院单状态-->
+    <update id="changeHos">
+        update hos_alone set hos_zt=1 where res_no=#{param}
+    </update>
+    <!--查看住院单根据诊疗卡编号-->
+    <select id="selByPatient" resultMap="HosAloneMapper">
+        select * from hos_alone h
+          inner join adm_not a on h.hos_no=a.hos_no
+          inner join medicalcard m on a.patient = m.medi_no
+          inner join patient p on m.medi_patient_no=p.patient_no
+          inner join yuan_go y on y.yg_id=h.hos_cond
+          inner join ke_shi k on k.ks_id=h.pay_type
+        where h.hos_zt='0'and m.medi_no=#{param}
+    </select>
 </mapper>
 
