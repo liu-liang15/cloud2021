@@ -49,7 +49,7 @@
             and m.medi_card like '%${zlkhao}%'
         </if>
         <if test="zffs!=null and zffs!=''">
-            and mc.cardczjl_type like '%${zffs}%'
+            and (mc.cardczjl_type like '%${zffs}%' or mc.cardczjl_type is null)
         </if>
         <if test="sj1 !=null and sj1!='' and sj2 !=null and sj2!=''">
             and mc.cardczjl_date between #{sj1} and #{sj2}

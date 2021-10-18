@@ -9,11 +9,11 @@ import java.util.Date;
 public class Medicalcardczjl implements Serializable {
 
   private Integer cardczjlNo;
-  private Integer cardczjlMediNo;
+  private Integer cardczjlMediNo;//卡号
   private double cardczjlMoney;
   private Date cardczjlDate;
-  private String cardczjlCard;
-  private String cardczjlType;
+  private String cardczjlCard;//身份证
+  private String cardczjlType;//类型
   private String cardczjlYuanyin;
   private String cardczjlLeixing;
   private Medicalcard medicalcard;

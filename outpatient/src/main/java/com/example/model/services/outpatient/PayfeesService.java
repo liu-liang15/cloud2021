@@ -68,7 +68,7 @@ public class PayfeesService {
                 //          编号 ldWorker  nextId
                 IdWorker idWorker = new IdWorker(1,1,1);
                 long tjid = idWorker.nextId();
-
+                System.out.println(tjid);
                 //查询体检科室根据编号
                 AssayMeal jyjcKs = payfeesDao.selectAssayMealById(fd.getFebideId());
                 System.out.println(jyjcKs);

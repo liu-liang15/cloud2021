@@ -40,7 +40,7 @@ public class AssayInfo {
     private List<AssayRes> assayRes;
     private List<AssayMealImg> assayMealImgs;
 
-    public AssayInfo(String assayPersonName, String assayPersonSex, int assayPersonAge, String assayPersonCard, String assayPersonPhone, Date assayPersonTime, String assayMealName, String ygName, String ksName, String keyboarder, int fedibeNo, String assayFs) {
+    public AssayInfo(String assayPersonName, String assayPersonSex, int assayPersonAge, String assayPersonCard, String assayPersonPhone, Date assayPersonTime, String assayMealName, String ygName, String ksName, String assayPayNum, int fedibeNo, String assayFs) {
         this.assayPersonName = assayPersonName;
         this.assayPersonSex = assayPersonSex;
         this.assayPersonAge = assayPersonAge;
@@ -50,7 +50,7 @@ public class AssayInfo {
         this.assayMealName = assayMealName;
         this.ygName = ygName;
         this.ksName = ksName;
-        this.keyboarder = keyboarder;
+        this.assayPayNum = assayPayNum;
         this.fedibeNo = fedibeNo;
         this.assayFs = assayFs;
     }
