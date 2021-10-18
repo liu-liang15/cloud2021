@@ -2,6 +2,7 @@ package com.example.model.dao.pharmacy;
 
 import com.pojos.pharmacy.FaYao;
 import com.pojos.pharmacy.FaoYaoXd;
+import com.pojos.pharmacy.Hibernate;
 import com.pojos.pharmacy.YpYaoFang;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,4 +33,6 @@ public interface YaoFangDao {
     void addFYXD(@Param("faoYaoXds") Collection<FaoYaoXd> faoYaoXds,@Param("fyId") String fyId);
     //修改短期医嘱执行状态
     void changeDis(@Param("userId")String userId,@Param("disId")String disId);
+    //发药记录
+    List<FaYao> allFaYaoJiLu(Hibernate hibernate);
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public class XiaoHuiService {
     @Autowired
     XiaoHuiDao xiaoHuiDao;
+    //查询所有销毁申请
     public List<XiaoHuiSq> findAllXHD(int sq) {
         return xiaoHuiDao.findAllXHD(sq);
     }

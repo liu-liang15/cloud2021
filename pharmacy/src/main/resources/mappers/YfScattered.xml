@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.model.dao.pharmacy.YfScatteredDao">
+    <!--查询药房散装药品-->
+    <select id="sum" resultType="_int">
+        select count(1) as num from yao_fang_scattered where drug_id=#{id}
+    </select>
+    <!--新增药品散装记录-->
+    <insert id="addscattered">
+        insert into yao_fang_scattered VALUES(#{id},#{number})
+    </insert>
+    <!--增加改药品散装数-->
+    <update id="editscattered1">
+        update yao_fang_scattered set drug_scattered=drug_scattered+#{number} where drug_id =#{id}
+    </update>
+    <!--减少改药品散装数-->
+    <update id="editscattered2">
+        update yao_fang_scattered set drug_scattered=drug_scattered-#{number} where drug_id =#{id}
+    </update>
+    <!--查询某药品换算系数,用以求一份该药品多少散装数-->
+    <select id="matr" resultType="String">
+        select drug_matr from yao_ping_xx where drug_id=#{id}
+    </select>
+    <select id="scatteredSum" resultType="_int">
+        select drug_scattered from yao_fang_scattered where drug_id=#{id}
+    </select>
+</mapper>
