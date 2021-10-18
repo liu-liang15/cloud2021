@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.MealInfoMapper">
+    <insert id="addMealInfor">
+        insert into meal_info(meal_info_num,assay_meal_name,ks_name,assay_pay_num,assay_info_remark)
+        values(#{mealInfoNum},#{assayMealName},#{ksName},#{assayPayNum},#{assayInfoRemark})
+    </insert>
+    <insert id="addMealRes">
+        insert into assay_res(assay_pro_name,assay_res_inform,assay_pro_unit,assay_pro_ref,assay_meal_name,meal_info_num,assay_pay_num)
+        values
+        <foreach collection="list" item="obj" separator=",">
+            (#{obj.assayProName},#{obj.assayResInform},#{obj.assayProUnit},#{obj.assayProRef},#{obj.assayMealName},#{obj.mealInfoNum},#{obj.assayPayNum})
+        </foreach>
+    </insert>
+    <resultMap id="mealInfo" type="com.pojos.hyj.MealInfo">
+        <id column="meal_info_id" property="mealInfoId"/>
+        <result column="meal_info_num" property="mealInfoNum"/>
+        <result column="assay_meal_name" property="assayMealName"/>
+        <result column="ks_name" property="ksName"/>
+        <result column="assay_pay_num" property="assayPayNum"/>
+        <result column="assay_info_remark" property="assayInfoRemark"/>
+        <collection property="assayMealImgs" ofType="com.pojos.hyj.AssayMealImg">
+            <id property="mealImgId" column="meal_img_id"/>
+            <result property="mealImgName" column="meal_img_name"/>
+            <result property="mealInfoNum" column="meal_info_num"/>
+            <result property="assayPayNum" column="assay_pay_num"/>
+        </collection>
+    </resultMap>
+    <select id="findMealOk" resultMap="mealInfo">
+        select mi.assay_meal_name from assay_info ai inner join meal_info mi
+        on ai.assay_pay_num = mi.assay_pay_num where ai.assay_pay_num = #{assayPayNum}
+    </select>
+    <resultMap id="assayRes" type="com.pojos.hyj.AssayRes">
+        <id property="assayResId" column="assay_res_id"></id>
+        <result property="assayPersonId" column="assay_person_id"></result>
+        <result property="assayMealName" column="assay_meal_name"></result>
+        <result property="assayProName" column="assay_pro_name"></result>
+        <result property="assayResInform" column="assay_res_inform"></result>
+        <result property="assayProRef" column="assay_pro_ref"></result>
+        <result property="assayProUnit" column="assay_pro_unit"></result>
+        <result column="assay_pay_num" property="assayPayNum"/>
+        <result column="meal_info_num" property="mealInfoNum"/>
+    </resultMap>
+    <select id="findResInfo" resultMap="assayRes">
+        select * from assay_res ar inner join meal_info mi
+        on ar.meal_info_num = mi.meal_info_num
+        where mi.assay_pay_num =#{assayPayNum} and ar.assay_meal_name = #{assayMealName}
+    </select>
+    <insert id="addInfoImg">
+        insert into assay_meal_img(meal_img_name,assay_pay_num,meal_info_num)
+        values
+        <foreach collection="list" separator="," item="obj">
+            (#{obj.mealImgName},#{obj.assayPayNum},#{obj.mealInfoNum})
+        </foreach>
+    </insert>
+    <select id="findImgInfo" resultMap="mealInfo">
+        select * from meal_info mi inner join assay_meal_img ami
+        on mi.meal_info_num = ami.meal_info_num where mi.assay_meal_name = #{assayMealName}
+    </select>
+</mapper>

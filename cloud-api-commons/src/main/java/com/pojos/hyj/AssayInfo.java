@@ -33,6 +33,9 @@ public class AssayInfo {
     private String assayInfoRemark;
     private int imgBean;
     private int mealPd;
+    private int fedibeNo;
+    private String assayFs;
+    private String mealInfoNum;
     private List<AssayRes> assayRes;
     private List<AssayMealImg> assayMealImg;
 }

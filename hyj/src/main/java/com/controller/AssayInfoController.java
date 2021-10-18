@@ -64,4 +64,8 @@ public class AssayInfoController {
     public List<AssayInfo> findMealInfo(){
         return assayInfoService.findMealInfo();
     }
+    @RequestMapping("findAssayInfoById")
+    public List<AssayInfo> findAssayInfoById(@RequestBody AssayInfo assayInfo){
+        return assayInfoService.findAssayInfoById(assayInfo);
+    }
 }

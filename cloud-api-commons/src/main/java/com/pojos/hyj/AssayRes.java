@@ -24,6 +24,7 @@ public class AssayRes {
     private int assayPersonId;//体检人id
     private String assayMealName;//体检套餐
     private String assayPayNum;
+    private String mealInfoNum;
     private int assayK;//状态
     private List<AssayRes> assayRes;
 }
