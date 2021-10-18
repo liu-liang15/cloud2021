@@ -39,4 +39,17 @@ public class AdmNotServer {
             return "false2";
         }
     }
+    //新增住院通知单
+    public String addAdm1(AdmNot admNot) {
+        //判断病人是否登记
+        if (admNotDao.selByPatient(admNot.getPatient()).isEmpty()) {
+            //判断病人是否住院
+            if(hosAloneDao.selByPatient(admNot.getPatient()).isEmpty()){
+                return "ok";
+            }
+            return "false1";
+        }else {
+            return "false2";
+        }
+    }
 }

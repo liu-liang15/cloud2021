@@ -20,4 +20,9 @@ public class AdmNotController {
     //新增住院通知单
     @RequestMapping("addAdm")
     public String addAdm(@RequestBody AdmNot admNot){return admNotServer.addAdm(admNot);}
+    //新增住院通知单
+    @RequestMapping("addAdm1")
+    public String addAdm1(@RequestBody AdmNot admNot) {
+        return admNotServer.addAdm1(admNot);
+    }
 }
