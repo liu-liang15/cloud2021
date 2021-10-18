@@ -77,6 +77,7 @@
             <result property="assayProRef" column="assay_pro_ref"></result>
             <result property="assayProUnit" column="assay_pro_unit"></result>
             <result column="assay_pay_num" property="assayPayNum"/>
+            <result column="meal_info_num" property="mealInfoNum"/>
         </collection>
         <collection property="assayMealImg" ofType="com.pojos.hyj.AssayMealImg">
             <id property="mealImgId" column="meal_img_id"></id>
@@ -90,7 +91,7 @@
     </select>
     <select id="findRes" resultMap="assayInfo">
         select * from assay_info ai inner join assay_res ar
-        on ai.assay_person_id = ar.assay_person_id and ai.assay_pay_num = ar.assay_pay_num
+        on ai.assay_pay_num = ar.assay_pay_num
     </select>
     <!--体检结果录入界面的table查询-->
     <select id="findEnterRes" resultMap="selectMeal">
@@ -99,10 +100,10 @@
     </select>
     <!--录入体检结果-->
     <insert id="addRes">
-        insert into assay_res(assay_pro_name,assay_res_inform,assay_pro_unit,assay_pro_ref,assay_person_id,assay_meal_name,assay_pay_num)
+        insert into assay_res(assay_pro_name,assay_res_inform,assay_pro_unit,assay_pro_ref,assay_meal_name,assay_pay_num)
         values
         <foreach collection="list" item="obj" separator=",">
-            (#{obj.assayProName},#{obj.assayResInform},#{obj.assayProUnit},#{obj.assayProRef},#{obj.assayPersonId},#{obj.assayMealName},#{obj.assayPayNum})
+            (#{obj.assayProName},#{obj.assayResInform},#{obj.assayProUnit},#{obj.assayProRef},#{obj.assayMealName},#{obj.assayPayNum})
         </foreach>
     </insert>
     <!--录入成功修改操作员-->
@@ -134,8 +135,22 @@
         inner join assay_res ar on ai.assay_pay_num = ar.assay_pay_num
         where ai.assay_pay_num = #{assayPayNum}
     </select>
+    <resultMap id="mealInfo" type="com.pojos.hyj.MealInfo">
+        <id column="meal_info_id" property="mealInfoId"/>
+        <result column="meal_info_num" property="mealInfoNum"/>
+        <result column="assay_meal_name" property="assayMealName"/>
+        <result column="ks_name" property="ksName"/>
+        <result column="assay_pay_num" property="assayPayNum"/>
+        <result column="assay_info_remark" property="assayInfoRemark"/>
+        <collection property="assayMealImgs" ofType="com.pojos.hyj.AssayMealImg">
+            <id property="mealImgId" column="meal_img_id"/>
+            <result property="mealImgName" column="meal_img_name"/>
+            <result property="mealInfoNum" column="meal_info_num"/>
+            <result property="assayPayNum" column="assay_pay_num"/>
+        </collection>
+    </resultMap>
     <!--查询影像结果-->
-    <select id="findInfoImg" resultMap="assayInfo">
+    <select id="findInfoImg" resultMap="mealInfo">
         select * from assay_info ai
         <if test="imgBean = 1">
             inner join assay_meal_img am on ai.assay_pay_num = am.assay_pay_num

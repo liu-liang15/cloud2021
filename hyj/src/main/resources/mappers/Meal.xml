@@ -24,11 +24,11 @@
         select * from meal m INNER JOIN meal_middle mm on m.meal_id = mm.meal_id
         INNER JOIN assay_meal am on am.assay_meal_id = mm.assay_meal_id
     </select>
-    <!--根据id查询体检套餐-->
+    <!--根据套餐名查询体检里面的项目-->
     <select id="fMealById" resultMap="Meal">
         select * from meal m INNER JOIN meal_middle mm on m.meal_id = mm.meal_id
         INNER JOIN assay_meal am on am.assay_meal_id = mm.assay_meal_id
-        where m.meal_id = #{mealId}
+        where m.meal_name = #{mealName}
     </select>
     <!--新增体检套餐-->
     <insert id="insertMeal" parameterType="com.pojos.hyj.Meal" useGeneratedKeys="true" keyProperty="mealId">

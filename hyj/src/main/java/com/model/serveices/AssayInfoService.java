@@ -3,6 +3,7 @@ package com.model.serveices;
 import com.model.dao.AssayInfoMapper;
 import com.pojos.hyj.AssayInfo;
 import com.pojos.hyj.AssayPay;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,5 +31,8 @@ public class AssayInfoService {
     }
     public List<AssayInfo> findMealInfo(){
         return assayInfoMapper.findMealInfo();
+    }
+    public List<AssayInfo> findAssayInfoById(AssayInfo assayInfo){
+        return assayInfoMapper.findAssayInfoById(assayInfo);
     }
 }
