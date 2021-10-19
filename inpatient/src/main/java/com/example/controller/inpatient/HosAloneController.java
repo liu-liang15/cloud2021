@@ -21,4 +21,9 @@ public class HosAloneController {
         //HosAlone hosAlone = JSONObject.parseObject(hosalone, HosAlone.class);
         hosAloneServer.addHos(hosalone);
     }
+    //根据住院单号查看患者
+    @GetMapping("/selHos2")
+    public List<HosAlone> selHos2(String param){
+        return hosAloneServer.selHos2(param);
+    }
 }

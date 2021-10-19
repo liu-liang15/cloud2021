@@ -47,9 +47,11 @@
          inner join yao_ping_xx yx on da.drug_id=yx.drug_id
          inner join doc_adv d on d.doc_adv_no=da.doc_adv_no
          where d.res_no=#{param}
+--         得到今天要执行的长期医嘱
         <if test="type==0">
             and d.doc_type=0 and de.doc_time=CURDATE()
         </if>
+--         得到要执行的短期医嘱
         <if test="type!=0">
             and d.doc_type=1
         </if>
@@ -60,6 +62,6 @@
     </select>
     <!--修改今天医嘱为已执行-->
     <update id="upDateDocExe">
-        update doc_exe set doc_nur='李云' where doc_exe_no=#{docExeNo}
+        update doc_exe set doc_nur=#{docNur} where doc_exe_no=#{docExeNo}
     </update>
 </mapper>

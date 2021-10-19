@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,10 +31,12 @@ public class DocExeServer {
         //获得长期医嘱详情
         List<DocAdvXq> docAdvXqs=docAdvXqDao.serDocAdvXq(param);
         for(DocAdvXq d:docAdvXqs){
-            List<DocExe>docExes=docExeDao.nowDocExe(d.getDocAdvId()+"");
-            //没找到今天的医嘱则新增
-            if(docExes.isEmpty()){
-                docExeDao.addDocExe(d.getDocAdvId()+"");
+            if(d.getDocStat().getTime()<new Date().getTime()){
+                List<DocExe>docExes=docExeDao.nowDocExe(d.getDocAdvId()+"");
+                //没找到今天的医嘱则新增
+                if(docExes.isEmpty()){
+                    docExeDao.addDocExe(d.getDocAdvId()+"");
+                }
             }
         }
         return docExeDao.selDocExe(param,0);
@@ -49,8 +52,9 @@ public class DocExeServer {
         double num=0;
         Medicalcardjfjl med=new Medicalcardjfjl();
         for (DocExe d:docExes){
+            d.setDocNur(dispensing.getDisNur());
             docExeDao.upDateDocExe(d);
-            if(d.getYaoPingXx().getDrugTypeId().equals("1")){
+            if(d.getYaoPingXx().getDrugSortId().equals("1")){
                  e=new ExpCal(resNo,d.getYaoPingXx().getDrugName(),d.getDocAdvXq().getDrugNumber()*d.getYaoPingXx().getDrugGrain()*d.getDocAdvXq().getDocFre(),d.getDocAdvXq().getDrugNumber(),"药品");
             }else{
                  e=new ExpCal(resNo,d.getYaoPingXx().getDrugName(),d.getDocAdvXq().getDrugNumber()*d.getYaoPingXx().getDrugShoujia(),d.getDocAdvXq().getDrugNumber(),"药品");

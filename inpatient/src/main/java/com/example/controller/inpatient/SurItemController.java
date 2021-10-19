@@ -17,14 +17,8 @@ public class SurItemController {
     SurItemServer surItemServer;
     //新增手术
     @PostMapping("/addSur")
-    public void addSur(@RequestBody Map<String,Object>map){
-        String str= JSON.toJSONString(map.get("sur"));
-        SurItem surItem=JSON.parseObject(str,SurItem.class);
-        String str2= JSON.toJSONString(map.get("surXhs"));
-        List<SurXh>list=JSON.parseArray(str2,SurXh.class);
-        String str3= JSON.toJSONString(map.get("surDrug"));
-        List<SurDrug>list2=JSON.parseArray(str3,SurDrug.class);
-        surItemServer.addSur(surItem,list,list2);
+    public String addSur(@RequestBody SurItem surItem){
+        return surItemServer.addSur(surItem);
     }
     //查看手术
     @GetMapping("/selSur")
@@ -33,13 +27,7 @@ public class SurItemController {
     }
     //修改手术
     @PostMapping("/upDateSur")
-    public void upDateSur(@RequestBody Map<String,Object>map){
-        String str= JSON.toJSONString(map.get("sur"));
-        SurItem surItem=JSON.parseObject(str,SurItem.class);
-        String str2= JSON.toJSONString(map.get("surXhs"));
-        List<SurXh>list=JSON.parseArray(str2,SurXh.class);
-        String str3= JSON.toJSONString(map.get("surDrug"));
-        List<SurDrug>list2=JSON.parseArray(str3,SurDrug.class);
-        surItemServer.upDateSur(surItem,list,list2);
+    public String upDateSur(@RequestBody SurItem surItem){
+        return surItemServer.upDateSur(surItem);
     }
 }

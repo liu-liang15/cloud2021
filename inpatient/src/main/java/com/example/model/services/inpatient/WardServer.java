@@ -18,8 +18,13 @@ public class WardServer {
     @Autowired
     WardRecDao wardRecDao;
     //新增病房
-    public void addWard(Ward ward){
-         wardDao.addWard(ward);
+    public String addWard(Ward ward){
+        if(wardDao.selWardByName(ward.getWardName())==null){
+            wardDao.addWard(ward);
+            return "ok";
+        }else{
+            return "false";
+        }
     }
     //查看病房
     public List<Ward> selWard(String param){

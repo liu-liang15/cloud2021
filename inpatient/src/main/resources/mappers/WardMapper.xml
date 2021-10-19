@@ -47,4 +47,8 @@
         </set>
         where ward_no=#{wardNo}
     </update>
+    <!--按名称查看病房-->
+    <select id="selWardByName" resultMap="WardMapper">
+        select * from ward where ward_name= #{param}
+    </select>
 </mapper>

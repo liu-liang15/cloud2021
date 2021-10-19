@@ -17,8 +17,8 @@ public class WardController {
     WardServer wardServer;
     //新增病房
     @PostMapping("/addWard")
-    public void addWard(@RequestBody Ward ward){
-        wardServer.addWard(ward);
+    public String addWard(@RequestBody Ward ward){
+        return wardServer.addWard(ward);
     }
     //查看病房
     @GetMapping("/ward")

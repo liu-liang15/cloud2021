@@ -15,4 +15,6 @@ public interface SurItemDao {
     public List<SurItem> selSur(@Param("param") String param,@Param("ksId")String ksId,@Param("surNo")String surNo);
     //修改手术项目
     public void upDateSur(SurItem surItem);
+    //根据手术名查看手术项目
+    public SurItem selSurBySurName(String surName);
 }

@@ -10,8 +10,11 @@
         <result column="con_zt" property="conZt"/>
         <result column="con_star" property="conStar"/>
         <result column="ope_doc" property="opeDoc"/>
+        <result column="ope_nar" property="opeNar"/>
         <result column="ope_rust" property="opeRust"/>
         <result column="con_sp" property="conSp"/>
+        <result column="con_time_star" property="conTimeStar"/>
+        <result column="con_time_end" property="conTimeEnd"/>
         <association property="surItem" javaType="com.pojos.inpatient.SurItem">
             <id column="sur_no" property="surNo"/>
             <result column="sur_name" property="surName"/>
@@ -25,18 +28,27 @@
         <association property="yg" javaType="com.pojos.system.YuanGo">
             <result column="yg_name" property="ygName"/>
         </association>
+        <association property="yg2" javaType="com.pojos.system.YuanGo">
+            <result column="yg_name2" property="ygName"/>
+        </association>
+        <association property="yg3" javaType="com.pojos.system.YuanGo">
+            <result column="yg_name3" property="ygName"/>
+        </association>
     </resultMap>
     <insert id="addConsApp">
         insert into cons_app(res_no,sur_no,con_per,con_star) values(#{resNo},#{surNo},#{conPer},#{conStar})
     </insert>
+<!--查询手术申请单   -->
     <select id="selConsApp" resultMap="ConsAppMapper">
-        SELECT * from cons_app c
-                          INNER JOIN sur_item s on c.sur_no=s.sur_no
-                          INNER JOIN hos_alone h on c.res_no=h.res_no
-                          inner join adm_not a on h.hos_no=a.hos_no
-                          inner join medicalcard m on a.patient = m.medi_no
-                          inner join patient p on m.medi_patient_no=p.patient_no
-                          inner join yuan_go y on c.con_per=y.yg_id
+        SELECT *,y2.yg_name as yg_name2,y3.yg_name as yg_name3 from cons_app c
+          INNER JOIN sur_item s on c.sur_no=s.sur_no
+          INNER JOIN hos_alone h on c.res_no=h.res_no
+          inner join adm_not a on h.hos_no=a.hos_no
+          inner join medicalcard m on a.patient = m.medi_no
+          inner join patient p on m.medi_patient_no=p.patient_no
+          inner join yuan_go y on c.con_per=y.yg_id
+          left join yuan_go y2 on c.ope_doc=y2.yg_id
+          left join yuan_go y3 on c.ope_nar=y3.yg_id
         where 1=1
         <if test="resNo!=''">
             and c.res_no=#{resNo}
@@ -56,7 +68,10 @@
                 con_zt=#{conZt},
             </if>
             <if test="opeNo!=''">
-                ope_no=#{opeNo}
+                ope_no=#{opeNo},
+            </if>
+            <if test="opeNar!=''">
+                ope_nar=#{opeNar},
             </if>
             <if test="opeRust!=''">
                 ope_rust=#{opeRust}

@@ -26,5 +26,10 @@ public class HosAloneServer {
         hosAloneDao.addHos(hosAlone);
         //修改住院通知单状态
         admNotDao.alterAdm(hosAlone.getHosNo());
+        //查询住院单
+    }
+    //根据住院单号查看住院患者
+    public List<HosAlone> selHos2(String param){
+        return hosAloneDao.allHos2(param);
     }
 }

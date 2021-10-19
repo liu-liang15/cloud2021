@@ -22,15 +22,13 @@ public class SurItemServer {
     @Autowired
     SurDrugDao surDrugDao;
     //新增手术项目
-    public void addSur(SurItem surItem, List<SurXh> surXhs, List<SurDrug> surDrugs){
-        surItemDao.addSur(surItem);
-        for (int i=0;i<surXhs.size();i++){
-            surXhs.get(i).setSurNo(surItem.getSurNo());
-            surXhDao.addSurxh(surXhs.get(i));
-        }
-        for (int i=0;i<surDrugs.size();i++){
-            surDrugs.get(i).setSurNo(surItem.getSurNo());
-            surDrugDao.addSurDrug(surDrugs.get(i));
+    public String addSur(SurItem surItem){
+        //根据手术名查询
+        if(surItemDao.selSurBySurName(surItem.getSurName())==null){
+            surItemDao.addSur(surItem);
+            return "ok";
+        }else{
+            return  "no";
         }
     }
     //查看手术项目
@@ -38,17 +36,12 @@ public class SurItemServer {
         return surItemDao.selSur(param,ksId,surNo);
     }
     //修改手术项目
-    public void upDateSur(SurItem surItem, List<SurXh> surXhs, List<SurDrug> surDrugs){
-        surItemDao.upDateSur(surItem);
-        surXhDao.delSurxh(surItem.getSurNo());
-        surDrugDao.delSurDrug(surItem.getSurNo());
-        for (int i=0;i<surXhs.size();i++){
-            surXhs.get(i).setSurNo(surItem.getSurNo());
-            surXhDao.addSurxh(surXhs.get(i));
-        }
-        for (int i=0;i<surDrugs.size();i++){
-            surDrugs.get(i).setSurNo(surItem.getSurNo());
-            surDrugDao.addSurDrug(surDrugs.get(i));
+    public String upDateSur(SurItem surItem){
+        if(surItemDao.selSurBySurName(surItem.getSurName())==null){
+            surItemDao.upDateSur(surItem);
+            return "ok";
+        }else{
+            return  "no";
         }
     }
 }
