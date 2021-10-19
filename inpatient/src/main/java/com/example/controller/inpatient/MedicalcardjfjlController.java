@@ -23,4 +23,6 @@ public class MedicalcardjfjlController {
     public List<Medicalcardjfjl> selPay(@RequestBody Medicalcardjfjl med){
         return meds.selPay(med);
     }
+    //修改卡余额
+
 }

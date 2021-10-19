@@ -33,7 +33,7 @@ public class ConsAppServer {
         ExpCal e=new ExpCal(consApp.getResNo(),list.get(0).getSurName(),list.get(0).getSurPay(),1,"手术");
         expCalDao.addExpCal(e);
         //扣费
-        medicalcardjfjlServer.loseMoney(consApp.getResNo(),-list.get(0).getSurPay());
+        medicalcardjfjlServer.loseMoney(consApp.getResNo(),(-list.get(0).getSurPay()));
     }
     //查看住院手术申请单
     public List<ConsApp> selConsApp(String resNo){

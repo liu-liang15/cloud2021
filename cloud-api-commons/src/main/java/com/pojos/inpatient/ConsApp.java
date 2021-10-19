@@ -4,6 +4,8 @@ package com.pojos.inpatient;
 import com.pojos.outpatient.Patient;
 import com.pojos.system.YuanGo;
 
+import java.sql.Timestamp;
+
 public class ConsApp {
 
   private long conNo;
@@ -14,11 +16,16 @@ public class ConsApp {
   private String conZt;
   private java.sql.Timestamp conStar;
   private String opeDoc;
+  private String opeNar;
   private String opeRust;
   private String conSp;
+  private java.sql.Timestamp conTimeStar;
+  private java.sql.Timestamp conTimeEnd;
   private SurItem surItem;
   private Patient patient;
   private YuanGo yg;
+  private YuanGo yg2;
+  private YuanGo yg3;
   public long getConNo() {
     return conNo;
   }
@@ -129,6 +136,46 @@ public class ConsApp {
 
   public void setConSp(String conSp) {
     this.conSp = conSp;
+  }
+
+  public String getOpeNar() {
+    return opeNar;
+  }
+
+  public void setOpeNar(String opeNar) {
+    this.opeNar = opeNar;
+  }
+
+  public Timestamp getConTimeStar() {
+    return conTimeStar;
+  }
+
+  public void setConTimeStar(Timestamp conTimeStar) {
+    this.conTimeStar = conTimeStar;
+  }
+
+  public Timestamp getConTimeEnd() {
+    return conTimeEnd;
+  }
+
+  public void setConTimeEnd(Timestamp conTimeEnd) {
+    this.conTimeEnd = conTimeEnd;
+  }
+
+  public YuanGo getYg2() {
+    return yg2;
+  }
+
+  public void setYg2(YuanGo yg2) {
+    this.yg2 = yg2;
+  }
+
+  public YuanGo getYg3() {
+    return yg3;
+  }
+
+  public void setYg3(YuanGo yg3) {
+    this.yg3 = yg3;
   }
 
   @Override

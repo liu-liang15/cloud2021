@@ -43,7 +43,7 @@
     <!--根据住院单号查看医嘱详单-->
     <select id="serDocAdvXq" resultMap="DocAdvXqMapper">
         select * from doc_adv_xq da inner join doc_adv d on da.doc_adv_no = d.doc_adv_no
-        where d.res_no=#{param} and d.doc_type=0 and (da.doc_end is null or da.doc_end >CURDATE())
+        where d.res_no=#{param} and d.doc_type=0 and d.doc_end is null
     </select>
     <!--修改医嘱详单-->
     <update id="upDateDocAdvXq">

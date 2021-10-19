@@ -26,6 +26,9 @@
     <insert id="addMedicalcardCzjl" parameterType="com.pojos.outpatient.Medicalcardczjl">
         insert into medicalcardczjl(cardczjl_medi_no,cardczjl_money,cardczjl_card,cardczjl_type,cardczjl_leixing,cardczjl_yuanyin) values
         (#{cardczjlMediNo},#{cardczjlMoney},#{cardczjlCard},#{cardczjlType},#{cardczjlLeixing},#{cardczjlYuanyin})
-        /*诊疗卡号*/                 金额
     </insert>
+    <!--改变就诊卡余额-->
+    <update id="updatePat">
+        update medicalcard set medi_balance=medi_balance+#{mediBalance} where medi_no=#{mediNo}
+    </update>
 </mapper>

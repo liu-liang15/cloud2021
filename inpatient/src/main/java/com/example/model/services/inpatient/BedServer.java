@@ -3,6 +3,7 @@ package com.example.model.services.inpatient;
 import com.example.model.dao.inpatient.BedCzRecDao;
 import com.example.model.dao.inpatient.BedDao;
 import com.example.model.dao.inpatient.BedRecDao;
+import com.example.model.dao.inpatient.ExpCalDao;
 import com.pojos.inpatient.Bed;
 import com.pojos.inpatient.BedCzRec;
 import com.pojos.inpatient.ExpCal;
@@ -23,6 +24,8 @@ public class BedServer {
     BedCzRecDao bedCzRecDao;
     @Autowired
     MedicalcardjfjlServer medicalcardjfjlServer;
+    @Autowired
+    ExpCalDao expCalDao;
     //查询床位
     public List<Bed> selBed(String wardNo, String zt){
         return  bedDao.selBed(wardNo,zt);
@@ -71,6 +74,7 @@ public class BedServer {
         if(!list.isEmpty()){
             for(int i=0;i<list.size();i++){
                 ExpCal e=new ExpCal(list.get(i).getResNo(),"床位日结",list.get(i).getWard().getWardMon(),1,"床位费");
+                expCalDao.addExpCal(e);
                 medicalcardjfjlServer.loseMoney(list.get(i).getResNo(),(-list.get(i).getWard().getWardMon()));
             }
         }
