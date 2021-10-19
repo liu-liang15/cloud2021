@@ -37,5 +37,5 @@ public class AssayInfo {
     private String assayFs;
     private String mealInfoNum;
     private List<AssayRes> assayRes;
-    private List<AssayMealImg> assayMealImg;
+    private List<AssayMealImg> assayMealImgs;
 }

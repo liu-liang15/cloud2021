@@ -79,7 +79,7 @@
             <result column="assay_pay_num" property="assayPayNum"/>
             <result column="meal_info_num" property="mealInfoNum"/>
         </collection>
-        <collection property="assayMealImg" ofType="com.pojos.hyj.AssayMealImg">
+        <collection property="assayMealImgs" ofType="com.pojos.hyj.AssayMealImg">
             <id property="mealImgId" column="meal_img_id"></id>
             <result property="mealImgName" column="meal_img_name"></result>
             <result property="assayPayNum" column="assay_pay_num"/>

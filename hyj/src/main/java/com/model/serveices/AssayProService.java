@@ -55,4 +55,7 @@ public class AssayProService {
     public List<KeShi> findKs(){
         return ksMapper.selectList(null);
     }
+    public List<AssayPro> findProByName(AssayPro assayPro){
+        return assayProMapper.findProByName(assayPro);
+    }
 }

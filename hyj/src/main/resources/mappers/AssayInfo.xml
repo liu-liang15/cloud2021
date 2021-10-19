@@ -50,4 +50,8 @@
     <select id="findAssayInfoById" resultMap="SelectInfo">
         select * from assay_info where assay_pay_num = #{assayPayNum}
     </select>
+    <!--根据姓名或者单号模糊查询assay_info表-->
+    <select id="findInfoLikeBy" resultMap="SelectInfo">
+        select * from assay_info where assay_pay_num like '%${tc}%' or assay_person_name like '%${tc}%' having meal_pd = 1
+    </select>
 </mapper>

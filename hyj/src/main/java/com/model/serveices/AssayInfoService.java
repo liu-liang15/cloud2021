@@ -35,4 +35,8 @@ public class AssayInfoService {
     public List<AssayInfo> findAssayInfoById(AssayInfo assayInfo){
         return assayInfoMapper.findAssayInfoById(assayInfo);
     }
+    public List<AssayInfo> findInfoLikeBy(String tc){
+        System.err.println(tc);
+        return assayInfoMapper.findInfoLikeBy(tc);
+    }
 }
