@@ -6,9 +6,7 @@ import com.pojos.hyj.AssayInfo;
 import com.pojos.hyj.AssayMeal;
 import com.pojos.hyj.AssayPay;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -67,5 +65,9 @@ public class AssayInfoController {
     @RequestMapping("findAssayInfoById")
     public List<AssayInfo> findAssayInfoById(@RequestBody AssayInfo assayInfo){
         return assayInfoService.findAssayInfoById(assayInfo);
+    }
+    @RequestMapping("findInfoLikeBy")
+    public List<AssayInfo> findInfoLikeBy(String tc){
+        return assayInfoService.findInfoLikeBy(tc);
     }
 }

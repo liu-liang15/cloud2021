@@ -4,6 +4,7 @@ import com.pojos.hyj.AssayInfo;
 import com.pojos.hyj.AssayPay;
 import com.pojos.hyj.AssayPerson;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface AssayInfoMapper {
     void addMealInfo(AssayInfo assayInfo);
     List<AssayInfo> findMealInfo();
     List<AssayInfo> findAssayInfoById(AssayInfo assayInfo);
+    List<AssayInfo> findInfoLikeBy(@Param("tc") String tc);
 }

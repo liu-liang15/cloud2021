@@ -14,4 +14,8 @@
     <select id="findAllPro" resultMap="AssayPro">
         select * from assay_pro
     </select>
+    <!--根据指标名查询-->
+    <select id="findProByName" resultMap="AssayPro">
+        select * from assay_pro where assay_pro_name = #{assayProName}
+    </select>
 </mapper>
