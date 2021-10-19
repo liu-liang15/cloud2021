@@ -22,7 +22,7 @@
             <result column="SUPPLY_SITE" property="supplySite" />
             <result column="SUPPLY_STATE"  property="supplyState" />
         </association>
-        <association property="yongHu" javaType="com.pojos.system.YongHu">
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
             <id column="yg_id" jdbcType="INTEGER" property="ygId" />
             <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
             <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
@@ -113,22 +113,31 @@
     </insert>
 
     <select id="findAllCGD" resultMap="CGDMapper">
-        select * from cg_ding_dan cgdd INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
+        select * from cg_ding_dan cgdd
+                          INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
+                          INNER JOIN cgdd_xiang_dan cgxd on cgxd.PURCHASE_ID=cgdd.PURCHASE_ID
+                          INNER JOIN yuan_go yg on cgdd.USER_ID=yg.yg_id
+                          LEFT JOIN yao_ping_xx yp on cgxd.DRUG_id=yp.DRUG_id
+                          LEFT JOIN hao_cai hc on cgxd.CONSU_ID=hc.CONSU_ID
+        where 1=1
     </select>
     <!--查询所有待审核和待收货的订单-->
     <select id="findByIdCGD1" resultMap="CGDMapper">
         select * from cg_ding_dan cgdd
-        INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
-        INNER JOIN cgdd_xiang_dan cgxd on cgxd.PURCHASE_ID=cgdd.PURCHASE_ID
-        LEFT JOIN yao_ping_xx yp on cgxd.DRUG_id=yp.DRUG_id
-        LEFT JOIN hao_cai hc on cgxd.CONSU_ID=hc.CONSU_ID
+                          INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
+                          INNER JOIN cgdd_xiang_dan cgxd on cgxd.PURCHASE_ID=cgdd.PURCHASE_ID
+                          INNER JOIN yuan_go yg on cgdd.USER_ID=yg.yg_id
+                          LEFT JOIN yao_ping_xx yp on cgxd.DRUG_id=yp.DRUG_id
+                          LEFT JOIN hao_cai hc on cgxd.CONSU_ID=hc.CONSU_ID
         where cgdd.PURCHASE_STATE = 0 or cgdd.PURCHASE_STATE = 1
     </select>
     <!--查询所有待入库的订单-->
     <select id="findByIdCGD2" resultMap="CGDMapper">
-        select * from cg_ding_dan cgdd INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
-            LEFT JOIN cgdd_xiang_dan cgxd on cgdd.PURCHASE_ID=cgxd.PURCHASE_ID LEFT JOIN yao_ping_xx yp
-                on cgxd.DRUG_id=yp.DRUG_id where cgdd.PURCHASE_STATE = 2
+        select * from cg_ding_dan cgdd
+            INNER JOIN go_ying_shang gys on cgdd.SUPPLY_ID=gys.SUPPLY_ID
+            LEFT JOIN cgdd_xiang_dan cgxd on cgdd.PURCHASE_ID=cgxd.PURCHASE_ID
+            INNER JOIN yuan_go yg on cgdd.USER_ID=yg.yg_id
+            LEFT JOIN yao_ping_xx yp on cgxd.DRUG_id=yp.DRUG_id where cgdd.PURCHASE_STATE = 2
     </select>
     <!--根据订单id修改订单状态-->
     <update id="editState" parameterType="com.pojos.pharmacy.CgDingDan">

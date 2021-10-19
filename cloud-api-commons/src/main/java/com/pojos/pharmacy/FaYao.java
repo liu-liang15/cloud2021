@@ -1,6 +1,8 @@
 package com.pojos.pharmacy;
 
 
+import com.pojos.system.YuanGo;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,7 +13,16 @@ public class FaYao {
   private String fyYy;
   private String jfd;
   private Date fySj=new Date();
+  private YuanGo yuanGo;
   private Collection<FaoYaoXd> faoYaoXds;
+
+  public YuanGo getYuanGo() {
+    return yuanGo;
+  }
+
+  public void setYuanGo(YuanGo yuanGo) {
+    this.yuanGo = yuanGo;
+  }
 
   public String getFyYy() {
     return fyYy;

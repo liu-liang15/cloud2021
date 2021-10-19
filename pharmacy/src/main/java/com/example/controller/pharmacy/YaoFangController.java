@@ -3,6 +3,7 @@ package com.example.controller.pharmacy;
 
 import com.example.model.services.pharmacy.YaoFangService;
 import com.pojos.pharmacy.FaYao;
+import com.pojos.pharmacy.Hibernate;
 import com.pojos.pharmacy.YpYaoFang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,11 @@ public class YaoFangController {
     @RequestMapping("allyp")
     public List<YpYaoFang> FindAll(){
        return yaoFangService.findAll();
+    }
+    @RequestMapping("allfyjl")
+    public List<FaYao> allFaYaoJiLu(@RequestBody Hibernate hibernate){
+        System.out.println(hibernate.getDate1());
+        return yaoFangService.allFaYaoJiLu(hibernate);
     }
     @RequestMapping("fayao")
     public String addFaYao(@RequestBody FaYao faYao){

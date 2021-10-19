@@ -35,7 +35,45 @@
             </association>
         </association>
     </resultMap>
-
+    <resultMap id="FaYaoJiLu" type="com.pojos.pharmacy.FaYao">
+        <id column="fy_id" property="fyId" />
+        <result column="fy_ry" property="fyRy"/>
+        <result column="jfd" property="jfd"/>
+        <result column="fy_sj" property="fySj"/>
+        <result column="fy_yy" property="fyYy"/>
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
+            <id column="yg_id"  property="ygId"/>
+            <result column="yg_name" property="ygName"/>
+        </association>
+        <collection property="faoYaoXds" javaType="ArrayList" ofType="com.pojos.pharmacy.FaoYaoXd">
+            <id column="fyxd_id" property="fyxdId"/>
+            <result column="fy_id" property="fyId"/>
+            <result column="yp_id" property="ypId"/>
+            <result column="yp_sl" property="ypSl"/>
+            <result column="yp_jg" property="ypJg"/>
+            <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
+                <id column="DRUG_ID" property="drugId" />
+                <result column="DRUG_NAME" property="drugName" />
+                <result column="DRUG_PYM" property="drugPym" />
+                <result column="DRUG_TYPE_ID" property="drugTypeId" />
+                <result column="DRUG_SORT_ID" property="drugSortId" />
+                <result column="DRUG_SPEC_ID"  property="drugSpecId" />
+                <result column="DRUG_JINJIA" property="drugJinjia" />
+                <result column="DRUG_SHOUJIA" property="drugShoujia" />
+                <result column="DRUG_RIQI" property="drugRiqi" />
+                <result column="DRUG_MATR" property="drugMatr" />
+                <result column="SUPPLY_ID"  property="supplyId" />
+                <result column="DRUG_CLASS" property="drugClass" />
+                <result column="DRUG_STATE" property="drugState" />
+                <result column="DRUG_MESSAGE" property="drugMessage" />
+                <result column="DRUG_GRAIN" property="drugGrain"/>
+                <association property="yaoPingGgs" javaType="com.pojos.pharmacy.YaoPingGg">
+                    <id column="DRUG_SPEC_ID" property="drugSpecId" />
+                    <result column="DRUG_SPEC_NAME" property="drugSpecName"/>
+                </association>
+            </association>
+        </collection>
+    </resultMap>
     <insert id="addDrug">
         insert into yp_yao_fang values (#{drugId},#{drugNumber})
     </insert>
@@ -77,14 +115,35 @@
     </insert>
     <!--查询药房药品库存-->
     <select id="findAllYFYP" resultMap="YaoFangMap">
-    SELECT * FROM yp_yao_fang ypyf INNER JOIN yao_ping_xx xx
-    on ypyf.drug_id= xx.drug_id INNER JOIN yao_ping_gg gg
-    on xx.DRUG_SPEC_ID=gg.DRUG_SPEC_ID INNER JOIN yao_ping_lb lb
-    on xx.DRUG_SORT_ID=lb.DRUG_SORT_ID INNER JOIN yao_ping_lx lx
-    on xx.DRUG_TYPE_ID=lx.DRUG_TYPE_ID  where 1=1 and xx.DRUG_STATE=1
+        SELECT * FROM yp_yao_fang ypyf INNER JOIN yao_ping_xx xx
+                                                  on ypyf.drug_id= xx.drug_id INNER JOIN yao_ping_gg gg
+                                                                                         on xx.DRUG_SPEC_ID=gg.DRUG_SPEC_ID INNER JOIN yao_ping_lb lb
+                                                                                                                                       on xx.DRUG_SORT_ID=lb.DRUG_SORT_ID INNER JOIN yao_ping_lx lx
+                                                                                                                                                                                     on xx.DRUG_TYPE_ID=lx.DRUG_TYPE_ID  where 1=1 and xx.DRUG_STATE=1
     </select>
     <!--修改发药单-->
     <update id="changeDis">
         update dispensing set dis_per=#{userId} where dis_id=#{disId}
     </update>
+    <!--查询发药记录-->
+    <select id="allFaYaoJiLu" resultMap="FaYaoJiLu">
+        SELECT * from fa_yao fy
+        INNER JOIN fao_yao_xd xd on fy.fy_id=xd.fy_id
+        INNER JOIN yuan_go yg on fy.fy_ry=yg.yg_id
+        INNER JOIN yao_ping_xx xx on xd.yp_id=xx.drug_id
+        INNER JOIN yao_ping_gg gg on xx.DRUG_SPEC_ID=gg.DRUG_SPEC_ID
+        where 1=1
+        <if test="fayaoType != null and fayaoType !='' ">
+            and fy.fy_yy like #{fayaoType}
+        </if>
+        <if test="fayaoParameter1 != null and fayaoParameter1!= ''">
+            AND (xx.DRUG_NAME like concat('%','${fayaoParameter1}','%')
+            OR xx.DRUG_PYM like concat('%','${fayaoParameter1}','%')
+            or yg.yg_name like concat('%','${fayaoParameter1}','%'))
+        </if>
+        <if test="date2 != null and date2 !='' and date1 != null and date1 !=''">
+            and date_format(fy_sj,'%Y-%m-%d') between #{date1} and #{date2}
+        </if>
+        order  BY fy.fy_sj desc
+    </select>
 </mapper>

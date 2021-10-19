@@ -33,11 +33,11 @@ public class CaiGouController {
     public List<CgDingDan> findAllCGD(){
         return caiGouService.findAllCGD();
     }
-    //根据订单id查询详单
+    /*//根据订单id查询详单
     @RequestMapping("cgxd")
     public List<CgddXiangDan> findAllCGXD(String purchaseId){
         return caiGouService.findAllCGXD(purchaseId);
-    }
+    }*/
 
     //查询所有待审核和待收货的订单
     @RequestMapping("cgd1")

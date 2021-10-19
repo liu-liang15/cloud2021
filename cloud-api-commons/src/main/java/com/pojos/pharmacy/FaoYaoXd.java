@@ -8,7 +8,15 @@ public class FaoYaoXd {
   private int ypId;
   private int ypSl;
   private double ypJg;
+  private YaoPingXx yaoPingXx;
 
+  public YaoPingXx getYaoPingXx() {
+    return yaoPingXx;
+  }
+
+  public void setYaoPingXx(YaoPingXx yaoPingXx) {
+    this.yaoPingXx = yaoPingXx;
+  }
 
   public long getFyxdId() {
     return fyxdId;
