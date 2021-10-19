@@ -57,9 +57,10 @@ public class PaiBanService {
         return ban2List;
     }
     /**
-     *
+     *新增排班的方法
      */
     public int insertpb(PaiBan3 paiBan3){
+        paiBanMapper.delectYgPb(paiBan3.getBc(),paiBan3.getRq());
         String[] yuanGoIds = paiBan3.getYuanGoIds();
         PaiBan paiBan=new PaiBan();
         for (String yuanGoId : yuanGoIds) {

@@ -2,7 +2,6 @@ package com.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -11,6 +10,9 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.UUID;
 
+/**
+ * DES 加密算法
+ */
 public class Password {
 
     private final static String DES = "DES";

@@ -38,4 +38,7 @@
           and date_format(pb.rq,'%Y-%m-%d') = date_format(#{rq},'%Y-%m-%d')
           and date_format(#{rq},'%H:%i') between bc.bc_ks and bc.bc_js
     </select>
+    <delete id="delectYgPb">
+        delete from pai_ban where bc_id = #{bcId} and date_format(rq,'%Y/%m/%d') = #{rq}
+    </delete>
 </mapper>

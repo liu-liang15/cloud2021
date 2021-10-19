@@ -5,6 +5,7 @@ import com.example.model.dao.inpatient.MedicalcardjfjlDao;
 import com.pojos.inpatient.HosAlone;
 import com.pojos.inpatient.Medicalcardjfjl;
 //import io.seata.spring.annotation.GlobalTransactional;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class MedicalcardjfjlServer {
     HosAloneDao hosAloneDao;
 
     //开启分布式事务
-//    @GlobalTransactional
+    //@GlobalTransactional
     public void addJfjl(Medicalcardjfjl med){
         //新增缴费记录
         medDao.addJfjl(med);
