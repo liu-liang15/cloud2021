@@ -13,7 +13,16 @@ public class RuKu {
   private String rhd;
 
   private String purchaseSjfk;
+  private int wareId;
   private Collection<RkXiangDan> rkXiangDans;
+
+  public int getWareId() {
+    return wareId;
+  }
+
+  public void setWareId(int wareId) {
+    this.wareId = wareId;
+  }
 
   public Collection<RkXiangDan> getRkXiangDans() {
     return rkXiangDans;

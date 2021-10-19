@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface RuKuDao {
     void addRKD(RuKu ruKu);
-    void addRKXD(@Param("rkXiangDans") Collection<RkXiangDan> rkXiangDans,@Param("rkDh") String rkDh);
+    void addRKXD(@Param("rkXiangDans") Collection<RkXiangDan> rkXiangDans,@Param("rkDh") String rkDh,@Param("wareId")int wareId);
     void addKC(@Param("kucun")Collection<RkXiangDan> kucun);
     void updateOrder(@Param("purchaseSjfk")String purchaseSjfk,@Param("times")Date times,@Param("purchaseId") String purchaseId);
     List<RkXiangDan> FindByIdRuku(String rhDh);

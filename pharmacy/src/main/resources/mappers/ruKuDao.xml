@@ -18,7 +18,7 @@
     <insert id="addRKXD" parameterType="com.pojos.pharmacy.RkXiangDan">
         INSERT INTO rk_xiang_dan VALUES
         <foreach collection="rkXiangDans" item="p" separator=", ">
-            (null,#{rkDh},#{p.drugId},#{p.consuId},#{p.rkypSl},#{p.scrq},DATE_ADD(#{p.scrq}, interval #{p.riqi} MONTH),#{p.ckId})
+            (null,#{rkDh},#{p.drugId},#{p.consuId},#{p.rkypSl},#{p.scrq},DATE_ADD(#{p.scrq}, interval #{p.riqi} MONTH),#{wareId})
         </foreach>
     </insert>
 

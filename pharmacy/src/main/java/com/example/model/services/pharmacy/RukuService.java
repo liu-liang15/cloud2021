@@ -19,7 +19,7 @@ public class RukuService {
         //新增入库主表
         ruKuDao.addRKD(ruKu);
         //新增入库详表
-        ruKuDao.addRKXD(ruKu.getRkXiangDans(),ruKu.getRhDh());
+        ruKuDao.addRKXD(ruKu.getRkXiangDans(),ruKu.getRhDh(), ruKu.getWareId());
         //修改采购单
         ruKuDao.updateOrder(ruKu.getPurchaseSjfk(),new Date(),ruKu.getRhd());
         //新增库存记录
