@@ -35,7 +35,7 @@
         inner join adm_not a on h.hos_no=a.hos_no
         inner join medicalcard m on a.patient = m.medi_no
         inner join patient p on m.medi_patient_no=p.patient_no
-        inner join ke_shi k on k.ks_id=a.section
+        inner join ke_shi k on k.ks_id=h.pay_type
         inner join yuan_go y on ad.dis_doc=y.yg_id
         <if test="param!='' and param!=null">
             and (p.patient_name like '%${param}' or ad.app_dis_no like '%${param}')

@@ -40,10 +40,10 @@
     <select id="selDocAdvXq" resultMap="DocAdvXqMapper">
         select * from doc_adv_xq d inner join yao_ping_xx y on d.drug_id=y.DRUG_ID where d.doc_adv_no=#{param}
     </select>
-    <!--根据住院单号查看医嘱详单-->
+    <!--根据住院单号查看今天的医嘱详单-->
     <select id="serDocAdvXq" resultMap="DocAdvXqMapper">
         select * from doc_adv_xq da inner join doc_adv d on da.doc_adv_no = d.doc_adv_no
-        where d.res_no=#{param} and d.doc_type=0 and d.doc_end is null
+        where d.res_no=#{param} and d.doc_type=0 and  d.doc_end>CURDATE()
     </select>
     <!--修改医嘱详单-->
     <update id="upDateDocAdvXq">

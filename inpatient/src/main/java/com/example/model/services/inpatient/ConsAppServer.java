@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,7 +30,7 @@ public class ConsAppServer {
     public void addConsApp(ConsApp consApp){
         consAppDao.addConsApp(consApp);
         //得到当前选择的手术的信息
-        List<SurItem>list = surItemDao.selSur("","",consApp.getSurNo());
+        List<SurItem>list = surItemDao.selSur("","",consApp.getSurNo(),null);
         //消费表里新增一条手术记录
         ExpCal e=new ExpCal(consApp.getResNo(),list.get(0).getSurName(),list.get(0).getSurPay(),1,"手术");
         expCalDao.addExpCal(e);
@@ -41,6 +43,9 @@ public class ConsAppServer {
     }
     //修改住院手术申请单
     public void changeCons(ConsApp consApp){
+        if("2".equals(consApp.getConZt())){
+            consApp.setConStar(new Timestamp(new Date().getTime()));
+        }
         consAppDao.changeCons(consApp);
     }
 

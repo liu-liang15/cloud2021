@@ -32,8 +32,8 @@ public class SurItemServer {
         }
     }
     //查看手术项目
-    public List<SurItem> selSur(String param,String ksId,String surNo){
-        return surItemDao.selSur(param,ksId,surNo);
+    public List<SurItem> selSur(String param,String ksId,String surNo,String surSco){
+        return surItemDao.selSur(param,ksId,surNo,surSco);
     }
     //修改手术项目
     public String upDateSur(SurItem surItem){
