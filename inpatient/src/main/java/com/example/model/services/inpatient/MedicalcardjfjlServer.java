@@ -26,7 +26,7 @@ public class MedicalcardjfjlServer {
     HosAloneDao hosAloneDao;
 
     //开启分布式事务
-//    @GlobalTransactional
+    //@GlobalTransactional
     public void addJfjl(Medicalcardjfjl med){
         //新增充值记录
         medDao.addJfjl(med);

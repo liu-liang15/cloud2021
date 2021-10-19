@@ -71,7 +71,6 @@ YongHuservice yongHuservice;
     @GetMapping("user/info")
     public CommonResult getyg3(String token){
         //返回的用户信息
-        System.out.println(token);
         YuanGo yuanGo = yuanGoservice.getyg3(token);
         return new CommonResult(200,null,yuanGo);
     }
@@ -80,13 +79,11 @@ YongHuservice yongHuservice;
 //      新增部门
     @PostMapping("insertBm")
     public int insertyg(@RequestBody BuMen buMen){
-//        System.err.println(buMen);
         return buMenservers.insert(buMen);
     }
 //      修改部门
     @PostMapping("updatebm")
     public int updateByPrimaryKeySelective(@RequestBody BuMen buMen){
-        System.err.println(buMen);
         return buMenservers.updateByPrimaryKeySelective(buMen);
     }
     //      获取部门数据
@@ -166,6 +163,14 @@ YongHuservice yongHuservice;
     @PostMapping("czmm")
     public int xgy(@RequestBody YongHu yongHu){
         return yongHuservice.czmm(yongHu);
+    }
+//  用户修改密码
+    @PostMapping("xgmm")
+    public CommonResult xgmm(@RequestBody YongHu yongHu){
+        if (yongHuservice.xgmm(yongHu)==1){
+            return new CommonResult(200,"密码修改成功！");
+        }
+        return new CommonResult(300,"原密码错误！");
     }
 //    删除用户
     @PostMapping("scyh")

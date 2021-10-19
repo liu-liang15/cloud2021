@@ -1,0 +1,29 @@
+
+string 相关注解
+  @RequestMapping("路径/{id}/{type}") 参数用@PathVariable 请求参数定义为RESTFul风格
+  @RequestParam(请求参数名) 请求参数与Controller方法的参数名称不同用，加在请求参数上，
+  @Repository 用于标注数据访问组件，即DAO组件；
+  @Accessors(chain=true) 链式写法，set接着set,单独用没有用要用@data注解配合使用才OK
+   @DateTimeFormat(pattern = "yyyy-MM-dd")  //前端传给后端input值映射不上报错，在实体类上加上这个注解就好了，实体类要date类型
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")//跟上面的注解一样的效果
+   private Date birthday;
+   @RequestBody 加在需要进行序列化的参数上，前端穿过来的json格式对象转换成实体类
+   @Resource 跟@Autowired一样自动注入，但是service加@Autowired会报错，但是不影响运行
+
+mybatis 相关注解
+    @Transactional 事务的注解
+    @Mapper matis的dao层注解
+    <!--    开启缓存，xml里面加这个开启二级缓存   所有的开启了二级缓存的实体类必须实现这个接口    ；implements Serializable  -->
+     <cache/>相对应的注解 @CacheNamespace
+        plus相关=================
+            @TableField   可以设置很多，常用非数据库字段，详情见源码。
+
+
+lombok  相关注解
+       @Accessors(chain = true) 链式写法
+mysql
+一. concat()函数，可以用来防止mybatis的sql注入攻击
+    1. 含义:
+         将多个字符串连接成一个字符串。
+    2. 语法：
+         concat(str1, str2,...) 返回结果为连接参数产生的字符串，如果有任何一个参数为null，则返回值为null。
