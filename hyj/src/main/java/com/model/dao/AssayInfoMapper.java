@@ -18,4 +18,6 @@ public interface AssayInfoMapper {
     List<AssayInfo> findMealInfo();
     List<AssayInfo> findAssayInfoById(AssayInfo assayInfo);
     List<AssayInfo> findInfoLikeBy(@Param("tc") String tc);
+    List<AssayInfo> findInfoLikeBy2(@Param("xm1") String xm1);
+    List<AssayInfo> findInfoLikeBy3(@Param("xm2") String xm2);
 }

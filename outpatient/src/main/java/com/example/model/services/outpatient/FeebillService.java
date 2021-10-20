@@ -19,10 +19,11 @@ public class FeebillService {
     @Autowired
     FeebillDao feebillDao;
 
+    /*查询所有以缴费的待发药品*/
     public List<Feebill> findAllDFYP(){
         return feebillDao.findAllDFYP();
     }
-    //查询缴费记录
+    //多条件模糊查询缴费记录
     public List<Payment> selJiaoFeiJiLu(String mzhao,String name,String idcard,String phone,String zffs,String sj1,String sj2) throws ParseException {
         return feebillDao.selJiaoFeiJiLu(mzhao,name,idcard,phone,zffs,sj1,sj2);
     }

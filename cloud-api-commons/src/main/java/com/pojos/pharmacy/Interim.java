@@ -1,14 +1,14 @@
 package com.pojos.pharmacy;
 
 public class Interim {
-    private int drugId;
+    private String drugId;
     private int drugNumber;
 
-    public int getDrugId() {
+    public String getDrugId() {
         return drugId;
     }
 
-    public void setDrugId(int drugId) {
+    public void setDrugId(String drugId) {
         this.drugId = drugId;
     }
 

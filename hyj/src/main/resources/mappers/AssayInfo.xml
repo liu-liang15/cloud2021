@@ -54,4 +54,12 @@
     <select id="findInfoLikeBy" resultMap="SelectInfo">
         select * from assay_info where assay_pay_num like '%${tc}%' or assay_person_name like '%${tc}%' having meal_pd = 1
     </select>
+    <!--根据姓名或者单号模糊查询assay_info表(已经录入结果的-->
+    <select id="findInfoLikeBy2" resultMap="SelectInfo">
+        select * from assay_info where assay_pay_num like '%${xm1}%' or assay_person_name like '%${xm1}%' having keyboarder != '' and meal_pd = 0
+    </select>
+    <!--根据姓名或者单号模糊查询assay_info表(没有录入结果的-->
+    <select id="findInfoLikeBy3" resultMap="SelectInfo">
+        select * from assay_info where assay_pay_num like '%${xm2}%' or assay_person_name like '%${xm2}%' having keyboarder = '' and meal_pd = 0
+    </select>
 </mapper>

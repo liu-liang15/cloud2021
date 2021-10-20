@@ -56,6 +56,6 @@
     </insert>
     <select id="findImgInfo" resultMap="mealInfo">
         select * from meal_info mi inner join assay_meal_img ami
-        on mi.meal_info_num = ami.meal_info_num where mi.assay_meal_name = #{assayMealName}
+        on mi.assay_pay_num = ami.assay_pay_num where mi.assay_meal_name = #{assayMealName} and mi.assay_pay_num = #{assayPayNum}
     </select>
 </mapper>

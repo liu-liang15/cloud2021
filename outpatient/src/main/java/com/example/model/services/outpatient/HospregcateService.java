@@ -14,6 +14,7 @@ public class HospregcateService {
     @Autowired
     HospregcateDao hospregcateDao;
 
+    /*查询挂号类型*/
     public List<Hospregcate> findAllHopregcate(){
         return hospregcateDao.findAllHopregcate();
     }

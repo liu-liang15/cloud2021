@@ -3,6 +3,7 @@ package com.pojos.pharmacy;
 
 
 import com.pojos.system.YongHu;
+import com.pojos.system.YuanGo;
 
 import java.util.Collection;
 import java.util.Date;
@@ -14,15 +15,15 @@ public class CaiGoJh {
   private Date planTime = new Date();
   private double planPrice;
   private GoYingShang goYingShangs ;
-  private YongHu yongHu;
+  private YuanGo yuanGo;
   private Collection<JhXiangDan> jhXiangDans;
 
-  public YongHu getYongHu() {
-    return yongHu;
+  public YuanGo getYuanGo() {
+    return yuanGo;
   }
 
-  public void setYongHu(YongHu yongHu) {
-    this.yongHu = yongHu;
+  public void setYuanGo(YuanGo yuanGo) {
+    this.yuanGo = yuanGo;
   }
 
   public GoYingShang getGoYingShangs() {

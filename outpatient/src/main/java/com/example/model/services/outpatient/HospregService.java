@@ -14,6 +14,7 @@ public class HospregService {
     @Autowired
     HospregDao hopregDao;
 
+    /*多条件模糊查询挂号记录*/
     public List<Hospreg> findAllHopreg(String mzhao,String ghks,String name,String idcard,String phone,String sj1,String sj2){
         return hopregDao.findAllHopreg(mzhao,ghks,name,idcard,phone,sj1,sj2);
     }
@@ -33,6 +34,7 @@ public class HospregService {
         hopregDao.updateHospreg(hospreg);
     }
 
+    /*查询就诊列表，根据状态，医生编号，升序是否*/
     public List<Hospreg> findJiuZhenLieBiao(int horegState,int horegAttendingdocNo,int asc){
         if(asc == 1){
             return hopregDao.findJiuZhenLieBiao(horegState,horegAttendingdocNo);

@@ -14,13 +14,16 @@ public class CasehistoryDetailsService {
     @Autowired
     CasehistoryDetailsDao casehistoryDetailsDao;
 
+    /*新增病历详情*/
     public void insertBingLiXQ(Casehistorydetails casehistorydetails){
         casehistoryDetailsDao.insertBingLiXQ(casehistorydetails);
     }
 
+    /*查询病历详情，根据门诊号*/
     public List<Casehistorydetails> findCasehisDetails(int param){
         return casehistoryDetailsDao.findCasehisDetails(param);
     }
+
     //-- 门诊号查询就诊记录，查询病历详情
     public Casehistorydetails findCasehisDetailsBySeenumber(String param) {
         return casehistoryDetailsDao.findCasehisDetailsBySeenumber(param);

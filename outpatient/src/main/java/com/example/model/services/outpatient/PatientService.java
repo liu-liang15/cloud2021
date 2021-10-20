@@ -14,10 +14,12 @@ public class PatientService {
     @Autowired
     PatientDao patientDao;
 
+    /*多条件模糊查询病人信息*/
     public List<Patient> findAll(String name,String idcard,String phone,String sex){
         return patientDao.findAllPatient(name,idcard,phone,sex);
     }
 
+    /*新增修改病人信息*/
     public void savePatient(Patient patient){
         if(patient.getPatientNo() == null || patient.getPatientNo() == 0){
             patientDao.insertPatient(patient);
