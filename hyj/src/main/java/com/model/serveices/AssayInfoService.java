@@ -36,7 +36,12 @@ public class AssayInfoService {
         return assayInfoMapper.findAssayInfoById(assayInfo);
     }
     public List<AssayInfo> findInfoLikeBy(String tc){
-        System.err.println(tc);
         return assayInfoMapper.findInfoLikeBy(tc);
+    }
+    public List<AssayInfo> findInfoLikeBy2(String xm1){
+        return assayInfoMapper.findInfoLikeBy2(xm1);
+    }
+    public List<AssayInfo> findInfoLikeBy3(String xm2){
+        return assayInfoMapper.findInfoLikeBy3(xm2);
     }
 }

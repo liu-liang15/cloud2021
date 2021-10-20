@@ -70,4 +70,12 @@ public class AssayInfoController {
     public List<AssayInfo> findInfoLikeBy(String tc){
         return assayInfoService.findInfoLikeBy(tc);
     }
+    @RequestMapping("findInfoLikeBy2")
+    public List<AssayInfo> findInfoLikeBy2(String xm1){
+        return assayInfoService.findInfoLikeBy2(xm1);
+    }
+    @RequestMapping("findInfoLikeBy3")
+    public List<AssayInfo> findInfoLikeBy3(String xm2){
+        return assayInfoService.findInfoLikeBy3(xm2);
+    }
 }
