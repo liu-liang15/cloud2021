@@ -34,6 +34,9 @@
             <result column="doc_yz" property="docYz"/>
             <result column="doc_zt" property="docZt"/>
         </association>
+        <association property="yg" javaType="com.pojos.system.YuanGo">
+            <result column="yname" property="ygName"/>
+        </association>
     </resultMap>
     <!--新增执行医嘱-->
     <insert id="addDocExe">
@@ -42,10 +45,11 @@
     <!--查看医嘱-->
 
     <select id="selDocExe" resultMap="DocExeMapper">
-        select * from doc_exe de
+        select *,y.yg_name as yname from doc_exe de
          inner join doc_adv_xq da on de.doc_adv_id=da.doc_adv_id
          inner join yao_ping_xx yx on da.drug_id=yx.drug_id
          inner join doc_adv d on d.doc_adv_no=da.doc_adv_no
+         left join yuan_go y on y.yg_id = de.doc_nur
          where d.res_no=#{param}
 --         得到今天要执行的长期医嘱
         <if test="type==0">

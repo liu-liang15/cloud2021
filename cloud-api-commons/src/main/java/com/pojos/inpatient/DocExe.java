@@ -2,6 +2,7 @@ package com.pojos.inpatient;
 
 
 import com.pojos.pharmacy.YaoPingXx;
+import com.pojos.system.YuanGo;
 
 public class DocExe {
 
@@ -11,6 +12,7 @@ public class DocExe {
   private String docNur;
   private YaoPingXx yaoPingXx;
   private DocAdvXq docAdvXq;
+  private YuanGo yg;
 
   public long getDocExeNo() {
     return docExeNo;
@@ -61,5 +63,13 @@ public class DocExe {
 
   public void setDocAdvXq(DocAdvXq docAdvXq) {
     this.docAdvXq = docAdvXq;
+  }
+
+  public YuanGo getYg() {
+    return yg;
+  }
+
+  public void setYg(YuanGo yg) {
+    this.yg = yg;
   }
 }
