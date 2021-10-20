@@ -24,7 +24,7 @@ public class SurItemServer {
     //新增手术项目
     public String addSur(SurItem surItem){
         //根据手术名查询
-        if(surItemDao.selSurBySurName(surItem.getSurName())==null){
+        if(surItemDao.selSurBySurName(surItem.getSurName())==null||surItemDao.selSurBySurNameAndId(surItem)!=null){
             surItemDao.addSur(surItem);
             return "ok";
         }else{

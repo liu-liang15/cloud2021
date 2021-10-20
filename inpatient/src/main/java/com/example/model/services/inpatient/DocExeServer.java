@@ -30,12 +30,14 @@ public class DocExeServer {
     public List<DocExe> selDocExe(String param){
         //获得长期医嘱详情
         List<DocAdvXq> docAdvXqs=docAdvXqDao.serDocAdvXq(param);
-        for(DocAdvXq d:docAdvXqs){
-            if(d.getDocStat().getTime()<new Date().getTime()){
-                List<DocExe>docExes=docExeDao.nowDocExe(d.getDocAdvId()+"");
-                //没找到今天的医嘱则新增
-                if(docExes.isEmpty()){
-                    docExeDao.addDocExe(d.getDocAdvId()+"");
+        if(!docAdvXqs.isEmpty()){
+            for(DocAdvXq d:docAdvXqs){
+                if(d.getDocStat().getTime()<new Date().getTime()){
+                    List<DocExe>docExes=docExeDao.nowDocExe(d.getDocAdvId()+"");
+                    //没找到今天的医嘱则新增
+                    if(docExes.isEmpty()){
+                        docExeDao.addDocExe(d.getDocAdvId()+"");
+                    }
                 }
             }
         }
@@ -64,7 +66,7 @@ public class DocExeServer {
             dispensingXqDao.addDisXq(dispensingXq);
             //价格计算
             num=num-e.getExpPay();
-            //
+            //新增住院消费记录
             expCalDao.addExpCal(e);
         }
         medicalcardjfjlServer.loseMoney(resNo,num);

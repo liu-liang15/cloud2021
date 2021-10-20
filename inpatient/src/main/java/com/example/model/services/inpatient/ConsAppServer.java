@@ -44,7 +44,9 @@ public class ConsAppServer {
     //修改住院手术申请单
     public void changeCons(ConsApp consApp){
         if("2".equals(consApp.getConZt())){
-            consApp.setConStar(new Timestamp(new Date().getTime()));
+            consApp.setConTimeStar(new Timestamp(new Date().getTime()));
+        }else if("3".equals(consApp.getConZt())){
+            consApp.setConTimeEnd(new Timestamp(new Date().getTime()));
         }
         consAppDao.changeCons(consApp);
     }

@@ -38,6 +38,10 @@
     <select id="selSurBySurName" resultMap="SurItemMapper">
         select * from sur_item where sur_name=#{surName}
     </select>
+    <!--根据手术名和编号查看手术项目-->
+    <select id="selSurBySurNameAndId" resultMap="SurItemMapper">
+        select * from sur_item where sur_name=#{surName} and sur_no#{surNo}
+    </select>
     <!--修改手术项目-->
     <update id="upDateSur">
         update sur_item
