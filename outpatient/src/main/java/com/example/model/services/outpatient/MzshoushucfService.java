@@ -18,10 +18,12 @@ public class MzshoushucfService {
     @Autowired
     PayfeesDao payfeesDao;
 
+    /*新增处方手术订单*/
     public void insertMzshoushucf(Mzshoushucf mzshoushucf){
         mzshoushucfDao.insertMzshoushucf(mzshoushucf);
     }
 
+    /*循环新增处方手术详单*/
     public void insertMzshoushuxq(List<Mzshoushuxq> list, String sqSsNo){
         int ssNo = Integer.parseInt(sqSsNo);
         for(Mzshoushuxq p : list){
@@ -34,18 +36,20 @@ public class MzshoushucfService {
     public List<Mzshoushuxq> selectssxqzt1(String param){
         return mzshoushucfDao.selectssxqzt1(param);
     }
+
     //    查询手术订单，根据门诊号
     public Mzshoushucf selectssdd(String param){
         return mzshoushucfDao.selectssdd(param);
     }
+
     //根据门诊删除处方手术详单状态为1的数据
     public void delsscfddzt1(String param) {
         mzshoushucfDao.delsscfddzt1(param);
     }
 
+    /*修改处方手术订单总价格*/
     public void updatecfssddzjg(double jg, String mzhao) {
         mzshoushucfDao.updatecfssddzjg(jg,mzhao);
-
         payfeesDao.updatePayZtSs(mzhao,1);
     }
 }

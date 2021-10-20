@@ -113,8 +113,8 @@ public class PaiBanService {
      * @param rq
      * @return
      */
-    public List<YuanGo> getpbyg(String ksId,String gwId,String rq){
-        return paiBanMapper.getyg(ksId,gwId,rq);
+    public List<YuanGo> getpbyg(String ksId,String gwId,String rq,int typeId,int bmId){
+        return paiBanMapper.getyg(ksId,gwId,rq,typeId,bmId);
     }
 
 }

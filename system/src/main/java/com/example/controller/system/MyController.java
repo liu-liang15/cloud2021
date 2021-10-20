@@ -250,9 +250,8 @@ YongHuservice yongHuservice;
      * @return
      */
     @GetMapping("pbyg")
-    public List<YuanGo> getpbyg(String ksId,String gwId,String rq){
-
-        return paiBanService.getpbyg(ksId,gwId,rq);
+    public List<YuanGo> getpbyg(String ksId,String gwId,String rq,int typeId,int bmId){
+        return paiBanService.getpbyg(ksId,gwId,rq,typeId,bmId);
     }
 
 
