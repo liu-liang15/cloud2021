@@ -40,7 +40,6 @@ public class GangWeiservice {
 //            启动递归，查询岗位的下级
             gangWei.setListgw(getgw2(gangWei.getGwId()+""));
         }
-        System.err.println(gangWeis);
         return gangWeis;
     }
     public List<GangWei> getgw2(String parentId){
