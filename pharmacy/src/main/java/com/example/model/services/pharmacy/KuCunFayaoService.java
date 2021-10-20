@@ -56,23 +56,28 @@ public class KuCunFayaoService {
         //开始循环减库存
         for (int i=0;i<interims.size();i++){
             //根据药品编号获取该库存的库存,时间倒序查询,优先减少保质时间最少的
-            List<YpKuCun> kuCuns= kuCunFayaoDao.FindAllKuCun2(interims.get(i).getDrugId());
+            int drugId= Integer.parseInt(interims.get(i).getDrugId());
+            int drugnumber=interims.get(i).getDrugNumber();
+            System.out.println(drugId);
+            List<YpKuCun> kuCuns= kuCunFayaoDao.FindAllKuCun2(drugId);
             //修改药房药品的数量
-            yaoFangDao.addDrugNumber(interims.get(i).getDrugId(),interims.get(i).getDrugNumber());
+            yaoFangDao.addDrugNumber(drugId,drugnumber);
             //循环减某一药品库存
             for (int y=0;y<kuCuns.size();i++){
+                String rcpcId=kuCuns.get(y).getRkpcId()+' ';
                 //药品调拨的数量
-                int sum1=(int) chuKu.getInterims().get(i).getDrugNumber();
+                //int sum1=(int) chuKu.getInterims().get(i).getDrugNumber();
                 //药品库存查询所得的集合第y下标的库存
                 int sum2= (int) kuCuns.get(y).getYpsl();
                 //定义数值,获取剩余待调拨数量
-                int sum3=sum1-sum2;
+                int sum3=drugnumber-sum2;
                 //新增发药详情记录
-                kuCunFayaoDao.addFaYaoXQ(chuKu.getChukuId(),kuCuns.get(y).getRkpcId(),sum2);
+                kuCunFayaoDao.addFaYaoXQ(chuKu.getChukuId(),rcpcId,sum2);
                 //调拨数量大于库存数量进入if,否则进入else
                 if(sum3 > sum2){
                     //删除库存记录
                     xiaoHuiDao.deltetKucun(Integer.valueOf(kuCuns.get(y).getRkpcId()));
+                    break;
                 }else{
                     //修改库存记录,减少对应库存
                     kuCunFayaoDao.edatKcCun(sum2,kuCuns.get(y).getRkpcId());
