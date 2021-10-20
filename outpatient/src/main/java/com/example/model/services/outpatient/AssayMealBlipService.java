@@ -14,6 +14,7 @@ public class AssayMealBlipService {
     @Autowired
     AssayMealBlipDao assayMealBlipDao;
 
+    /*查询所有检查项目*/
     public List<AssayMealBlip> findBlip(){
         return assayMealBlipDao.findBlip();
     }

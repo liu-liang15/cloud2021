@@ -17,10 +17,12 @@ public class MedicalcardCzjlService {
     @Autowired
     MedicalcardDao medicalcardDao;
 
+    /*多条件模糊查询所有诊疗卡充值记录*/
     public List<Medicalcardczjl> findAllMedicalcardCzjl(String zlkhao,String name,String idcard,String phone,String zffs,String sj1,String sj2){
         return medicalcardCzjlDao.findAllMedicalcardCzjl(zlkhao,name,idcard,phone,zffs,sj1,sj2);
     }
 
+    /*新增诊疗卡就诊记录，修改卡余额*/
     public void addMedicalcardCzjl(Medicalcardczjl medicalcardczjl){
         medicalcardCzjlDao.addMedicalcardCzjl(medicalcardczjl);
         medicalcardDao.updatePat(medicalcardczjl.getCardczjlMoney(),medicalcardczjl.getCardczjlMediNo());

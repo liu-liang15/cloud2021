@@ -17,7 +17,7 @@ public interface PaiBanMapper extends BaseMapper<PaiBan> {
 //   查询排班表
     List<PaiBan> getPanBan(@Param("rq") String rq, @Param("ksId") String ksId);
 
-    List<YuanGo> getyg(@Param("ksId") String ksId,@Param("gwId") String gwId, @Param("rq") String rq);
+    List<YuanGo> getyg(@Param("ksId") String ksId,@Param("gwId") String gwId, @Param("rq") String rq,@Param("typeId") int typeId,@Param("bmId") int bmId);
     /**
      *删除某天某个班次的排班
      */

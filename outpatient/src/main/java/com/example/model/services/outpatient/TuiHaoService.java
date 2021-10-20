@@ -14,10 +14,12 @@ public class TuiHaoService {
     @Autowired
     TuiHaoDao tuiHaoDao;
 
+    /*多条件模糊查询退号记录*/
     public List<Tuihao> findAllTuiHao(String mzhao,String sj1,String sj2){
         return tuiHaoDao.findAllTuiHao(mzhao,sj1,sj2);
     }
 
+    /*新增退号记录*/
     public void insertTuiHao(Tuihao tuihao) {
         tuiHaoDao.insertTuiHao(tuihao);
     }

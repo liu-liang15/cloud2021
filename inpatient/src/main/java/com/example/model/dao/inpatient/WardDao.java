@@ -17,4 +17,6 @@ public interface WardDao {
     public void updateWard(Ward ward);
     //按病房名称查看病房
     public Ward selWardByName(String param);
+    //
+    public Ward selWardByNameAndNo(Ward ward);
 }

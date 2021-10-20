@@ -17,11 +17,9 @@
             <result column="SUPPLY_SITE" property="supplySite" />
             <result column="SUPPLY_STATE"  property="supplyState" />
         </association>
-        <association property="yongHu" javaType="com.pojos.system.YongHu">
-            <id column="yg_id" jdbcType="INTEGER" property="ygId" />
-            <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
-            <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
-            <result column="yg_sfz" jdbcType="VARCHAR" property="ygSfz" />
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
+            <id column="yg_id"  property="ygId"/>
+            <result column="yg_name" property="ygName"/>
         </association>
         <collection property="jhXiangDans" javaType="ArrayList" ofType="com.pojos.pharmacy.JhXiangDan" >
             <id column="PLANXD_ID" property="planxdId" />
@@ -62,6 +60,7 @@
         INNER JOIN go_ying_shang gys on jhd.SUPPLY_ID=gys.SUPPLY_ID
         INNER JOIN jh_xiang_dan jhxd on jhxd.plan_id=jhd.plan_id
         LEFT JOIN yao_ping_xx yp on jhxd.DRUG_id=yp.DRUG_id
+        INNER JOIN yuan_go yg on yg.yg_id=jhd.user_id
         LEFT JOIN hao_cai hc on jhxd.CONSU_ID=hc.CONSU_ID
     </select>
     <!--新增采购计划-->

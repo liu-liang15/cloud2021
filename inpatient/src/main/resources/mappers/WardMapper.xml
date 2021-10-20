@@ -51,4 +51,8 @@
     <select id="selWardByName" resultMap="WardMapper">
         select * from ward where ward_name= #{param}
     </select>
+    <!--按名称和病房编号查看病房-->
+    <select id="selWardByNameAndNo" resultMap="WardMapper">
+        select * from ward where ward_name= #{wardName} and ward_no=#{wardNo}
+    </select>
 </mapper>

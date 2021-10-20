@@ -36,6 +36,7 @@ public class CasehistoryDetailsController {
         String blNo= JSON.toJSONString(map.get("blNo"));
         Casehistorydetails casehistorydetails = JSONObject.parseObject(bingliXQ,Casehistorydetails.class);
         casehistorydetails.setCahideCashisNo(blNo);
+        System.out.println(casehistorydetails);
         casehistoryDetailsService.insertBingLiXQ(casehistorydetails);
         return casehistorydetails.getCahideNo();
     }

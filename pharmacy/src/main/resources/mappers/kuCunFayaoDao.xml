@@ -141,7 +141,7 @@
         insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime});
     </insert>
     <!--新增发药详表-->
-    <insert id="addFaYaoXQ" parameterType="com.pojos.pharmacy.ChuKuJiLu">
+    <insert id="addFaYaoXQ">
         insert into chu_ku_ji_lu values (null,#{chukuId},#{rkpcId},#{chuKuSl})
     </insert>
     <!--修改药品数量-->

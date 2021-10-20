@@ -37,6 +37,10 @@
           and yg.gw_id = #{gwId}
           and date_format(pb.rq,'%Y-%m-%d') = date_format(#{rq},'%Y-%m-%d')
           and date_format(#{rq},'%H:%i') between bc.bc_ks and bc.bc_js
+          and yg.bm_id = #{bmId}
+        <if test="typeId != 0">
+            and bc.bc_type_id = #{typeId}
+        </if>
     </select>
     <delete id="delectYgPb">
         delete from pai_ban where bc_id = #{bcId} and date_format(rq,'%Y/%m/%d') = #{rq}

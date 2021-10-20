@@ -19,6 +19,7 @@ public class AppDis {
   private YuanGo yuanGo;
   private HosAlone hosAlone;
   private Medicalcard medicalcard;
+  private AdmNot admNot;
 
   public long getAppDisNo() {
     return appDisNo;
@@ -123,4 +124,11 @@ public class AppDis {
     this.medicalcard = medicalcard;
   }
 
+  public AdmNot getAdmNot() {
+    return admNot;
+  }
+
+  public void setAdmNot(AdmNot admNot) {
+    this.admNot = admNot;
+  }
 }

@@ -12,6 +12,13 @@
         <result column="app_zt" property="appZt"/>
         <association property="patient" javaType="com.pojos.outpatient.Patient">
             <result column="patient_name" property="patientName"/>
+            <result column="patient_sex" property="patientSex"/>
+            <result column="patient_phone" property="patientPhone"/>
+            <result column="patient_idcart" property="patientIdcart"/>
+            <result column="patient_age" property="patientAge"/>
+            <result column="patient_birthdate" property="patientBirthdate"/>
+            <result column="" property="patientAddress"/>
+            <result column="patient_date" property="patientDate"/>
         </association>
         <association property="yuanGo" javaType="com.pojos.system.YuanGo">
             <result column="yg_name" property="ygName"/>
@@ -22,6 +29,9 @@
         </association>
         <association property="medicalcard" javaType="com.pojos.outpatient.Medicalcard">
             <result column="medi_balance" property="mediBalance"/>
+        </association>
+        <association property="admNot" javaType="com.pojos.inpatient.AdmNot">
+            <result column="result" property="result"/>
         </association>
     </resultMap>
     <!--新增出院申请表-->
@@ -35,7 +45,7 @@
         inner join adm_not a on h.hos_no=a.hos_no
         inner join medicalcard m on a.patient = m.medi_no
         inner join patient p on m.medi_patient_no=p.patient_no
-        inner join ke_shi k on k.ks_id=a.section
+        inner join ke_shi k on k.ks_id=h.pay_type
         inner join yuan_go y on ad.dis_doc=y.yg_id
         <if test="param!='' and param!=null">
             and (p.patient_name like '%${param}' or ad.app_dis_no like '%${param}')

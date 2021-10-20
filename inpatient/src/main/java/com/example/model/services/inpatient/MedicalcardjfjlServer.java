@@ -63,6 +63,7 @@ public class MedicalcardjfjlServer {
         medicalcardczjl.setCardczjlMoney(num);
         medicalcardczjl.setCardczjlLeixing("缴费");
         medicalcardczjl.setCardczjlYuanyin("住院缴费");
+        //新增一条诊疗卡消费记录
         medDao.addMedicalcardCzjl(medicalcardczjl);
     }
 

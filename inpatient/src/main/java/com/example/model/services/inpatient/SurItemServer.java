@@ -24,7 +24,7 @@ public class SurItemServer {
     //新增手术项目
     public String addSur(SurItem surItem){
         //根据手术名查询
-        if(surItemDao.selSurBySurName(surItem.getSurName())==null){
+        if(surItemDao.selSurBySurName(surItem.getSurName())==null||surItemDao.selSurBySurNameAndId(surItem)!=null){
             surItemDao.addSur(surItem);
             return "ok";
         }else{
@@ -32,8 +32,8 @@ public class SurItemServer {
         }
     }
     //查看手术项目
-    public List<SurItem> selSur(String param,String ksId,String surNo){
-        return surItemDao.selSur(param,ksId,surNo);
+    public List<SurItem> selSur(String param,String ksId,String surNo,String surSco){
+        return surItemDao.selSur(param,ksId,surNo,surSco);
     }
     //修改手术项目
     public String upDateSur(SurItem surItem){
