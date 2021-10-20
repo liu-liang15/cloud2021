@@ -40,6 +40,6 @@
     <select id="router" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
         from quan_xian qx1 left join quan_xian qx2 on qx1.qx_id=qx2.parent_id
-        where qx2.qx_id in(select qx_id from gw_qx where gw_id = #{gwId} ) order by(qx_id)
+        where qx2.qx_id in(select qx_id from gw_qx where gw_id = #{gwId} ) order by qx1.qx_id,qx2.qx_id
     </select>
 </mapper>
