@@ -45,7 +45,9 @@ public class HospregController {
     //新增挂号
     @GetMapping("/insertHospreg")
     public void insertHospreg(String hospreg){
+        System.out.println(hospreg);
         Hospreg hospreg1 = JSONObject.parseObject(hospreg,Hospreg.class);
+        System.out.println(hospreg1);
         hospreg1.setHoregNo("MZ"+getDateNo());
         hospreg1.setHoregDate(new Date());
         hospreg1.setHoregState(1);
