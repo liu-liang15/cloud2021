@@ -18,6 +18,8 @@
             <result column="per" property="ygName"/>
         </association>
     </resultMap>
+
+
     <resultMap id="DisPensingMapper2" type="com.pojos.inpatient.Dispensing">
         <id column="dis_id" property="disId"/>
         <result column="dis_fin" property="disFin"/>
