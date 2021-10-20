@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface YaoFangDao {
     //药库调拨药品到药房增加数量
-    void addDrugNumber(@Param("drugId")int drugId,@Param("drugNumber")int drugNumber);
+    void addDrugNumber(@Param("drugId")long drugId,@Param("drugNumber")int drugNumber);
     //查询药房药品
     List<YpYaoFang> findAllYFYP();
     void reduceDrugNumber(@Param("drugNumber")int drugNumber,@Param("drugId")int drugId);
