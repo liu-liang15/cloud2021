@@ -21,6 +21,7 @@ public class ConsApp {
   private String conSp;
   private java.sql.Timestamp conTimeStar;
   private java.sql.Timestamp conTimeEnd;
+  private OpeRoom opeRoom;
   private SurItem surItem;
   private Patient patient;
   private YuanGo yg;
@@ -176,6 +177,14 @@ public class ConsApp {
 
   public void setYg3(YuanGo yg3) {
     this.yg3 = yg3;
+  }
+
+  public OpeRoom getOpeRoom() {
+    return opeRoom;
+  }
+
+  public void setOpeRoom(OpeRoom opeRoom) {
+    this.opeRoom = opeRoom;
   }
 
   @Override

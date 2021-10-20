@@ -17,4 +17,6 @@ public interface SurItemDao {
     public void upDateSur(SurItem surItem);
     //根据手术名查看手术项目
     public SurItem selSurBySurName(String surName);
+    //根据手术名和手术编号查看
+    public SurItem selSurBySurNameAndId(SurItem surItem);
 }
