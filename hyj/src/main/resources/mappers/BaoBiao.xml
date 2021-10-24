@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.dao.BaoBiaoMapper">
+    <resultMap id="feebill" type="com.pojos.outpatient.Feebill">
+    <id column="feebill_no" property="feebillNo" />
+    <result column="feebill_seedo_number" property="feebillSeedoNumber" />
+    <result column="feebill_money" property="feebillMoney" />
+    <result column="feebill_type" property="feebillType" />
+    <result column="feebill_date" property="feebillDate" />
+    <result column="feebill_state" property="feebillState" />
+    <result column="feebill_remark" property="feebillRemark" />
+    </resultMap>
+    <resultMap id="ExpCalMapper" type="com.pojos.inpatient.ExpCal">
+        <id column="exp_no" property="expNo"/>
+        <result column="res_no" property="resNo"/>
+        <result column="med_text" property="medText"/>
+        <result column="exp_pay" property="expPay"/>
+        <result column="exp_time" property="expTime"/>
+        <result column="exp_zt" property="expZt"/>
+        <result column="exp_num" property="expNum"/>
+        <result column="exp_type" property="expType"/>
+    </resultMap>
+    <resultMap id="ExpCalMapper3" type="com.pojos.inpatient.ExpCal">
+        <result column="exp_pay" property="expPay"/>
+        <result column="exp_time" property="expTime"/>
+    </resultMap>
+    <resultMap id="feeb" type="com.pojos.outpatient.Feebill">
+        <id column="feebill_no" property="feebillNo" />
+        <result column="feebill_seedo_number" property="feebillSeedoNumber" />
+        <result column="feebill_money" property="feebillMoney" />
+        <result column="feebill_type" property="feebillType" />
+        <result column="feebill_date" property="feebillDate" />
+        <result column="feebill_state" property="feebillState" />
+        <result column="feebill_remark" property="feebillRemark" />
+    </resultMap>
+    <select id="findZMoney" resultMap="ExpCalMapper3">
+        select sum(exp_pay) as sunMoney from exp_cal
+        where DATE_FORMAT(exp_time,'%Y-%m-%d') = #{ZTime}
+    </select>
+    <select id="findFeebMoney" resultMap="feebill">
+        select sum(feebill_money) as sunMoney from feebill
+        where DATE_FORMAT(feebill_date,'%Y-%m-%d') = #{MTime}
+    </select>
+    <resultMap id="pay" type="com.pojos.hyj.AssayPay">
+        <result column="assay_pay_money" property="assayPayMoney"></result>
+    </resultMap>
+    <select id="findPayMoney" resultMap="pay">
+        select sum(assay_pay_money) as sunMoney from assay_pay
+        where DATE_FORMAT(assay_pay_time,'%Y-%m-%d') = #{TTime} and assay_fs = ''
+    </select>
+</mapper>
