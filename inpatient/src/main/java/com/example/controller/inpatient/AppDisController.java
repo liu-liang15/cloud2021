@@ -33,4 +33,9 @@ public class AppDisController {
     public void changeAppDis(@RequestBody AppDis disApp){
         appDisServer.changeAppDis(disApp);
     }
+    //根据住院单号查看出院单
+    @GetMapping("selAppDisByResNo")
+    public String selAppDisByResNo(String resNo){
+        return appDisServer.selAppDisByResNo(resNo);
+    }
 }

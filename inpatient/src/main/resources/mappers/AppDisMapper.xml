@@ -81,4 +81,9 @@
     <update id="changeAppDis">
         update app_dis set out_date=current_timestamp,out_per=#{outPer},app_zt=1 where app_dis_no=#{appDisNo}
     </update>
+
+    <!--根据住院号查看出院通知单-->
+    <select id="selAppDisByResNo" resultMap="AppDisMapper">
+        select * from app_dis where res_no=#{resNo}
+    </select>
 </mapper>

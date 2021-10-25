@@ -59,5 +59,4 @@ public class ConsAppServer {
         }
         consAppDao.changeCons(consApp);
     }
-
 }
