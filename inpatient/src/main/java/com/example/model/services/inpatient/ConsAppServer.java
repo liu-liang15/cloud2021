@@ -3,11 +3,9 @@ package com.example.model.services.inpatient;
 import com.example.model.dao.inpatient.ConsAppDao;
 import com.example.model.dao.inpatient.ExpCalDao;
 import com.example.model.dao.inpatient.SurItemDao;
-import com.pojos.hyj.AssayInfo;
 import com.pojos.inpatient.ConsApp;
 import com.pojos.inpatient.ExpCal;
 import com.pojos.inpatient.SurItem;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +26,6 @@ public class ConsAppServer {
     @Autowired
     MedicalcardjfjlServer medicalcardjfjlServer ;
     //新增住院手术申请单
-    @GlobalTransactional
     public void addConsApp(ConsApp consApp){
         consAppDao.addConsApp(consApp);
         //得到当前选择的手术的信息

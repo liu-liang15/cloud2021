@@ -16,8 +16,9 @@ import java.util.List;
 public class BedRecController {
     @Autowired
     BedRecServer bedRecServer;
+    //查询床位分配记录
     @GetMapping("/selBedRec")
-    public List<BedRec> selBedRec(String param){
-        return bedRecServer.selBedRec(param);
+    public List<BedRec> selBedRec(String name,String wardName,String bedTime1,String bedTime2){
+        return bedRecServer.selBedRec(name,wardName,bedTime1,bedTime2);
     }
 }

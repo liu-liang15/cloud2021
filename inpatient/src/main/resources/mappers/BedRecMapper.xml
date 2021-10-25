@@ -19,7 +19,6 @@
             <result column="ward_dress" property="wardDress"/>
             <result column="ward_zt" property="wardZt"/>
             <result column="ward_mon" property="wardMon"/>
-            <result column="ward_dep" property="wardDep"/>
         </association>
         <association property="hosAlone" javaType="com.pojos.inpatient.HosAlone">
             <id column="res_no" property="resNo"/>
@@ -76,5 +75,14 @@
                   inner join adm_not a on h.hos_no=a.hos_no
                   inner join medicalcard m on a.patient = m.medi_no
                   inner join patient p on m.medi_patient_no=p.patient_no
+        <if test="name!='' and name!=null">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="wardName!='' and wardName!=null">
+            and w.ward_name like '%${wardName}%'
+        </if>
+        <if test="bedTime1!=''">
+            and bed_time between #{bedTime1} and #{bedTime2}
+        </if>
     </select>
 </mapper>

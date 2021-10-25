@@ -65,6 +65,50 @@
         </if>
         order by h.hos_stay desc
     </select>
+    <!--多条件查询住院单-->
+    <select id="selHosByAll" resultMap="HosAloneMapper">
+        select *,k.ks_name as kname from hos_alone h
+        inner join adm_not a on h.hos_no=a.hos_no
+        inner join medicalcard m on a.patient = m.medi_no
+        inner join patient p on m.medi_patient_no=p.patient_no
+        inner join yuan_go y on y.yg_id=h.hos_cond
+        inner join ke_shi k on k.ks_id=h.pay_type
+        where h.hos_zt='0'
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="idcart!=null and idcart!=''">
+            and p.patient_idcart like '%${idcart}%'
+        </if>
+        <if test="resNo!=null and resNo!=''">
+            and res_no like '%${resNo}%'
+        </if>
+        <if test="hosStay1!=null and hosStay1!=''">
+            and hos_stay between #{hosStay1} and #{hosStay2}
+        </if>
+        <if test="ksId!=null and ksId!=''">
+            and k.ks_id = #{ksId}
+        </if>
+        order by h.hos_stay desc
+    </select>
+    <!--查询所有住院单-->
+    <select id="selHosByZt" resultMap="HosAloneMapper">
+        select *,k.ks_name as kname from hos_alone h
+         inner join adm_not a on h.hos_no=a.hos_no
+         inner join medicalcard m on a.patient = m.medi_no
+         inner join patient p on m.medi_patient_no=p.patient_no
+         inner join yuan_go y on y.yg_id=h.hos_cond
+         inner join ke_shi k on k.ks_id=h.pay_type
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="resNo!=null and resNo!=''">
+            and res_no like '%${resNo}%'
+        </if>
+        <if test="mediCard!=null and mediCard!=''">
+            and m.medi_card like '%${mediCard}%'
+        </if>
+    </select>
     <!--查询住院单根据住院号 -->
     <select id="allHos2" resultMap="HosAloneMapper">
         select * from hos_alone h inner join adm_not a on h.hos_no=a.hos_no inner join medicalcard m on a.patient = m.medi_no inner join patient p on m.medi_patient_no=p.patient_no

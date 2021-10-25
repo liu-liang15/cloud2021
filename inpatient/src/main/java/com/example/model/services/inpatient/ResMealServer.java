@@ -27,6 +27,8 @@ public class ResMealServer {
     ExpCalDao expCalDao;
     @Autowired
     HosAloneDao hosAloneDao;
+    @Autowired
+    MedicalcardjfjlServer medicalcardjfjlServer ;
     //新增检验
     public void addResMeal(DocAdv docAdv, List<AssayMeal> assayMeals,String docname){
         docname = docname.substring(1,docname.length()-1);
@@ -39,7 +41,7 @@ public class ResMealServer {
             }
             expCalDao.addExpCal(e);
             resMealDao.addResMeal(resMeal);
-
+            medicalcardjfjlServer.loseMoney(docAdv.getResNo(),(-a.getAssayMealPrice()));
 
             AssayMeal assayMeal = expCalDao.selectAssayMealByName(a.getAssayMealName());
             IdWorker idWorker = new IdWorker(1,1,1);

@@ -40,8 +40,10 @@ public class SurItemServer {
         if(surItemDao.selSurBySurName(surItem.getSurName())==null){
             surItemDao.upDateSur(surItem);
             return "ok";
+        }else if(surItemDao.selSurBySurNameAndId(surItem)!=null){
+            return  "ok";
         }else{
-            return  "no";
+            return  "false";
         }
     }
 }

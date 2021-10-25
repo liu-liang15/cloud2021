@@ -51,6 +51,32 @@
             and (p.patient_name like '%${param}' or ad.app_dis_no like '%${param}')
         </if>
     </select>
+    <!--多条件查看出院申请表-->
+    <select id="selAppByAll" resultMap="AppDisMapper">
+        select * from app_dis ad
+        inner join hos_alone h on ad.res_no=h.res_no
+        inner join adm_not a on h.hos_no=a.hos_no
+        inner join medicalcard m on a.patient = m.medi_no
+        inner join patient p on m.medi_patient_no=p.patient_no
+        inner join ke_shi k on k.ks_id=h.pay_type
+        inner join yuan_go y on ad.dis_doc=y.yg_id
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="idcart!=null and idcart!=''">
+            and p.patient_idcart like '%${idcart}%'
+        </if>
+        <if test="appDisNo!=null and appDisNo!=''">
+            and app_dis_no like '%${appDisNo}%'
+        </if>
+        <if test="outDate1!=null and outDate1!=''">
+            and out_date between #{outDate1} and #{outDate2}
+        </if>
+        <if test="appZt!=null and appZt!=''">
+            and ad.app_zt = #{appZt}
+        </if>
+    </select>
+
     <!--修改出院申请表为已通过    -->
     <update id="changeAppDis">
         update app_dis set out_date=current_timestamp,out_per=#{outPer},app_zt=1 where app_dis_no=#{appDisNo}

@@ -17,6 +17,11 @@ public class AdmNotController {
     public List<AdmNot> selAdm(String param){
         return admNotServer.allAdm(param);
     }
+    //多条件查询住院通知单
+    @GetMapping("selAdmByAll")
+    public List<AdmNot> selAdmByAll(String name,String idcart,String hosNo,String hosTj){
+        return admNotServer.selAdmByAll(name,idcart,hosNo,hosTj);
+    }
     //新增住院通知单
     @RequestMapping("addAdm")
     public String addAdm(@RequestBody AdmNot admNot){return admNotServer.addAdm(admNot);}

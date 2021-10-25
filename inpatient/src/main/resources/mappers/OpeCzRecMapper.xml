@@ -22,6 +22,16 @@
     <!--查看手术室操作记录表-->
     <select id="selOpeCz" resultMap="OPeCzRecMapper">
         select * from ope_cz_rec oc
-            inner join ope_room oe on oc.ope_no=oe.ope_no order by ope_cz_time desc
+            inner join ope_room oe on oc.ope_no=oe.ope_no where 1=1
+        <if test="opeName!=''">
+           and oe.ope_name like '%${opeName}%'
+        </if>
+        <if test="opeCzType!=''">
+           and oc.ope_cz_type=#{opeCzType}
+        </if>
+        <if test="opeCzTime1!=''">
+            and ope_cz_time between #{opeCzTime1} and #{opeCzTime2}
+        </if>
+        order by ope_cz_time desc
     </select>
 </mapper>

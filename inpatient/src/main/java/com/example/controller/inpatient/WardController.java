@@ -25,6 +25,11 @@ public class WardController {
     public List<Ward> selWard(String param){
         return wardServer.selWard(param);
     }
+    //多条件查看病房
+    @GetMapping("/selWardByAll")
+    public List<Ward> selWardByAll(String name,String ksId,String wardZt){
+        return  wardServer.selWardByAll(name,ksId,wardZt);
+    }
     //启用/停用病房
     @PostMapping("/updateWard")
     public void updateWard(@RequestBody Map<String, Object> map){
@@ -43,7 +48,7 @@ public class WardController {
     }
     //修改病房
     @PostMapping("/changeWard")
-    public void changeWard(@RequestBody Ward ward ){
-        wardServer.changeWard(ward);
+    public String changeWard(@RequestBody Ward ward ){
+        return wardServer.changeWard(ward);
     }
 }

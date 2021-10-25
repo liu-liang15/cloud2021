@@ -18,8 +18,8 @@ public class ExpCalController {
     ExpCalServer expCalServer;
     //查看患者的消费记录
     @GetMapping("/selExpCal")
-    public List<ExpCal> selExpCal(String param){
-        return expCalServer.selExpCal(param);
+    public List<ExpCal> selExpCal(String param,String expTime1,String expTime2,String expType){
+        return expCalServer.selExpCal(param,expTime1,expTime2,expType);
     }
     //查看各种消费类型的消费总额
     @GetMapping("selMon")

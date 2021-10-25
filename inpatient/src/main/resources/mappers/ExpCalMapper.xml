@@ -51,7 +51,14 @@
 
     <!--查看消费记录-->
     <select id="selExpCal" resultMap="ExpCalMapper">
-        select * from exp_cal where res_no=#{param} order by exp_no desc
+        select * from exp_cal where res_no=#{param}
+        <if test="expTime1!=''">
+            and exp_time between #{expTime1} and #{expTime2}
+        </if>
+        <if test="expType!=''">
+            and exp_type=#{expType}
+        </if>
+        order by exp_no desc
     </select>
     <!--新增消费记录-->
     <insert id="addExpCal" useGeneratedKeys="true" keyProperty="expNo" parameterType="com.pojos.inpatient.ExpCal">

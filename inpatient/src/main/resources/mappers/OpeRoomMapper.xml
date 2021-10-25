@@ -21,7 +21,7 @@
         select * from ope_room o
         inner join ke_shi k on k.ks_id=o.ope_ks where 1=1
         <if test="param!=''">
-            and (ope_name like '%${param}%' or ope_ks like '%${param}%')
+            and ope_name like '%${param}%'
         </if>
         <if test="ksId!=''">
             and k.ks_id=#{ksId}

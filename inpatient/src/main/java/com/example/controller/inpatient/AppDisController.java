@@ -22,6 +22,12 @@ public class AppDisController {
     public List<AppDis> selDisApp(String param){
        return appDisServer.selAppDis(param);
     }
+    //多条件查询出院申请单
+    @GetMapping("selAppByAll")
+    public List<AppDis> selAppByAll(String name,String idcart,String appDisNo,
+                                    String outDate1,String outDate2,String appZt){
+        return appDisServer.selAppByAll(name,idcart,appDisNo,outDate1,outDate2,appZt);
+    }
     //确认出院
     @PostMapping("changeAppDis")
     public void changeAppDis(@RequestBody AppDis disApp){

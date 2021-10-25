@@ -16,8 +16,8 @@ public class WardRecController {
     @Autowired
     WardRecServer wardRecServer;
     @GetMapping("/selWardRec")
-    //查询病房修改日志
-    public List<WardRec> selWardRec(String param){
-        return wardRecServer.selWardRec(param);
+    //多条件查询病房操作日志
+    public List<WardRec> selWardRec(String wardName, String wardCzTime1,String wardCzTime2,String czType){
+        return wardRecServer.selWardRec(wardName,wardCzTime1,wardCzTime2,czType);
     }
 }

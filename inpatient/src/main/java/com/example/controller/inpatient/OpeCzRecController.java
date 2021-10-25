@@ -17,7 +17,7 @@ public class OpeCzRecController {
     OpeCzRecServer opeCzRecServer;
     //查看手术室操作记录
     @GetMapping("/selOpeCz")
-    public List<OpeCzRec> selOpeCz(){
-        return opeCzRecServer.selOpeCz();
+    public List<OpeCzRec> selOpeCz(String opeName,String opeCztype,String opeCzTime1,String opeCzTime2){
+        return opeCzRecServer.selOpeCz(opeName,opeCztype,opeCzTime1,opeCzTime2);
     }
 }

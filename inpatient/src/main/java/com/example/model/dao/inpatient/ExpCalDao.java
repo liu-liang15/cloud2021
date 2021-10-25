@@ -6,13 +6,15 @@ import com.pojos.hyj.AssayMeal;
 import com.pojos.hyj.AssayPay;
 import com.pojos.inpatient.ExpCal;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
 public interface ExpCalDao {
     //查看消费记录
-    public List<ExpCal> selExpCal(String param);
+    public List<ExpCal> selExpCal(@Param("param") String param,@Param("expTime1")String expTime1,
+                                  @Param("expTime2")String expTime2,@Param("expType")String expType);
     //新增消费记录
     public void addExpCal(ExpCal expCal);
     //消费类型总额查询

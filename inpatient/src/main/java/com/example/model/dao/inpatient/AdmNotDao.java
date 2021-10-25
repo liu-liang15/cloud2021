@@ -3,6 +3,7 @@ package com.example.model.dao.inpatient;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pojos.inpatient.AdmNot;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface AdmNotDao extends BaseMapper<AdmNot> {
     public void addAdm(AdmNot admNot);
     //根据诊疗卡号查询住院登记单
     public List<AdmNot> selByPatient(String param);
+    //多条件查询
+    public List<AdmNot> selAdmByAll(@Param("name")String name,@Param("idcart")String idcart,@Param("hosNo")String hosNo,@Param("hosTj")String hosTj);
 }

@@ -75,12 +75,39 @@
         LEFT join adm_not a on h.hos_no=a.hos_no
         LEFT join medicalcard m on a.patient = m.medi_no
         LEFT join patient p on m.medi_patient_no=p.patient_no
-        where hos_zt='0'
+        where h.hos_zt='0'
         <if test="param!=''">
-            where b.res_no like '%${param}%' or w.ward_name like '%${param}%' or p.patient_name like '%${param}%'
+            and (b.res_no like '%${param}%' or w.ward_name like '%${param}%' or p.patient_name like '%${param}%')
         </if>
         order by h.res_no
     </select>
+    <!--多条件查询病床与患者-->
+    <select id="selBedByAll" resultMap="BedMapper">
+        select * from hos_alone h left join
+        bed b on h.res_no=b.res_no left join
+        ward w on b.ward_no=w.ward_no
+        LEFT join adm_not a on h.hos_no=a.hos_no
+        LEFT join medicalcard m on a.patient = m.medi_no
+        LEFT join patient p on m.medi_patient_no=p.patient_no
+        where h.hos_zt='0'
+        <if test="name!='' and name!=null">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="wardName!='' and wardName!=null">
+            and w.ward_name like '%${wardName}%'
+        </if>
+        <if test="resNo!='' and resNo!=null">
+            and h.res_no like '%${resNo}%'
+        </if>
+        <if test="bedZt==2">
+            and b.res_no is not null
+        </if>
+        <if test="bedZt==1 and bedZt!=null">
+            and b.res_no is null
+        </if>
+        order by h.res_no
+    </select>
+
     <!--查询住院单详情-->
     <select id="hosXq" resultMap="BedMapper">
         select * from hos_alone h

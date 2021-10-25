@@ -54,8 +54,17 @@
           left join yuan_go y2 on c.ope_doc=y2.yg_id
           left join yuan_go y3 on c.ope_nar=y3.yg_id
         where 1=1
-        <if test="resNo!=''">
-            and c.res_no=#{resNo}
+        <if test="surName!=''">
+            and s.sur_name='%${surName}%'
+        </if>
+        <if test="name!=null and name!=''">
+            and p.patient_name like '%${name}%'
+        </if>
+        <if test="conZt!='' and conZt!=4">
+            and c.con_zt=#{conZt}
+        </if>
+        <if test="conZt==4">
+            and (c.con_zt=3 or c.con_zt=4)
         </if>
     </select>
     <!--修改手术申请单状态-->
@@ -89,4 +98,10 @@
         </set>
          where con_no=#{conNo}
     </update>
+    <!--查询手术申请单中的手术项目-->
+    <select id="selConsBySurNo" resultMap="ConsAppMapper">
+        select * from cons_app c
+        inner join sur_item s on c.sur_no=s.sur_no
+        where c.sur_no=#{SurNo}
+    </select>
 </mapper>
