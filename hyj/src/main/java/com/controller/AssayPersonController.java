@@ -12,7 +12,7 @@ import java.util.List;
 public class AssayPersonController {
     @Autowired
     AssayMaService assayMaService;
-    @GetMapping("find")
+    @RequestMapping("find")
     public List<AssayPerson> findAll(){
         return assayMaService.findAll();
     }

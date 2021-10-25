@@ -11,8 +11,13 @@
         <result property="assayPersonCard" column="assay_person_card"></result>
         <result property="assayPersonTime" column="assay_person_time"></result>
         <result property="assayMealName" column="assay_meal_name"></result>
+        <result property="assayK" column="assay_k"></result>
+        <result property="payType" column="pay_type"></result>
         <result property="mealName" column="meal_name"/>
     </resultMap>
+    <select id="findPerson" resultMap="PersonResultMap">
+        select * from assay_person where assay_k = 0 and pay_type = 0
+    </select>
     <insert id="addPerson">
         insert into assay_person(assay_person_name,assay_person_sex,assay_person_age,assay_person_phone,assay_person_card,assay_person_time,assay_meal_name)
         values(#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonPhone},#{assayPersonCard},now(),#{assayMealName})
