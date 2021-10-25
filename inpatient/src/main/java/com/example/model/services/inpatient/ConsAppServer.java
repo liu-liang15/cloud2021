@@ -59,4 +59,8 @@ public class ConsAppServer {
         }
         consAppDao.changeCons(consApp);
     }
+    //根据住院单号查看手术
+    public List<ConsApp>selConsAppByResNo(String resNo){
+        return consAppDao.selConsAppByResNo(resNo);
+    }
 }

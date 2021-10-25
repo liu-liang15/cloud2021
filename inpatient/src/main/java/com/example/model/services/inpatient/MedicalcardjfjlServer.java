@@ -55,8 +55,8 @@ public class MedicalcardjfjlServer {
         //消费金额
         med.setMecajfjlMoney(num);
         //修改诊疗卡余额
-        System.out.println("开始修改余额");
-        medao.updatePat(med);
+        //medao.updatePat(med);
+        medDao.updatePat(med.getMecajfjlMoney(),Integer.parseInt(med.getMecajfjlMediNo()));
         //创建诊疗卡操作记录
         Medicalcardczjl medicalcardczjl=new Medicalcardczjl();
         //诊疗卡编号

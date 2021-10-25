@@ -17,4 +17,6 @@ public interface ConsAppDao {
     public void changeCons(ConsApp consApp);
     //查看手术申请单中根据手术编号
     public List<ConsApp> selConsBySurNo(String SurNo);
+    //根据住院单号查看手术申请单
+    List<ConsApp>selConsAppByResNo(String resNo);
 }

@@ -55,7 +55,11 @@ public class ConsAppController {
     public String selConsBySurNo(String surNo){
         return consAppServer.selConsBySurNo(surNo);
     }
-
+    //根据住院单号查看手术
+    @GetMapping("selConsAppByResNo")
+    public List<ConsApp>selConsAppByResNo(String resNo){
+        return consAppServer.selConsAppByResNo(resNo);
+    }
 
     /**
      * 国际时间转换北京时间
