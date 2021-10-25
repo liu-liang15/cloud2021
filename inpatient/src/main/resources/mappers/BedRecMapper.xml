@@ -84,5 +84,6 @@
         <if test="bedTime1!=''">
             and bed_time between #{bedTime1} and #{bedTime2}
         </if>
+        order by bed_rec_no desc
     </select>
 </mapper>

@@ -39,4 +39,13 @@ public class AppDisServer {
         hosAloneDao.changeHos(appDis.getResNo());
         bedDao.bedEmpty(appDis.getResNo());
     }
+    //根据住院单号查看出院申请
+    public String  selAppDisByResNo(String resNo){
+        if(appDisDao.selAppDisByResNo(resNo)==null){
+            return "ok";
+
+        }else{
+            return "no";
+        }
+    }
 }

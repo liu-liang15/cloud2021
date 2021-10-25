@@ -18,4 +18,6 @@ public interface AppDisDao {
                                     @Param("outDate2")String outDate2, @Param("appZt")String appZt);
     //修改住院通知单为已登记
     public void changeAppDis(AppDis appDis);
+    //根据住院单编号查看住院通知单
+    public AppDis selAppDisByResNo(String resNo);
 }
