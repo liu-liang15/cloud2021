@@ -44,6 +44,7 @@ public class QuanXianservice {
         return list;
     }
 
+
     /**
      * 根据岗位获取对应的权限
      * @param gwId

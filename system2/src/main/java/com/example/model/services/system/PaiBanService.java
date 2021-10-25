@@ -4,6 +4,7 @@ import com.example.model.dao.system.PaiBanMapper;
 import com.pojos.system.PaiBan;
 import com.pojos.system.PaiBan2;
 import com.pojos.system.PaiBan3;
+import com.pojos.system.YuanGo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -55,9 +56,10 @@ public class PaiBanService {
         return ban2List;
     }
     /**
-     *
+     *新增排班的方法
      */
     public int insertpb(PaiBan3 paiBan3){
+        paiBanMapper.delectYgPb(paiBan3.getBc(),paiBan3.getRq());
         String[] yuanGoIds = paiBan3.getYuanGoIds();
         PaiBan paiBan=new PaiBan();
         for (String yuanGoId : yuanGoIds) {
@@ -102,4 +104,16 @@ public class PaiBanService {
         paiBan2.setRq(dateFormat.format(calendar.getTime()));
         return paiBan2;
     }
+
+    /**
+     * 根据时间 科室 职位 查排班的员工
+     * @param ksId
+     * @param gwId
+     * @param rq
+     * @return
+     */
+    public List<YuanGo> getpbyg(String ksId,String gwId,String rq,int typeId,int bmId){
+        return paiBanMapper.getyg(ksId,gwId,rq,typeId,bmId);
+    }
+
 }

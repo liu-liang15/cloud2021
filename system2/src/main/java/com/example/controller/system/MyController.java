@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("system/")
 public class MyController {
@@ -73,7 +72,6 @@ YongHuservice yongHuservice;
     @GetMapping("user/info")
     public CommonResult getyg3(String token){
         //返回的用户信息
-        System.out.println(token);
         YuanGo yuanGo = yuanGoservice.getyg3(token);
         return new CommonResult(200,null,yuanGo);
     }
@@ -82,13 +80,11 @@ YongHuservice yongHuservice;
 //      新增部门
     @PostMapping("insertBm")
     public int insertyg(@RequestBody BuMen buMen){
-//        System.err.println(buMen);
         return buMenservers.insert(buMen);
     }
 //      修改部门
     @PostMapping("updatebm")
     public int updateByPrimaryKeySelective(@RequestBody BuMen buMen){
-        System.err.println(buMen);
         return buMenservers.updateByPrimaryKeySelective(buMen);
     }
     //      获取部门数据
@@ -169,6 +165,14 @@ YongHuservice yongHuservice;
     public int xgy(@RequestBody YongHu yongHu){
         return yongHuservice.czmm(yongHu);
     }
+//  用户修改密码
+    @PostMapping("xgmm")
+    public CommonResult xgmm(@RequestBody YongHu yongHu){
+        if (yongHuservice.xgmm(yongHu)==1){
+            return new CommonResult(200,"密码修改成功！");
+        }
+        return new CommonResult(300,"原密码错误！");
+    }
 //    删除用户
     @PostMapping("scyh")
     public int sc(@RequestBody YongHu yongHu){
@@ -219,7 +223,6 @@ YongHuservice yongHuservice;
 //    =====================班次类型表===================
     @GetMapping("bctype")
     public List<BanCiType> getBcType(){
-        System.err.println(8052);
         return banCiTypeService.getBcType();
     }
 
@@ -231,6 +234,7 @@ YongHuservice yongHuservice;
      */
     @GetMapping("hqpb/{ksId}/{xq}")
     public List<PaiBan2> getpb(@PathVariable("ksId") String ksId,@PathVariable("xq") Integer xq){
+        System.err.println(8051);
         return paiBanService.getPb(ksId,xq);
     }
     /**
@@ -242,11 +246,27 @@ YongHuservice yongHuservice;
         return new CommonResult(200,"新增成功");
     }
 
+    /**
+     * 根据时间 科室 职位 查排班的员工
+     * @return
+     */
+    @GetMapping("pbyg")
+    public List<YuanGo> getpbyg(String ksId,String gwId,String rq,int typeId,int bmId){
+        return paiBanService.getpbyg(ksId,gwId,rq,typeId,bmId);
+    }
 
+
+    /**
+     * redis测试的
+     * @return
+     */
     @GetMapping("abcd")
     public Object abcdddd(){
         System.err.println("12345678");
         return keShiservive.dddd();
     }
+
+
+
 
 }

@@ -2,11 +2,10 @@ package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.FeignClient;
 
 @SpringBootApplication
-public class DemoApplication {
+public class Pharmacy {
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(Pharmacy.class, args);
     }
 }

@@ -16,7 +16,7 @@ public interface MedicalcardjfjlDao {
     //查询缴费记录
     public List<Medicalcardjfjl> selPay(Medicalcardjfjl med);
     //诊疗卡记录
-    public void addMedicalcardCzjl(Medicalcardczjl medicalcardczjl);
+    public int addMedicalcardCzjl(Medicalcardczjl medicalcardczjl);
     //修改卡余额
     public void updatePat(@Param("mediBalance") double mediBalance, @Param("mediNo") Integer mediNo);
 }

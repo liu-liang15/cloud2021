@@ -12,6 +12,12 @@
                 <id column="yg_id" property="ygId" jdbcType="INTEGER"/>
                 <result column="yg_name" property="ygName"  jdbcType="VARCHAR"/>
             </association>
+            <association property="bc" javaType="com.pojos.system.BanCi">
+                <id column="bc" property="bc" jdbcType="INTEGER"/>
+                <result column="bc_ks" property="bcKs"  jdbcType="VARCHAR"/>
+                <result column="bc_js" property="bcJs" jdbcType="VARCHAR"/>
+                <result column="bc_type_id" property="bcTypeId"  jdbcType="VARCHAR"/>
+            </association>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -22,4 +28,17 @@
     <select id="getPanBan" resultMap="BaseResultMap">
         select * from pai_ban pb inner join yuan_go yg on pb.yg_id=yg.yg_id where date_format(pb.rq,'%Y/%m/%d')=#{rq} and yg.ks_id=#{ksId}
     </select>
+    <select id="getyg" resultType="com.pojos.system.YuanGo">
+        select * from pai_ban pb
+            left join yuan_go yg on pb.yg_id = yg.yg_id
+            inner join ban_ci bc on bc.bc = pb.bc_id
+        where
+          yg.ks_id = #{ksId}
+          and yg.gw_id = #{gwId}
+          and date_format(pb.rq,'%Y-%m-%d') = date_format(#{rq},'%Y-%m-%d')
+          and date_format(#{rq},'%H:%i') between bc.bc_ks and bc.bc_js
+    </select>
+    <delete id="delectYgPb">
+        delete from pai_ban where bc_id = #{bcId} and date_format(rq,'%Y/%m/%d') = #{rq}
+    </delete>
 </mapper>

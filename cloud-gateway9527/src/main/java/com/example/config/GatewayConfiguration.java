@@ -8,6 +8,8 @@ import com.alibaba.csp.sentinel.adapter.gateway.common.api.GatewayApiDefinitionM
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
+import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
+import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.exception.SentinelGatewayBlockExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -15,7 +17,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.ViewResolver;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
@@ -27,6 +33,7 @@ import java.util.Set;
  * @author 刘亮
  * @date 2021年 09月23日14:51
  */
+@Component
 public class GatewayConfiguration {
     private final List<ViewResolver> viewResolvers;
     private final ServerCodecConfigurer serverCodecConfigurer;
@@ -44,19 +51,25 @@ public class GatewayConfiguration {
         return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
     }
 
-    @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    public GlobalFilter sentinelGatewayFilter() {
-        return new SentinelGatewayFilter();
-    }
+    //@Bean
+    //@Order(Ordered.HIGHEST_PRECEDENCE)
+    //public GlobalFilter sentinelGatewayFilter() {
+    //    return new SentinelGatewayFilter();
+    //}
 
     /**
      * spring容器初始化的时候执行的方法
+     * 初始化限流或降级的回调函数
      */
     @PostConstruct
     public void doInit(){
-        //    加载网关限流规则
-        //initCustomizedApis();
+        //    设置限流或降级的回调函数
+        GatewayCallbackManager.setBlockHandler(new BlockRequestHandler() {
+            @Override
+            public Mono<ServerResponse> handleRequest(ServerWebExchange serverWebExchange, Throwable throwable) {
+                return ServerResponse.status(200).syncBody("系统繁忙！请稍候再试 ！");
+            }
+        });
     }
 
     /**
@@ -74,4 +87,6 @@ public class GatewayConfiguration {
                         .setIntervalSec(60));
         GatewayRuleManager.loadRules(definitions);
     }
+
+
 }

@@ -12,9 +12,6 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848 #配置nacos连接地址
-#    alibaba:
-#      seata:
-#        tx-service-group: SEATA_GROUP
   #时间格式化
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -71,7 +68,7 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   # 事务群组（可以每个应用独立取名，也可以使用相同的名字），要与服务端nacos-config.txt中service.vgroup_mapping的后缀对应
-  tx-service-group: my_test_tx_group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
+  tx-service-group: inpatient # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
 #  tx-service-group: ${spring.application.name}-tx-group
   #    配置seata的注册中心，告诉seata client怎么去访问seata server（TC）
   config:
