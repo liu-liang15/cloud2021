@@ -6,6 +6,7 @@ import com.pojos.system.PaiBan2;
 import com.pojos.system.PaiBan3;
 import com.pojos.system.YuanGo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import java.util.List;
  * 排班service
  */
 @Service
+@Transactional
 public class PaiBanService {
     @Resource
     PaiBanMapper paiBanMapper;
@@ -115,6 +117,12 @@ public class PaiBanService {
      */
     public List<YuanGo> getpbyg(String ksId,String gwId,String rq,int typeId,int bmId){
         return paiBanMapper.getyg(ksId,gwId,rq,typeId,bmId);
+    }
+    /**
+     * 查询当前登录的员工排班
+     */
+    public List getdlpb(String ygId) {
+        return paiBanMapper.getdlpb(ygId);
     }
 
 }

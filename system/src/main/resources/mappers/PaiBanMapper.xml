@@ -45,4 +45,12 @@
     <delete id="delectYgPb">
         delete from pai_ban where bc_id = #{bcId} and date_format(rq,'%Y/%m/%d') = #{rq}
     </delete>
+
+    <select id="getdlpb" resultType="java.util.Map">
+        select yg_name,DATE_FORMAT(rq,'%Y-%m-%d') rq,bc_ks,bc_js from pai_ban pb left join ban_ci bc on pb.bc_id=bc.bc
+                                left join yuan_go yg on pb.yg_id=yg.yg_id
+            where yg.yg_id=#{ygId} and pb.rq >= DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -1 DAY),'%Y-%m-%d') order by rq
+    </select>
+
+
 </mapper>

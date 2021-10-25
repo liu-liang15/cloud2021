@@ -6,6 +6,7 @@ import com.pojos.system.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("system/")
@@ -254,6 +255,22 @@ YongHuservice yongHuservice;
         return paiBanService.getpbyg(ksId,gwId,rq,typeId,bmId);
     }
 
+
+    /**
+     * 查询当前登录的员工排班
+     */
+    @GetMapping("dlygpb")
+    public CommonResult dlygpb(String ygId){
+        System.err.println(ygId);
+        return new CommonResult(200,"查询成功",paiBanService.getdlpb(ygId));
+    }
+    /**
+     *
+     */
+    @GetMapping("baobiao")
+    public CommonResult getBaobiao(){
+        return new CommonResult(200,"查询成功！",keShiservive.baobiao());
+    }
 
     /**
      * redis测试的

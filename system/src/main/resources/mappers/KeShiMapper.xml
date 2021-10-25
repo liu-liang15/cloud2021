@@ -26,4 +26,15 @@
             where ks_name like concat('%',#{shou},'%') or yg_name=#{shou}
         </if>
     </select>
+
+    <select id="zyrs" resultType="java.lang.String">
+             select count(*) rs from hos_alone where hos_zt=0 and pay_type=#{keId}
+    </select>
+
+    <select id="jzrs" resultType="java.lang.String">
+        select count(*) jzrs from hospreg h
+        where (h.horeg_state = 3 or h.horeg_state = 4)
+            and DATE_FORMAT( h.horeg_date, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+            and horeg_famiroom_no = #{ksId}
+    </select>
 </mapper>

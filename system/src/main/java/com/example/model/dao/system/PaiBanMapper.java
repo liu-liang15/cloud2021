@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @Entity generator.domain.PaiBan
@@ -22,4 +23,9 @@ public interface PaiBanMapper extends BaseMapper<PaiBan> {
      *删除某天某个班次的排班
      */
     int delectYgPb(@Param("bcId") String bcId,@Param("rq") String rq);
+    /**
+     * 查询当前登录的员工排班
+     */
+    List getdlpb(String ygId);
+
 }
