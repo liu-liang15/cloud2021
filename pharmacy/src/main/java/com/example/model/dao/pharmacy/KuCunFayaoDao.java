@@ -33,4 +33,6 @@ public interface KuCunFayaoDao {
     void edatKcCun(@Param("ypsl") int ypsl,@Param("rkpcID") String rkpcID);
     //新增调拨发药详情
     void addFaYaoXQ(@Param("chukuId")String chukuId,@Param("rkpcId")String rkpcId,@Param("chuKuSl")int chuKuSl);
+    //查询药品库存
+    int findSum(int id);
 }

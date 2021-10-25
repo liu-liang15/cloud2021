@@ -14,6 +14,12 @@
             <result column="scrq" property="scrq" />
             <result column="bzq" property="bzq" />
             <result column="ck_id" property="ckId"/>
+            <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
+                <id column="WARE_ID" property="wareId"/>
+                <result column="WARE_NAME" property="wareName" />
+                <result column="WARE_TYPE" property="wareType" />
+                <result column="WARE_SITE" property="wareSite" />
+            </association>
             <association property="yaoPingXx" javaType="com.pojos.pharmacy.YaoPingXx">
                 <id column="DRUG_ID" property="drugId" />
                 <result column="DRUG_NAME" property="drugName" />
@@ -30,21 +36,6 @@
                 <result column="DRUG_STATE" property="drugState" />
                 <result column="DRUG_MESSAGE" property="drugMessage" />
             </association>
-            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
-                <id column="CONSU_ID" property="consuId" />
-                <result column="CONSU_NAME" property="consuName" />
-                <result column="CONSU_JINJIA" property="consuJinjia" />
-                <result column="CONSU_PRICE" property="consuPrice" />
-                <result column="CONSU_SPEC" property="consuSpec" />
-                <result column="CONSU_RIQI"  property="consuRiqi" />
-                <result column="SONSU_MATR" property="sonsuMatr" />
-            </association>
-            <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
-                <id column="WARE_ID" property="wareId"/>
-                <result column="WARE_NAME" property="wareName" />
-                <result column="WARE_TYPE" property="wareType" />
-                <result column="WARE_SITE" property="wareSite" />
-            </association>
         </association>
     </resultMap>
     <resultMap id="YPSQMapper" type="com.pojos.pharmacy.DiaoBoSq">
@@ -52,7 +43,7 @@
         <result column="dbfzr" property="dbfzr" />
         <result column="sqsj" property="sqsj" />
         <result column="sq_zhuang_tai" property="sqZhuangTai" />
-        <association property="yongHu" javaType="com.pojos.system.YongHu">
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
             <id column="yg_id" jdbcType="INTEGER" property="ygId" />
             <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
             <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
@@ -80,20 +71,12 @@
                 <result column="DRUG_MESSAGE" property="drugMessage" />
                 <result column="DRUG_GRAIN" property="drugGrain"/>
             </association>
-            <!--            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
-                            <id column="CONSU_ID" property="consuId" />
-                            <result column="CONSU_NAME" property="consuName" />
-                            <result column="CONSU_JINJIA" property="consuJinjia" />
-                            <result column="CONSU_PRICE" property="consuPrice" />
-                            <result column="CONSU_SPEC" property="consuSpec" />
-                            <result column="CONSU_RIQI"  property="consuRiqi" />
-                            <result column="SONSU_MATR" property="sonsuMatr" />
-                        </association>-->
         </collection>
     </resultMap>
 
     <select id="findByYPSQ1" resultMap="YPSQMapper">
         select * from diao_bo_sq dbsq
+                          INNER JOIN yuan_go yg on dbsq.dbfzr=yg.yg_id
                           LEFT JOIN dbsq_xiang_biao dbxb on dbsq.db_sheng_qing = dbxb.dbsq_id
                           LEFT JOIN yao_ping_xx yp on dbxb.yp_bh=yp.DRUG_id
                           LEFT JOIN yong_hu yh ON dbsq.dbfzr=yh.yh_id where 1=1
@@ -101,17 +84,30 @@
     </select>
     <select id="findByYPSQ2" resultMap="YPSQMapper">
         select * from diao_bo_sq dbsq
+                          INNER JOIN yuan_go yg on dbsq.dbfzr=yg.yg_id
                           LEFT JOIN dbsq_xiang_biao dbxb on dbsq.db_sheng_qing = dbxb.dbsq_id
                           LEFT JOIN yao_ping_xx yp on dbxb.yp_bh=yp.DRUG_id
                           LEFT JOIN yong_hu yh ON dbsq.dbfzr=yh.yh_id where 1=1
-                                                                        and dbsq.sq_zhuang_tai= '1'
+                                                                        and dbsq.sq_zhuang_tai=  '1'
+    </select>
+    <!--查询药品库存数量-->
+    <select id="findSum" resultType="_int">
+        SELECT IFNULL(SUM(ypkc.ypsl),0) FROM yp_ku_cun ypkc
+                                                 LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc
+                                                 LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id
+                                                 left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id
+        where ypxx.drug_id=#{id}
     </select>
     <update id="updateYPSQ">
         update diao_bo_sq set sq_zhuang_tai=#{sqZhuangTai} where db_sheng_qing=#{dbShengQing}
     </update>
     <!--查询所有药品-->
+
     <select id="FindAllKuCun" resultMap="KCMapper">
-        SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id
+        SELECT * FROM yp_ku_cun ypkc
+                          LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc
+                          LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id
+                          left JOIN yao_ku yk on rkxd.ck_id = yk.ware_id
     </select>
     <!--根据药品编号查询剩余库存-->
     <select id="FindAllKuCun2" resultMap="KCMapper">
@@ -120,11 +116,10 @@
     <!--查询所有还有一个月过期的药品-->
     <select id="FindAllKuCun3" resultMap="KCMapper">
         SELECT * FROM yp_ku_cun ypkc LEFT JOIN rk_xiang_dan rkxd on ypkc.rkpc_id=rkxd.rk_pc
-        LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk
-        on rkxd.ck_id = yk.ware_id where DATE_ADD(NOW(), interval 4 MONTH) > rkxd.bzq
-        and (select count(1) as num from xiao_hui_xd xhsd INNER JOIN xiao_hui_sq xhsq
-        on xhsq.xhsq_id = xhsd.xhsq_id where ypkc.rkpc_id = xhsd.rkpc_id and xhsq.zt !=3 ) = 0
-    </select>
+                                     LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id = ypxx.drug_id left JOIN yao_ku yk
+                                                                                                         on rkxd.ck_id = yk.ware_id where DATE_ADD(NOW(), interval 4 MONTH) > rkxd.bzq
+                                                                                                                                      and (select count(1) as num from xiao_hui_xd xhsd INNER JOIN xiao_hui_sq xhsq
+                                                                                                                                                                                                   on xhsq.xhsq_id = xhsd.xhsq_id where ypkc.ypsl=xhsd.ypsl) = 0   </select>
     <!--新增调拨申请-->
     <insert id="addDBSQ" parameterType="com.pojos.pharmacy.DiaoBoSq">
         insert into diao_bo_sq values (#{dbShengQing},#{dbfzr},#{sqsj},0)

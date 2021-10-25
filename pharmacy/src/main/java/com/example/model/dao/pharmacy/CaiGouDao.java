@@ -10,9 +10,10 @@ import java.util.List;
 
 @Mapper
 public interface CaiGouDao {
-void addCGD(CgDingDan cgDingDan);
-void addCGXD(@Param("cgddXiangDans") Collection<CgddXiangDan> cgddXiangDans,@Param("purchaseId") String purchaseId);
-
+    //新增采购单
+    void addCGD(CgDingDan cgDingDan);
+    //新增采购计划
+    void addCGXD(@Param("cgddXiangDans") Collection<CgddXiangDan> cgddXiangDans,@Param("purchaseId") String purchaseId);
     //查询采购计划单
     List<CgDingDan> findAllCGD();
     //查询采购计划详单
@@ -21,7 +22,6 @@ void addCGXD(@Param("cgddXiangDans") Collection<CgddXiangDan> cgddXiangDans,@Par
     List<CgDingDan> findByIdCGD1();
     //查询所有待入库的订单
     List<CgDingDan> findByIdCGD2();
-
     //根据订单id修改订单状态
     void editState(@Param("stateId") String stateId,@Param("purchaseId")String purchaseId);
 

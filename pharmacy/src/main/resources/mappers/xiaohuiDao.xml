@@ -6,7 +6,8 @@
         <result column="xh_fzr" property="xhFzr" />
         <result column="sj" property="sj" />
         <result column="zt" property="zt" />
-        <association property="yongHu" javaType="com.pojos.system.YongHu">
+        <result column="yy" property="yy"/>
+        <association property="yuanGo" javaType="com.pojos.system.YuanGo">
             <id column="yg_id" jdbcType="INTEGER" property="ygId" />
             <result column="yg_name" jdbcType="VARCHAR" property="ygName" />
             <result column="yg_dh" jdbcType="VARCHAR" property="ygDh" />
@@ -43,26 +44,16 @@
                     <result column="DRUG_MESSAGE" property="drugMessage" />
                     <result column="DRUG_GRAIN" property="drugGrain"/>
                 </association>
-                <!-- <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
-                     <id column="CONSU_ID" property="consuId" />
-                     <result column="CONSU_NAME" property="consuName" />
-                     <result column="CONSU_JINJIA" property="consuJinjia" />
-                     <result column="CONSU_PRICE" property="consuPrice" />
-                     <result column="CONSU_SPEC" property="consuSpec" />
-                     <result column="CONSU_RIQI"  property="consuRiqi" />
-                     <result column="SONSU_MATR" property="sonsuMatr" />
-                 </association>-->
-                <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
-                    <id column="WARE_ID" property="wareId"/>
-                    <result column="WARE_NAME" property="wareName" />
-                    <result column="WARE_TYPE" property="wareType" />
-                    <result column="WARE_SITE" property="wareSite" />
-                </association>
             </association>
         </collection>
     </resultMap>
     <select id="findAllXHD" resultMap="XHSQMapper">
-        select * from xiao_hui_sq xhsq INNER JOIN xiao_hui_xd xhxd on xhsq.xhsq_id=xhxd.xhsq_id LEFT JOIN rk_xiang_dan rkxd on xhxd.rkpc_id=rkxd.rk_pc LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id =ypxx.drug_id where 1=1
+        select * from xiao_hui_sq xhsq
+        INNER JOIN xiao_hui_xd xhxd on xhsq.xhsq_id=xhxd.xhsq_id
+        LEFT JOIN rk_xiang_dan rkxd on xhxd.rkpc_id=rkxd.rk_pc
+        LEFT JOIN yao_ping_xx ypxx on rkxd.drug_id =ypxx.drug_id
+        LEFT JOIN yuan_go yg on yg.yg_id=xhsq.xh_fzr
+        where 1=1
         <if test="sq == 1">
             and xhsq.zt=0
         </if>
@@ -73,19 +64,19 @@
     <update id="editXiaoHui">
         update xiao_hui_sq set zt=#{zt} where xhsq_id=#{xhsqId}
     </update>
+    <update id="editKc">
+        UPDATE yp_ku_cun set ypsl = ypsl-#{number} where rkpc_id=#{id}
+    </update>
     <delete id="deltetKucun">
         delete from yp_ku_cun where rkpc_id = #{rkpcId}
     </delete>
     <insert id="addCK" parameterType="com.pojos.pharmacy.ChuKu">
         insert into chu_ku values (#{chukuId},#{chukuFuzhe},#{chukuCause},#{chukuTime})
     </insert>
-    <insert id="addCKXQ" parameterType="com.pojos.pharmacy.ChuKuJiLu">
-        insert into
-    </insert>
     <insert id="addXHCKXQ" parameterType="java.util.Collection">
         INSERT INTO chu_ku_ji_lu VALUES
         <foreach collection="chuKuJiLus" item="p" separator=",">
-            (null,#{chukuId},#{p.rkpcId},#{p.chuKuSl})
+            (null,#{p.chukuId},#{p.rkpcId},#{p.chuKuSl})
         </foreach>
     </insert>
 </mapper>

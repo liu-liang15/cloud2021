@@ -31,15 +31,6 @@
                 <result column="DRUG_MESSAGE" property="drugMessage" />
                 <result column="DRUG_GRAIN" property="drugGrain"/>
             </association>
-            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
-                <id column="CONSU_ID" property="consuId" />
-                <result column="CONSU_NAME" property="consuName" />
-                <result column="CONSU_JINJIA" property="consuJinjia" />
-                <result column="CONSU_PRICE" property="consuPrice" />
-                <result column="CONSU_SPEC" property="consuSpec" />
-                <result column="CONSU_RIQI"  property="consuRiqi" />
-                <result column="SONSU_MATR" property="sonsuMatr" />
-            </association>
             <association property="yaoKu" javaType="com.pojos.pharmacy.YaoKu">
                 <id column="WARE_ID" property="wareId"/>
                 <result column="WARE_NAME" property="wareName" />
