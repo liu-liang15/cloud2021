@@ -12,6 +12,19 @@ public class ExpCal {
   private String expType;
   private String type;
   private double mon;
+  private double sunMoney;
+
+  public ExpCal(double sunMoney) {
+    this.sunMoney = sunMoney;
+  }
+
+  public void setSunMoney(double sunMoney) {
+    this.sunMoney = sunMoney;
+  }
+
+  public double getSunMoney() {
+    return sunMoney;
+  }
 
   public int getExpNo() {
     return expNo;

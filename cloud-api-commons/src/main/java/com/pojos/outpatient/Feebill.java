@@ -15,6 +15,20 @@ public class Feebill {
   private java.util.Date feebillDate;
   private int feebillState;
   private String feebillRemark;
+  private Double sunMoney;
+
+  public Feebill(Double sunMoney) {
+    this.sunMoney = sunMoney;
+  }
+
+  public void setSunMoney(Double sunMoney) {
+    this.sunMoney = sunMoney;
+  }
+
+  public Double getSunMoney() {
+    return sunMoney;
+  }
+
   private List<FeebillDetails> feebillDetails;
 
   public int getFeebillNo() {

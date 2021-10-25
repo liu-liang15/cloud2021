@@ -21,4 +21,5 @@ public class AssayPay {
     private String assayPayType;
     private Date assayPayTime;
     private String assayFs;
+    private double sunMoney;
 }
