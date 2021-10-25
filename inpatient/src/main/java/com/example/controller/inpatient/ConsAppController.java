@@ -42,14 +42,20 @@ public class ConsAppController {
     }
     //查看手术申请单
     @GetMapping("/selConsApp")
-    public List<ConsApp> selConsApp(String resNo){
-        return consAppServer.selConsApp(resNo);
+    public List<ConsApp> selConsApp(String surName,String name,String conZt){
+        return consAppServer.selConsApp(surName,name,conZt);
     }
     //修改手术申请单
     @PostMapping("changeCons")
     public void changeCons(@RequestBody ConsApp consApp){
         consAppServer.changeCons(consApp);
     }
+    //根据手术编号查看手术
+    @GetMapping("selConsBySurNo")
+    public String selConsBySurNo(String surNo){
+        return consAppServer.selConsBySurNo(surNo);
+    }
+
 
     /**
      * 国际时间转换北京时间

@@ -14,7 +14,7 @@ public class Task{
     @Autowired
     BedServer bedServer;
     //每天0点执行床位费结算
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 0 0 */1 * ?")
     public void fixedDelayJob() throws InterruptedException {
        bedServer.losebedMoney();
     }

@@ -30,13 +30,25 @@ public class WardServer {
     public List<Ward> selWard(String param){
         return wardDao.selWard(param);
     }
+    //多条件查看病房
+    public List<Ward> selWardByAll(String name,String ksId,String wardZt){
+        return  wardDao.selWardByAll(name,ksId,wardZt);
+    }
     //启用停用病房
     public void updateWard(Ward ward, WardRec wardRec){
         wardDao.updateWard(ward);
         wardRecDao.addWardRec(wardRec);
     }
     //修改病房
-    public void changeWard(Ward ward){
-        wardDao.updateWard(ward);
+    public String changeWard(Ward ward){
+        if(wardDao.selWardByName(ward.getWardName())==null){
+            wardDao.updateWard(ward);
+            return "ok";
+        }else if(wardDao.selWardByNameAndNo(ward)!=null){
+            wardDao.updateWard(ward);
+            return "ok";
+        }else{
+            return "false";
+        }
     }
 }

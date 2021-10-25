@@ -22,6 +22,25 @@
             and (ward_name like '%${param}%')
         </if>
     </select>
+    <!--多条件查看病房-->
+    <select id="selWardByAll" resultMap="WardMapper">
+        select * from ward w
+        inner join ke_shi k on k.ks_id=w.ks_id
+        where 1=1
+        <if test="wardName!='' and wardName!=null">
+            and w.ward_name like '%${wardName}%'
+        </if>
+        <if test="ksId!=''">
+            and w.ks_id = #{ksId}
+        </if>
+        <if test="wardZt==1">
+            and ward_zt=1
+        </if>
+        <if test="wardZt!='' and wardZt==0">
+            and ward_zt=0
+        </if>
+    </select>
+    <!--病房新增-->
     <insert id="addWard" parameterType="com.pojos.inpatient.Ward">
         insert into ward(ward_name,ward_dress,ward_mon,ks_id) values(#{wardName},#{wardDress},#{wardMon},#{ksId})
     </insert>

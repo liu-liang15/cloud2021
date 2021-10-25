@@ -20,6 +20,10 @@ public class AdmNotServer {
     public List<AdmNot> allAdm(String params){
         return admNotDao.selAdm(params);
     }
+    //多条件查询住院通知单
+    public List<AdmNot> selAdmByAll(String name,String idcart,String hosNo,String hosTj){
+        return  admNotDao.selAdmByAll(name,idcart,hosNo,hosTj);
+    }
     //修改住院通知单状态
     public void alterAdm(String hosNO){
         admNotDao.alterAdm(hosNO);

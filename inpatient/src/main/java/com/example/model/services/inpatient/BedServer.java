@@ -7,6 +7,7 @@ import com.example.model.dao.inpatient.ExpCalDao;
 import com.pojos.inpatient.Bed;
 import com.pojos.inpatient.BedCzRec;
 import com.pojos.inpatient.ExpCal;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,10 @@ public class BedServer {
     //查看患者的床位
     public List<Bed> allocBed(String param){
         return bedDao.allocBed(param);
+    }
+    //多条件查看患者床位
+    public List<Bed> selBedByAll(String wardName,String name,String resNo,String bedZt){
+        return bedDao.selBedByAll(wardName,name,resNo,bedZt);
     }
     //修改床位
     public void updateBed(Bed bed, BedCzRec bedCzRec){

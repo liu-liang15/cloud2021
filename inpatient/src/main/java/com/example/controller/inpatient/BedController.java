@@ -18,8 +18,12 @@ public class BedController {
     //查看床位
     @GetMapping("/selBed")
     public List<Bed> selBed(String param, String zt){
-        System.out.println("这是"+param+"这是"+zt);
         return bedServer.selBed(param,zt);
+    }
+    //多条件查看患者床位
+    @GetMapping("selBedByAll")
+    public List<Bed> selBedByAll(String wardName,String name,String resNo,String bedZt){
+        return bedServer.selBedByAll(wardName,name,resNo,bedZt);
     }
     //新增床位
     @PostMapping("/addBed")

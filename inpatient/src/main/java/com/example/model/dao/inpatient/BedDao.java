@@ -14,6 +14,9 @@ public interface BedDao {
     public void addBed(Bed bed);
     //查看患者的床位
     public List<Bed> allocBed(String param);
+    //多条件查看患者床位
+    public List<Bed> selBedByAll(@Param("wardName")String wardName,@Param("name")String name,
+                                 @Param("resNo")String resNo,@Param("bedZt")String bedZt);
     //修改床位
     public void updateBed(Bed bed);
     //查看住院单详情

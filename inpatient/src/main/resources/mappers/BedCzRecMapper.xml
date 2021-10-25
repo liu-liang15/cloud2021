@@ -10,6 +10,7 @@
         <association property="bed" javaType="com.pojos.inpatient.Bed">
             <id column="bed_no" property="bedNo"/>
             <result column="bed_zt" property="bedZt"/>
+            <result column="bed_number" property="bedNumber"/>
             <result column="ward_no" property="wardNo"/>
             <result column="res_no" property="resNo"/>
         </association>
@@ -31,8 +32,17 @@
         select * from bed_cz_rec bc
             INNER JOIN bed b on bc.bed_no=b.bed_no
             INNER JOIN ward w on b.ward_no=w.ward_no
-        <if test="param!=null and param!=''">
-            where ward_name like '%${param}%'
+        <if test="wardName!='' and wardName!=null">
+            and w.ward_name like '%${wardName}%'
+        </if>
+        <if test="bedCzTime1!=''">
+            and bed_cz_time between #{bedCzTime1} and #{bedCzTime2}
+        </if>
+        <if test="czType==1">
+            and bed_cz_type ='停用'
+        </if>
+        <if test="czType==2">
+            and bed_cz_type ='启用'
         </if>
     </select>
 </mapper>

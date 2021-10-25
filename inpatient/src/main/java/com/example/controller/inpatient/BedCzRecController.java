@@ -16,8 +16,9 @@ import java.util.List;
 public class BedCzRecController {
     @Autowired
     BedCzRecServer bedCzRecServer;
+    //多条件查看床位操作记录
     @GetMapping("/selBedCzRec")
-    public List<BedCzRec> selBedCzRec(String param){
-        return bedCzRecServer.selBedCzRec(param);
+    public List<BedCzRec> selBedCzRec(String wardName,String bedCzTime1,String bedCzTime2,String czType){
+        return bedCzRecServer.selBedCzRec(wardName,bedCzTime1,bedCzTime2,czType);
     }
 }

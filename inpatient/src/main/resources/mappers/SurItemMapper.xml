@@ -22,7 +22,7 @@
             inner join ke_shi k on k.ks_id=s.sur_type
         where 1=1
         <if test="param!='' and param!=null">
-            and surName like '%${param}'
+            and sur_name like '%${param}%'
         </if>
         <if test="ksId!='' and ksId!=null">
             and sur_type=#{ksId}
@@ -33,6 +33,7 @@
         <if test="surSco!='' and surSco!=null">
             and sur_sco=#{surSco}
         </if>
+
     </select>
     <!--根据手术名查看手术项目-->
     <select id="selSurBySurName" resultMap="SurItemMapper">
