@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,11 +26,18 @@ public class XiaoHuiService {
     public void XHChuKu(ChuKu chuKu){
         xiaoHuiDao.addCK(chuKu);
         xiaoHuiDao.editXiaoHui(chuKu.getZt(), chuKu.getXhsqId());
-        xiaoHuiDao.addXHCKXQ(chuKu.getChuKuJiLus(), chuKu.getChukuId());
         List<ChuKuJiLu> chuKuJiLus= (List<ChuKuJiLu>) chuKu.getChuKuJiLus();
-        for (int i=0;i<chuKuJiLus.size();i++){
-            xiaoHuiDao.deltetKucun(chuKuJiLus.get(i).getRkpcId());
+        xiaoHuiDao.addXHCKXQ(chuKu.getChuKuJiLus());
+        if("盘点销毁".equals(chuKu.getChukuCause())){
+            //销毁出库减少对应批次的数量
+            for (int i=0;i<chuKuJiLus.size();i++){
+                xiaoHuiDao.editKc(chuKuJiLus.get(i).getChuKuSl(),chuKuJiLus.get(i).getRkpcId());
+            }
+        }else{
+            //过期销毁删除改批次记录
+            for (int i=0;i<chuKuJiLus.size();i++){
+                xiaoHuiDao.deltetKucun(chuKuJiLus.get(i).getRkpcId());
+            }
         }
-
     }
 }

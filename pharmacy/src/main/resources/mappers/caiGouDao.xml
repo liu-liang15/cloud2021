@@ -52,15 +52,6 @@
                 <result column="DRUG_MESSAGE" property="drugMessage" />
                 <result column="DRUG_GRAIN" property="drugGrain"/>
             </association>
-            <association property="haoCai" javaType="com.pojos.pharmacy.HaoCai">
-                <id column="CONSU_ID" property="consuId" />
-                <result column="CONSU_NAME" property="consuName" />
-                <result column="CONSU_JINJIA" property="consuJinjia" />
-                <result column="CONSU_PRICE" property="consuPrice" />
-                <result column="CONSU_SPEC" property="consuSpec" />
-                <result column="CONSU_RIQI"  property="consuRiqi" />
-                <result column="SONSU_MATR" property="sonsuMatr" />
-            </association>
         </collection>
     </resultMap>
     <!--进货详单结果集映射-->
@@ -118,7 +109,6 @@
                           INNER JOIN cgdd_xiang_dan cgxd on cgxd.PURCHASE_ID=cgdd.PURCHASE_ID
                           INNER JOIN yuan_go yg on cgdd.USER_ID=yg.yg_id
                           LEFT JOIN yao_ping_xx yp on cgxd.DRUG_id=yp.DRUG_id
-                          LEFT JOIN hao_cai hc on cgxd.CONSU_ID=hc.CONSU_ID
         where 1=1
     </select>
     <!--查询所有待审核和待收货的订单-->

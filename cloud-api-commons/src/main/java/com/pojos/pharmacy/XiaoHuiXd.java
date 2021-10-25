@@ -7,6 +7,15 @@ public class XiaoHuiXd {
   private String xhsqId;
   private String rkpcId;
   private long ypsl;
+
+  public XiaoHuiXd(String rkpcId, long ypsl) {
+    this.rkpcId = rkpcId;
+    this.ypsl = ypsl;
+  }
+
+  public XiaoHuiXd() {
+  }
+
   private RkXiangDan rkXiangDan;
 
   public RkXiangDan getRkXiangDan() {

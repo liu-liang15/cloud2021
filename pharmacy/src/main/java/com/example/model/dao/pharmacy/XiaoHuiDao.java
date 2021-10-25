@@ -14,5 +14,6 @@ public interface XiaoHuiDao {
     void editXiaoHui(@Param("zt")int zt,@Param("xhsqId")String xhsqId);
     void deltetKucun(Integer rkpcId);
     void addCK(ChuKu chuKu);
-    void addXHCKXQ(@Param("chuKuJiLus") Collection<ChuKuJiLu> chuKuJiLus,@Param("chukuId") String chukuId);
+    void addXHCKXQ(@Param("chuKuJiLus") Collection<ChuKuJiLu> chuKuJiLus);
+    void editKc(@Param("number")int number,@Param("id")int id);
 }

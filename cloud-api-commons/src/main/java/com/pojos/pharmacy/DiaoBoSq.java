@@ -3,6 +3,7 @@ package com.pojos.pharmacy;
 
 
 import com.pojos.system.YongHu;
+import com.pojos.system.YuanGo;
 
 import java.util.Collection;
 import java.util.Date;
@@ -14,14 +15,14 @@ public class DiaoBoSq {
   private Date sqsj = new Date();
   private String sqZhuangTai;
   private Collection<DbsqXiangBiao> dbsqXiangBiaos;
-  private YongHu yongHu;
+  private YuanGo yuanGo;
 
-  public YongHu getYongHu() {
-    return yongHu;
+  public YuanGo getYuanGo() {
+    return yuanGo;
   }
 
-  public void setYongHu(YongHu yongHu) {
-    this.yongHu = yongHu;
+  public void setYuanGo(YuanGo yuanGo) {
+    this.yuanGo = yuanGo;
   }
 
   public Collection<DbsqXiangBiao> getDbsqXiangBiaos() {

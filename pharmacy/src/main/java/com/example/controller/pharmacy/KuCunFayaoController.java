@@ -65,8 +65,7 @@ public class KuCunFayaoController {
     @RequestMapping("dbck")
     public String addChuKu(@RequestBody ChuKu chuKu){
         try {
-            kuCunFayaoService.addDBChuKu(chuKu);
-            return "ok";
+            return kuCunFayaoService.addDBChuKu(chuKu);
         } catch (Exception e) {
             e.printStackTrace();
             return "fail";
