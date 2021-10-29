@@ -42,8 +42,10 @@
             and bc.bc_type_id = #{typeId}
         </if>
     </select>
+    <!--    删除某天某个班次的排班 -->
     <delete id="delectYgPb">
-        delete from pai_ban where bc_id = #{bcId} and date_format(rq,'%Y/%m/%d') = #{rq}
+        delete pb from pai_ban pb left join yuan_go yg on pb.yg_id = yg.yg_id
+            where bc_id = #{bc} and date_format(rq,'%Y/%m/%d') = #{rq} and yg.ks_id = #{ksId}
     </delete>
 
     <select id="getdlpb" resultType="java.util.Map">

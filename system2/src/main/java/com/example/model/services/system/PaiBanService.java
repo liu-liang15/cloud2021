@@ -6,6 +6,7 @@ import com.pojos.system.PaiBan2;
 import com.pojos.system.PaiBan3;
 import com.pojos.system.YuanGo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,7 @@ import java.util.List;
  * 排班service
  */
 @Service
+@Transactional
 public class PaiBanService {
     @Resource
     PaiBanMapper paiBanMapper;
@@ -42,7 +44,6 @@ public class PaiBanService {
         for (int i = 0; i < 7; i++) {
             PaiBan2 paiBan2=new PaiBan2();
 //           将星期，日期，赋值
-            System.err.println(calendar);
             paiBan2 = printDay(calendar,paiBan2);
             //  查询这个科室的排班信息，并赋值
             List<PaiBan> panBan = paiBanMapper.getPanBan(paiBan2.getRq(),ksId);
@@ -59,7 +60,8 @@ public class PaiBanService {
      *新增排班的方法
      */
     public int insertpb(PaiBan3 paiBan3){
-        paiBanMapper.delectYgPb(paiBan3.getBc(),paiBan3.getRq());
+        System.err.println(paiBan3);
+        paiBanMapper.delectYgPb(paiBan3);
         String[] yuanGoIds = paiBan3.getYuanGoIds();
         PaiBan paiBan=new PaiBan();
         for (String yuanGoId : yuanGoIds) {
@@ -114,6 +116,12 @@ public class PaiBanService {
      */
     public List<YuanGo> getpbyg(String ksId,String gwId,String rq,int typeId,int bmId){
         return paiBanMapper.getyg(ksId,gwId,rq,typeId,bmId);
+    }
+    /**
+     * 查询当前登录的员工排班
+     */
+    public List getdlpb(String ygId) {
+        return paiBanMapper.getdlpb(ygId);
     }
 
 }

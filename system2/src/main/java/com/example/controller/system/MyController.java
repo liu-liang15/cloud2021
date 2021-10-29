@@ -234,7 +234,6 @@ YongHuservice yongHuservice;
      */
     @GetMapping("hqpb/{ksId}/{xq}")
     public List<PaiBan2> getpb(@PathVariable("ksId") String ksId,@PathVariable("xq") Integer xq){
-        System.err.println(8051);
         return paiBanService.getPb(ksId,xq);
     }
     /**
@@ -257,13 +256,29 @@ YongHuservice yongHuservice;
 
 
     /**
+     * 查询当前登录的员工排班
+     */
+    @GetMapping("dlygpb")
+    public CommonResult dlygpb(String ygId){
+        System.err.println(ygId);
+        return new CommonResult(200,"查询成功",paiBanService.getdlpb(ygId));
+    }
+    /**
+     *
+     */
+    @GetMapping("baobiao")
+    public CommonResult getBaobiao(){
+        return new CommonResult(200,"查询成功！",keShiservive.baobiao());
+    }
+
+    /**
      * redis测试的
      * @return
      */
     @GetMapping("abcd")
     public Object abcdddd(){
         System.err.println("12345678");
-        return keShiservive.dddd();
+        return keShiservive.testRedis();
     }
 
 

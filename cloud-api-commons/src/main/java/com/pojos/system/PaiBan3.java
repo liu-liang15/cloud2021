@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class PaiBan3 implements Serializable {
+        private String ksId;
         private String rq;
         private String bc;
         private String[] yuanGoIds;

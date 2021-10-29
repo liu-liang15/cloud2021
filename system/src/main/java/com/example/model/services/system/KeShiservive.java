@@ -74,7 +74,7 @@ public class KeShiservive {
         return hashMap;
     }
 
-    public Object dddd(){
+    public Object testRedis(){
         stringRedisTemplate.opsForValue().set("q1","cccccc");
         return stringRedisTemplate.opsForValue().get("q1");
     }

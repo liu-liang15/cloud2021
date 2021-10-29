@@ -234,7 +234,6 @@ YongHuservice yongHuservice;
      */
     @GetMapping("hqpb/{ksId}/{xq}")
     public List<PaiBan2> getpb(@PathVariable("ksId") String ksId,@PathVariable("xq") Integer xq){
-        System.err.println(8051);
         return paiBanService.getPb(ksId,xq);
     }
     /**
@@ -279,7 +278,7 @@ YongHuservice yongHuservice;
     @GetMapping("abcd")
     public Object abcdddd(){
         System.err.println("12345678");
-        return keShiservive.dddd();
+        return keShiservive.testRedis();
     }
 
 

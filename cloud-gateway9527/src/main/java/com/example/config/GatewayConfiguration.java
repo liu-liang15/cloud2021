@@ -67,7 +67,7 @@ public class GatewayConfiguration {
         GatewayCallbackManager.setBlockHandler(new BlockRequestHandler() {
             @Override
             public Mono<ServerResponse> handleRequest(ServerWebExchange serverWebExchange, Throwable throwable) {
-                return ServerResponse.status(200).syncBody("系统繁忙！请稍候再试 ！");
+                return ServerResponse.status(201).syncBody("系统繁忙！请稍候再试 ！");
             }
         });
     }

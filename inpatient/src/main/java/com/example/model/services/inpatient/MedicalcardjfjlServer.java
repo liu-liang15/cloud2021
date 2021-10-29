@@ -26,7 +26,8 @@ public class MedicalcardjfjlServer {
     HosAloneDao hosAloneDao;
 
 
-    @GlobalTransactional //开启分布式事务
+    //@GlobalTransactional //开启分布式事务
+    @Transactional
     public void addJfjl(Medicalcardjfjl med){
         //新增充值记录
         medDao.addJfjl(med);
@@ -40,7 +41,9 @@ public class MedicalcardjfjlServer {
         // 新增诊疗卡充值记录
         medDao.addMedicalcardCzjl(medicalcardczjl);
         //修改就诊卡余额
-        medao.updatePat(med);
+        medDao.updatePat(med.getMecajfjlMoney(),Integer.parseInt(med.getMecajfjlMediNo()));
+        //远程调用
+        //medao.updatePat(med);
     }
     //查询充值记录
     @Transactional
@@ -50,7 +53,7 @@ public class MedicalcardjfjlServer {
     /**
      *住院扣费
      */
-    @GlobalTransactional
+    @Transactional
     public void loseMoney(String resNo,double num){
         //创建一个消费记录对象
         Medicalcardjfjl med=new Medicalcardjfjl();

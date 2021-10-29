@@ -19,7 +19,7 @@
     </insert>
     <insert id="addPersonMeal">
         insert into assay_person(assay_person_name,assay_person_sex,assay_person_age,assay_person_phone,assay_person_card,assay_person_time,meal_name,pay_type)
-        values(#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonPhone},#{assayPersonCard},#{assayPersonTime},#{mealName},1)
+        values(#{assayPersonName},#{assayPersonSex},#{assayPersonAge},#{assayPersonPhone},#{assayPersonCard},now(),#{mealName},1)
     </insert>
     <select id="likeFindPerson" resultMap="PersonResultMap">
         select * from assay_person where assay_person_name like '%${assayPersonName}%'

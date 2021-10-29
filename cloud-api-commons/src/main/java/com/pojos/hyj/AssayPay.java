@@ -22,4 +22,7 @@ public class AssayPay {
     private Date assayPayTime;
     private String assayFs;
     private double sunMoney;
+
+    public AssayPay(int i, String s, int i1, double assayMealPrice, String 诊疗卡, Date date, String 住院体检) {
+    }
 }

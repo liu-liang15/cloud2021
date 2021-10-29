@@ -36,9 +36,17 @@ public class ConsAppServer {
         //扣费
         medicalcardjfjlServer.loseMoney(consApp.getResNo(),(-list.get(0).getSurPay()));
     }
-    //查看住院手术申请单
-    public List<ConsApp> selConsApp(String resNo){
-        return consAppDao.selConsApp(resNo);
+    //多条件查看住院手术申请单
+    public List<ConsApp> selConsApp(String surName,String name,String conZt){
+        return consAppDao.selConsApp(surName,name,conZt);
+    }
+    //根据手术编号查看手术是否被使用过
+    public String selConsBySurNo(String resNo){
+        if(!consAppDao.selConsBySurNo(resNo).isEmpty()){
+            return "false";
+        }else{
+            return "ok";
+        }
     }
     //修改住院手术申请单
     public void changeCons(ConsApp consApp){

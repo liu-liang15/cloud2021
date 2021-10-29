@@ -45,7 +45,6 @@ public class PaiBanService {
         for (int i = 0; i < 7; i++) {
             PaiBan2 paiBan2=new PaiBan2();
 //           将星期，日期，赋值
-            System.err.println(calendar);
             paiBan2 = printDay(calendar,paiBan2);
             //  查询这个科室的排班信息，并赋值
             List<PaiBan> panBan = paiBanMapper.getPanBan(paiBan2.getRq(),ksId);
@@ -62,7 +61,8 @@ public class PaiBanService {
      *新增排班的方法
      */
     public int insertpb(PaiBan3 paiBan3){
-        paiBanMapper.delectYgPb(paiBan3.getBc(),paiBan3.getRq());
+        System.err.println(paiBan3);
+        paiBanMapper.delectYgPb(paiBan3);
         String[] yuanGoIds = paiBan3.getYuanGoIds();
         PaiBan paiBan=new PaiBan();
         for (String yuanGoId : yuanGoIds) {
