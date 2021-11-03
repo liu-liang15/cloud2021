@@ -8,6 +8,7 @@ import java.util.List;
 @Mapper
 public interface AssayBlipMapper {
 
+    
     void addMealBlip(AssayMealBlip assayMealBlip);
 
     List<AssayMealBlip> findMealBlip();
