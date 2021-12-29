@@ -11,6 +11,7 @@
         <module name="pharmacy" />
         <module name="cloud-config-client-3737" />
         <module name="outpatient" />
+        <module name="my_redis" />
         <module name="cloud-gateway9527" />
         <module name="system2" />
         <module name="api-commons" />
@@ -21,5 +22,10 @@
         <module name="inpatient" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="my_redis" options="-parameters" />
+    </option>
   </component>
 </project>

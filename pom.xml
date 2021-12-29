@@ -8,6 +8,7 @@
     <artifactId>cloud2021</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+<!--    这个父工程里面所有的模块名  -->
     <modules>
         <module>cloud-api-commons</module>
         <module>system</module>
@@ -20,7 +21,7 @@
         <module>cloud-config-client-3737</module>
         <module>cloud-gateway9527</module>
     </modules>
-    <!-- 统一管理jar包版本 -->
+    <!-- 统一管理jar包版本，一看就可以看到jar包是什么版本，下面就用#{标签名}就可以取出相对应的版本号  -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -37,15 +38,13 @@
         <openfeign.version>3.0.3</openfeign.version>
     </properties>
 
-    <!-- 子模块继承之后，提供作用：锁定版本+子modlue不用写groupId和version  -->
+    <!-- 子模块继承之后，提供作用：锁定版本+子modlue不用写version  -->
     <dependencyManagement>
         <dependencies>
-
             <!--spring boot 2.2.2-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-<!--                <version>2.2.2.RELEASE</version>-->
                 <version>2.3.2.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -54,7 +53,6 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-<!--                <version>Hoxton.SR1</version>-->
                 <version>Hoxton.SR9</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -63,7 +61,6 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-<!--                <version>2.1.0.RELEASE</version>-->
                 <version>2.2.6.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>

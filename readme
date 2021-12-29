@@ -1,3 +1,0 @@
-一：需要远程调用的地方
-           1：在model的services中的MedicalcardjfjlServer中有一个MedicalcardDao需要远程调用
-           2：
